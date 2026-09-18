@@ -514,16 +514,28 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 .code-box { display: inline-block; margin-top: 18px; padding: 16px 26px; background: var(--c-bg-tint); border: 1px solid var(--c-blue-soft); border-radius: var(--radius); }
 .code-box .code-label { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-blue-deep); }
 .code-box .code-value { font-family: var(--font-mono); font-size: 30px; font-weight: 700; color: var(--c-blue-dark); letter-spacing: 0.06em; margin-top: 4px; }
-.final-actions { display: grid; grid-template-columns: 1fr; gap: 14px; }
-@media (min-width: 760px) { .final-actions { grid-template-columns: 1fr 1fr; } }
-.final-action { text-align: left; border: 1.5px solid var(--c-border); border-radius: var(--radius); background: #fff; padding: 20px 22px; cursor: pointer; font-family: var(--font-body); transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease; }
-.final-action:hover { border-color: var(--c-blue); background: var(--c-bg-soft); transform: translateY(-1px); }
-.final-action .icon-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.final-action .icon { width: 26px; height: 26px; fill: var(--c-bg-tint); stroke: var(--c-blue-deep); stroke-width: 1.5; }
-.final-action .label { font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-blue-deep); }
-.final-action .title { font-family: var(--font-display); font-size: 17px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.01em; color: var(--c-text); }
-.final-action .desc { font-size: 13.5px; line-height: 1.55; color: var(--c-text-mute); }
-.final-action .desc strong { color: var(--c-blue-dark); }
+/* ---- Download-Button (Übersichts-PDF) ---- */
+.btn-download { display: inline-flex; align-items: center; gap: 10px; background: var(--c-blue-deep); color: #fff; border: none; border-radius: 10px; padding: 14px 22px; font-family: var(--font-body); font-size: 15.5px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px rgba(29,123,191,.35); transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
+.btn-download:hover { background: var(--c-blue-dark); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(29,123,191,.45); }
+.btn-download:active { transform: translateY(0); }
+.btn-download svg { width: 20px; height: 20px; flex: none; }
+
+/* ---- Arena: das große Finale gegen den Feiditor (dunkel, dramatisch – bewusst unabhängig vom hellen Farbschema) ---- */
+.arena{ background:radial-gradient(120% 90% at 50% 0%, #17223a 0%, #0b1220 55%, #070c16 100%); color:#e9eef7; border-radius:14px; padding:34px 28px 30px; margin-top:22px; box-shadow:0 18px 50px rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.06); }
+.arena-kicker{ font-family:var(--font-mono); font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#d6b25e; font-weight:600; text-align:center; }
+.arena h2{ font-family:var(--font-display); font-size:30px; font-weight:700; color:#fff; text-align:center; margin:8px 0 10px; letter-spacing:.01em; }
+.arena p{ max-width:620px; margin:0 auto 22px; text-align:center; font-size:15px; line-height:1.6; color:#b9c4d8; }
+.arena-gate{ display:block; width:100%; max-width:760px; margin:0 auto; padding:0; border:0; background:transparent; cursor:pointer; position:relative; border-radius:12px; overflow:hidden; outline:none; }
+.arena-gate svg{ display:block; width:100%; height:auto; }
+.arena-gate .gate-glow{ opacity:0; transition:opacity .4s ease; }
+.arena-gate:hover .gate-glow, .arena-gate:focus-visible .gate-glow{ opacity:1; }
+.arena-gate .gate-field{ transition:filter .3s ease; }
+.arena-gate:hover .gate-field{ filter:brightness(1.2); }
+.arena-gate:focus-visible{ box-shadow:0 0 0 3px #d6b25e; }
+.arena-cta{ position:absolute; left:50%; bottom:18px; transform:translateX(-50%); background:rgba(214,178,94,.95); color:#1a1305; font-family:var(--font-mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; font-weight:700; padding:9px 16px; border-radius:999px; box-shadow:0 6px 18px rgba(0,0,0,.5); white-space:nowrap; transition:transform .2s ease, background .2s ease; pointer-events:none; }
+.arena-gate:hover .arena-cta{ transform:translateX(-50%) translateY(-2px); background:#f0cf78; }
+.arena-foot{ text-align:center; font-size:12.5px; color:#7f8cab; margin-top:16px; }
+@media (max-width:600px){ .arena{ padding:26px 16px 22px; } .arena h2{ font-size:24px; } .arena-cta{ font-size:10px; padding:8px 12px; } }
 
 .gutachten { font-family: var(--font-serif); font-size: 16.5px; line-height: 1.7; background: var(--c-bg-soft); border: 1px solid var(--c-border-soft); border-radius: var(--radius); padding: 26px 30px; }
 .gutachten .gutachten-head { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-blue-deep); margin-bottom: 10px; }
@@ -646,24 +658,33 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
     border-radius:6px; box-shadow:0 24px 60px -40px var(--shadow); padding:56px 60px;
   }
   #editor{
-    width:100%; min-height:60vh; resize:none; border:0; outline:0;
-    font-family:var(--serif); font-size:18px; line-height:32px; color:var(--ink);
-    background-color:transparent;
-    background-image:repeating-linear-gradient(to bottom,
-      transparent 0,
-      transparent 31px,
-      var(--line) 31px,
-      var(--line) 32px);
-    background-attachment:local;
-    padding:0;
+    width:100%; min-height:60vh; border:0; outline:0; background:transparent;
+    font-family:var(--serif); font-size:18.5px; line-height:1.78; color:var(--ink);
+    white-space:pre-wrap; word-wrap:break-word; overflow-wrap:anywhere;
   }
-  #editor::placeholder{color:#b9b0a0}
-  .moodle-hint{
-    max-width:760px; margin:14px auto 0; padding:14px 20px;
-    background:#fdecea; border:1.5px solid #f5b8b1; border-radius:8px;
-    color:#a72020; font-family:var(--sans); font-size:14.5px; font-weight:600;
-    text-align:center; line-height:1.5;
+  #editor:focus{outline:0}
+  #editor .heading{font-weight:700; font-size:2em; line-height:1.25; margin:.1em 0}
+  #editor.empty::before{content:attr(data-placeholder); color:#b9b0a0; pointer-events:none}
+
+  /* ---------- Formatierungsleiste (Word-artig) ---------- */
+  .formatbar{
+    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+    padding:9px 22px; border-bottom:1px solid var(--line); background:var(--paper2);
   }
+  .fbtn{
+    font-family:var(--sans); font-size:15px; min-width:38px; height:34px; padding:0 11px;
+    color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    cursor:pointer; display:inline-flex; align-items:center; justify-content:center;
+    transition:background .12s, border-color .12s, color .12s; user-select:none;
+  }
+  .fbtn:hover{background:#efe9dd}
+  .fbtn:active{transform:translateY(1px)}
+  .fbtn.active{background:var(--accent); color:var(--paper2); border-color:var(--accent)}
+  .fbtn.wide{font-size:13.5px; letter-spacing:.02em}
+  .fbtn .b{font-weight:800}
+  .fbtn .i{font-style:italic}
+  .fbtn .u{text-decoration:underline}
+  .fsep{width:1px; height:22px; background:var(--line); margin:0 3px}
   .actionbar{
     position:fixed; left:0; right:0; bottom:0; display:flex; justify-content:center;
     padding:16px 16px 46px; background:linear-gradient(to top, var(--paper) 60%, rgba(247,244,236,0));
@@ -705,6 +726,44 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
     white-space:pre-wrap; word-wrap:break-word; overflow-wrap:anywhere;
   }
   .nmeta{font-family:var(--sans); font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:14px}
+  .redbadge{
+    display:inline-block; font-family:var(--sans); font-size:14px; font-weight:600; letter-spacing:.02em;
+    background:var(--paper2); border:1px solid var(--line); border-radius:9px; padding:8px 14px;
+    margin:0 0 6px; font-variant-numeric:tabular-nums;
+  }
+  .redbadge.high{color:#b3261e; border-color:#b3261e; font-weight:800}
+  .codefor{font-size:13.5px; color:var(--muted); margin:14px 0 0}
+
+  /* Tabellenansicht (Mehrfach-Upload) */
+  .batchsum{font-size:13px; color:var(--muted); margin:18px 0 10px; font-variant-numeric:tabular-nums}
+  .tablewrap{border:1px solid var(--line); border-radius:10px; overflow:auto; background:var(--paper2)}
+  table.batch{width:100%; border-collapse:collapse; font-size:15px}
+  table.batch th{
+    font-family:var(--sans); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);
+    font-weight:600; text-align:left; padding:10px 14px; border-bottom:1px solid var(--line); background:var(--paper);
+  }
+  table.batch td{padding:10px 14px; border-bottom:1px solid var(--line); font-family:var(--serif); font-variant-numeric:tabular-nums}
+  table.batch tr:last-child td{border-bottom:0}
+  table.batch tr.clickable{cursor:pointer}
+  table.batch tr.clickable:hover td, table.batch tr.selected td{background:#efe9dd}
+  table.batch th.pct, table.batch td.pct{text-align:right; white-space:nowrap}
+  table.batch td.pct.high{color:#b3261e; font-weight:800}
+  table.batch tr.errrow td{color:var(--muted); font-style:italic; font-family:var(--sans); font-size:13.5px}
+  .batchhint{font-size:12.5px; color:var(--muted); margin:10px 0 0}
+
+  /* Rote Felder (Escape-Room-Modus, identisch zum eingebetteten Feiditor) */
+  .moodle-hints{max-width:760px; margin:0 auto}
+  .moodle-hint{
+    max-width:760px; margin:14px auto 0; padding:14px 20px;
+    background:#fdecea; border:1.5px solid #f5b8b1; border-radius:8px;
+    color:#a72020; font-family:var(--sans); font-size:14.5px; font-weight:600;
+    text-align:center; line-height:1.5;
+    user-select:none;
+  }
+  /* Escape-Upload-Bereich auf der Anmeldeseite */
+  .esc-upload{margin-top:22px; padding-top:18px; border-top:1px solid var(--line)}
+  .esc-upload .sub{color:var(--muted); font-size:13.5px; margin:0 0 12px}
+  .esc-upload .drop{padding:18px}
 </style>
 </head>
 <body>
@@ -725,6 +784,16 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
     </div>
     <p class="err" id="start-err"></p>
     <button class="btn block" id="start-btn">Schreibbereich öffnen</button>
+
+    <div class="esc-upload">
+      <p class="sub">Kommst du aus einem Escape-Room und hast den Feiditor-Link verloren? Lade hier deine <strong>Überblick-PDF</strong> hoch – der Feiditor öffnet sich dann mit deinen Aufgaben.</p>
+      <div class="drop" id="esc-drop">
+        <p style="margin:0 0 10px"><strong>Überblick-PDF auswählen</strong> oder hierher ziehen</p>
+        <input type="file" id="esc-input" accept="application/pdf,.pdf">
+      </div>
+      <p class="err" id="esc-err"></p>
+    </div>
+
     <div class="foot"><a href="#" id="to-teacher">Lehrkraft</a></div>
   </div>
 </section>
@@ -735,12 +804,18 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
     <div class="who"><span class="lbl">Verfasser:in</span><span id="who-name"></span></div>
     <div class="count"><span id="charcount">0</span> Zeichen</div>
   </div>
+  <div class="formatbar" id="formatbar">
+    <button type="button" class="fbtn" id="fb-bold" title="Fett (Strg+B)" aria-label="Fett"><span class="b">F</span></button>
+    <button type="button" class="fbtn" id="fb-italic" title="Kursiv (Strg+I)" aria-label="Kursiv"><span class="i">K</span></button>
+    <button type="button" class="fbtn" id="fb-underline" title="Unterstrichen (Strg+U)" aria-label="Unterstrichen"><span class="u">U</span></button>
+    <span class="fsep"></span>
+    <button type="button" class="fbtn wide" id="fb-heading" title="Überschrift (fett, doppelte Größe)">Überschrift</button>
+  </div>
   <div class="paperwrap">
     <div class="sheet">
-      <textarea id="editor" placeholder="Hier schreiben…" spellcheck="true" autocomplete="off"></textarea>
+      <div id="editor" contenteditable="true" spellcheck="true" data-placeholder="Hier schreiben…"></div>
     </div>
-    <div class="moodle-hint">Wandle diesen Text nun in eine PDF-Datei um und lade diese PDF-Datei in der korrekten Abgabe auf Moodle hoch.</div>
-    <div class="moodle-hint">Aufgabe 7: Nachdem du die Lösungen zu Aufgaben 1-6 auf Moodle hochgeladen hast, bearbeitest du die auf Moodle verlinkte Aufgabe "Text verfassen ..."</div>
+    <div class="moodle-hints" id="moodle-hints"></div>
   </div>
   <div class="actionbar">
     <button class="btn" id="export-btn">Text in PDF-Datei umwandeln</button>
@@ -752,18 +827,16 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
   <div class="panel">
     <a href="#" class="backlink" id="back-start">← zurück</a>
     <h1>Auswertung für die Lehrkraft</h1>
-    <p class="sub">Laden Sie die vom Schüler abgegebene PDF-Datei und geben Sie den Code ein.
-       Der Code ist die Anzahl der Buchstaben im Vornamen des Schülers multipliziert mit 1104
-       (Beispiel: Vorname „Lina" = 4 Buchstaben → Code 4416). Danach wird der Text farblich
-       ausgewertet, und die Escape-Room-Daten (Name, Geburtsdatum, Bestätigungscode) werden angezeigt.</p>
+    <p class="sub">Laden Sie die PDF-Datei einer Schülerin bzw. eines Schülers und geben Sie den Code ein, um die Schreib-Auswertung anzuzeigen – oder wählen Sie mehrere PDFs auf einmal aus, um eine Übersichtstabelle der Rot-Anteile zu erhalten.</p>
 
-    <div class="drop">
-      <p style="margin:0 0 10px"><strong>PDF auswählen</strong> oder hierher ziehen</p>
-      <input type="file" id="pdf-input" accept="application/pdf,.pdf">
+    <div class="drop" id="teacher-drop">
+      <p style="margin:0 0 10px"><strong>PDF-Datei(en) auswählen</strong> oder hierher ziehen</p>
+      <input type="file" id="pdf-input" accept="application/pdf,.pdf" multiple>
     </div>
     <p class="err" id="teacher-err"></p>
 
     <div id="code-area" class="hidden">
+      <p class="codefor hidden" id="code-for"></p>
       <div class="row">
         <input type="password" id="code-input" inputmode="numeric" placeholder="Code">
         <button class="btn" id="code-btn">Auswertung anzeigen</button>
@@ -785,83 +858,397 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 /* ---------- Helvetica-Glyphbreiten (AFM, Einheiten/1000), nach Byte ---------- */
 const HELV={32:278,33:278,34:355,35:556,36:556,37:889,38:667,39:191,40:333,41:333,42:389,43:584,44:278,45:333,46:278,47:278,48:556,49:556,50:556,51:556,52:556,53:556,54:556,55:556,56:556,57:556,58:278,59:278,60:584,61:584,62:584,63:556,64:1015,65:667,66:667,67:722,68:722,69:667,70:611,71:778,72:722,73:278,74:500,75:667,76:556,77:833,78:722,79:778,80:667,81:778,82:722,83:667,84:611,85:722,86:667,87:944,88:667,89:667,90:611,91:278,92:278,93:278,94:469,95:556,96:333,97:556,98:556,99:500,100:556,101:556,102:278,103:556,104:556,105:222,106:222,107:500,108:222,109:833,110:556,111:556,112:556,113:556,114:333,115:500,116:278,117:556,118:500,119:722,120:500,121:500,122:500,123:334,124:260,125:334,126:584,133:1000,145:222,146:222,147:333,148:333,149:350,150:556,151:1000,160:278,161:333,162:556,163:556,164:556,165:556,166:260,167:556,168:333,169:737,170:370,171:556,172:584,173:333,174:737,175:333,176:400,177:584,178:333,179:333,180:333,181:556,182:537,183:278,184:333,185:333,186:365,187:556,188:834,189:834,190:834,191:611,192:667,193:667,194:667,195:667,196:667,197:667,198:1000,199:722,200:667,201:667,202:667,203:667,204:278,205:278,206:278,207:278,208:722,209:722,210:778,211:778,212:778,213:778,214:778,215:584,216:778,217:722,218:722,219:722,220:722,221:667,222:667,223:611,224:556,225:556,226:556,227:556,228:556,229:556,230:889,231:500,232:556,233:556,234:556,235:556,236:278,237:278,238:278,239:278,240:556,241:556,242:556,243:556,244:556,245:556,246:556,247:584,248:611,249:556,250:556,251:556,252:556,253:500,254:556,255:500};
 function afm(b){return HELV[b]!==undefined?HELV[b]:556;}
+/* ---------- Helvetica-Bold-Glyphbreiten (AFM). ASCII exakt; Latin-1-Akzente von Basisbuchstaben ---------- */
+const HELVB={32:278,33:333,34:474,35:556,36:556,37:889,38:722,39:238,40:333,41:333,42:389,43:584,44:278,45:333,46:278,47:278,48:556,49:556,50:556,51:556,52:556,53:556,54:556,55:556,56:556,57:556,58:333,59:333,60:584,61:584,62:584,63:611,64:975,65:722,66:722,67:722,68:722,69:667,70:611,71:778,72:722,73:278,74:556,75:722,76:611,77:833,78:722,79:778,80:667,81:778,82:722,83:667,84:611,85:722,86:667,87:944,88:667,89:667,90:611,91:333,92:278,93:333,94:584,95:556,96:333,97:556,98:611,99:556,100:611,101:556,102:333,103:611,104:611,105:278,106:278,107:556,108:278,109:889,110:611,111:611,112:611,113:611,114:389,115:556,116:333,117:611,118:556,119:778,120:556,121:556,122:500,123:389,124:280,125:389,126:584,192:722,193:722,194:722,195:722,196:722,197:722,198:1000,199:722,200:667,201:667,202:667,203:667,204:278,205:278,206:278,207:278,208:722,209:722,210:778,211:778,212:778,213:778,214:778,215:584,216:778,217:722,218:722,219:722,220:722,221:667,222:667,223:611,224:556,225:556,226:556,227:556,228:556,229:556,230:889,231:556,232:556,233:556,234:556,235:556,236:278,237:278,238:278,239:278,240:611,241:611,242:611,243:611,244:611,245:611,246:611,247:584,248:611,249:611,250:611,251:611,252:611,253:556,254:611,255:556};
+function afmW(b,bold){const T=bold?HELVB:HELV;return T[b]!==undefined?T[b]:(HELV[b]!==undefined?HELV[b]:556);}
+function chW(ch,bold,s){return afmW(charByte(ch),bold)/1000*s;}
+function runWidth(str,bold,s){let w=0;for(const ch of str)w+=chW(ch,bold,s);return w;}
+function fontFor(b,i){if(b&&i)return"F4";if(b)return"F2";if(i)return"F3";return"F1";}
 const CP1252={0x20AC:128,0x201A:130,0x0192:131,0x201E:132,0x2026:133,0x2020:134,0x2021:135,0x02C6:136,0x2030:137,0x0160:138,0x2039:139,0x0152:140,0x017D:142,0x2018:145,0x2019:146,0x201C:147,0x201D:148,0x2022:149,0x2013:150,0x2014:151,0x02DC:152,0x2122:153,0x0161:154,0x203A:155,0x0153:156,0x017E:158,0x0178:159};
 function charByte(ch){const cp=ch.codePointAt(0);if(cp<=0xFF)return cp;if(CP1252[cp]!==undefined)return CP1252[cp];return 0x3F;}
 function charWidth(ch,s){return afm(charByte(ch))/1000*s;}
 function textWidth(str,s){let w=0;for(const ch of str)w+=charWidth(ch,s);return w;}
 function encStr(str){let o="";for(const ch of str){const b=charByte(ch);if(b===0x28)o+="\\(";else if(b===0x29)o+="\\)";else if(b===0x5C)o+="\\\\";else o+=String.fromCharCode(b);}return o;}
 
-function wrapText(text,maxW,size){
-  const lines=[]; const paras=text.replace(/\r\n?/g,"\n").split("\n");
-  for(const para of paras){
-    if(para===""){lines.push("");continue;}
-    const words=para.split(/( )/); let cur="";
-    const pushWord=(w)=>{
-      if(textWidth(w,size)>maxW){
-        let chunk="";
-        for(const ch of w){
-          if(textWidth(chunk+ch,size)>maxW&&chunk!==""){
-            if(cur!==""){lines.push(cur);cur="";} lines.push(chunk); chunk=ch;
-          } else chunk+=ch;
-        }
-        if(chunk){if(cur!==""){lines.push(cur);cur="";} cur=chunk;} return;
-      }
-      if(textWidth(cur+w,size)>maxW&&cur!==""){lines.push(cur.replace(/ +$/,""));cur=w.trim()===""?"":w;}
-      else cur+=w;
-    };
-    for(const w of words) pushWord(w);
-    lines.push(cur.replace(/ +$/,""));
+/* Absatz (Array {ch,b,i,u,h}, einheitliche Größe) -> Anzeigezeilen (jede = Array von {ch,b,i,u}) */
+function wrapPara(chars,size,maxW){
+  const lines=[]; let cur=[]; let curW=0; let lastSpace=-1;
+  for(const c of chars){
+    const w=chW(c.ch,c.b,size);
+    if(curW+w>maxW && cur.length>0){
+      if(lastSpace>=0){
+        const head=cur.slice(0,lastSpace);
+        const tail=cur.slice(lastSpace+1);
+        lines.push(head);
+        cur=tail; curW=0; for(const x of cur)curW+=chW(x.ch,x.b,size);
+        lastSpace=-1; for(let k=cur.length-1;k>=0;k--){if(cur[k].ch===" "){lastSpace=k;break;}}
+      } else { lines.push(cur); cur=[]; curW=0; lastSpace=-1; }
+    }
+    cur.push(c); curW+=w;
+    if(c.ch===" ") lastSpace=cur.length-1;
   }
-  return lines;
+  lines.push(cur);
+  return lines.length?lines:[[]];
+}
+function lineToRuns(lineChars){
+  const runs=[];
+  for(const c of lineChars){
+    const last=runs[runs.length-1];
+    if(last && last.b===c.b && last.i===c.i && last.u===c.u) last.text+=c.ch;
+    else runs.push({text:c.ch,b:c.b,i:c.i,u:c.u});
+  }
+  return runs;
+}
+
+const WIN_ANSI_MAP = {
+  'ä':0xE4,'ö':0xF6,'ü':0xFC,'Ä':0xC4,'Ö':0xD6,'Ü':0xDC,'ß':0xDF,
+  '€':0x80,'‚':0x82,'„':0x84,'…':0x85,'†':0x86,'‡':0x87,
+  '‰':0x89,'‹':0x8B,"\u2018":0x91,"\u2019":0x92,"\u201C":0x93,"\u201D":0x94,
+  '•':0x95,'–':0x96,'—':0x97,'™':0x99,'›':0x9B,
+  '¡':0xA1,'«':0xAB,'»':0xBB,'·':0xB7,'×':0xD7,'°':0xB0,
+  '²':0xB2,'³':0xB3,'½':0xBD,'¼':0xBC,'¾':0xBE,'¿':0xBF,
+};
+const FALLBACK_MAP = {
+  '→':'->','←':'<-','↑':'^','↓':'v','✓':'v','✗':'x','✕':'x','★':'*','☆':'*',
+  '\u00A0':' ','\u2009':' ','\u200B':'',
+};
+function encodeWinAnsi(str){
+  const bytes=[];
+  for(const ch of str){
+    const code=ch.charCodeAt(0);
+    if(code<128) bytes.push(code);
+    else if(WIN_ANSI_MAP[ch]!==undefined) bytes.push(WIN_ANSI_MAP[ch]);
+    else if(FALLBACK_MAP[ch]!==undefined){ for(const sub of FALLBACK_MAP[ch]) bytes.push(sub.charCodeAt(0)&0xFF); }
+    else if(code<=255) bytes.push(code);
+    else bytes.push(0x3F);
+  }
+  return bytes;
+}
+const HELV_W=(()=>{
+  const w=new Array(256).fill(500);
+  const widths={' ':278,'!':278,'"':355,'#':556,'$':556,'%':889,'&':667,"'":191,'(':333,')':333,'*':389,'+':584,',':278,'-':333,'.':278,'/':278,'0':556,'1':556,'2':556,'3':556,'4':556,'5':556,'6':556,'7':556,'8':556,'9':556,':':278,';':278,'<':584,'=':584,'>':584,'?':556,'@':1015,'A':667,'B':667,'C':722,'D':722,'E':667,'F':611,'G':778,'H':722,'I':278,'J':500,'K':667,'L':556,'M':833,'N':722,'O':778,'P':667,'Q':778,'R':722,'S':667,'T':611,'U':722,'V':667,'W':944,'X':667,'Y':667,'Z':611,'[':278,'\\':278,']':278,'^':469,'_':556,'`':333,'a':556,'b':556,'c':500,'d':556,'e':556,'f':278,'g':556,'h':556,'i':222,'j':222,'k':500,'l':222,'m':833,'n':556,'o':556,'p':556,'q':556,'r':333,'s':500,'t':278,'u':556,'v':500,'w':722,'x':500,'y':500,'z':500,'{':334,'|':260,'}':334,'~':584,'ä':556,'ö':556,'ü':556,'Ä':667,'Ö':778,'Ü':722,'ß':611,'€':556,'–':556,'—':1000,'«':556,'»':556,'·':278,'°':400,'•':350};
+  for(const k in widths){ const code=WIN_ANSI_MAP[k]!==undefined?WIN_ANSI_MAP[k]:k.charCodeAt(0); if(code<256) w[code]=widths[k]; }
+  return w;
+})();
+function pdfStringWidth(str,fontSize,isBold){
+  const bytes=encodeWinAnsi(str); let total=0;
+  for(const b of bytes) total += (HELV_W[b]||500)*(isBold?1.04:1);
+  return total*fontSize/1000;
+}
+class PdfDoc{
+  constructor(){ this.pages=[]; this.pageW=595; this.pageH=842; this.margin=56; this.cursorY=0; this.currentContent=[]; }
+  startPage(){ this.cursorY=this.pageH-this.margin; this.currentContent=[]; }
+  endPage(){ this.pages.push({content:this.currentContent.join('\n')}); }
+  _escapedString(str){
+    const bytes=encodeWinAnsi(str); let s='(';
+    for(const b of bytes){ if(b===0x28||b===0x29||b===0x5C) s+='\\'; s+=String.fromCharCode(b); }
+    return s+')';
+  }
+  text(str,x,y,fontSize,isBold,color){
+    const fontKey=isBold?'F2':'F1'; const c=color||[0,0,0]; const pdfStr=this._escapedString(str);
+    this.currentContent.push(`${c[0]/255} ${c[1]/255} ${c[2]/255} rg\nBT\n/${fontKey} ${fontSize} Tf\n${x} ${y} Td\n${pdfStr} Tj\nET`);
+  }
+  rect(x,y,w,h,fill,stroke){
+    let cmd='';
+    if(fill) cmd+=`${fill[0]/255} ${fill[1]/255} ${fill[2]/255} rg\n`;
+    if(stroke) cmd+=`${stroke[0]/255} ${stroke[1]/255} ${stroke[2]/255} RG\n`;
+    cmd+=`${x} ${y} ${w} ${h} re\n`;
+    if(fill&&stroke) cmd+='B'; else if(fill) cmd+='f'; else if(stroke) cmd+='S';
+    this.currentContent.push(cmd);
+  }
+  line(x1,y1,x2,y2,color,width){
+    const c=color||[0,0,0];
+    this.currentContent.push(`${c[0]/255} ${c[1]/255} ${c[2]/255} RG\n${width||0.5} w\n${x1} ${y1} m ${x2} ${y2} l S`);
+  }
+  paragraph(str,x,y,width,fontSize,isBold,color,leading){
+    if(!leading) leading=fontSize*1.4;
+    const words=String(str).split(/\s+/); let line=''; let curY=y;
+    for(const word of words){
+      if(!word) continue;
+      const test=line?line+' '+word:word;
+      if(pdfStringWidth(test,fontSize,isBold)<=width){ line=test; }
+      else{
+        if(line){ this.text(line,x,curY,fontSize,isBold,color); curY-=leading; line=word; }
+        else{ this.text(word,x,curY,fontSize,isBold,color); curY-=leading; }
+      }
+    }
+    if(line){ this.text(line,x,curY,fontSize,isBold,color); curY-=leading; }
+    return curY;
+  }
+  build(){
+    const objects=[null,null,
+      '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
+      '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>'];
+    const pageIds=[];
+    for(const page of this.pages){
+      objects.push(`<< /Length ${page.content.length} >>\nstream\n${page.content}\nendstream`);
+      const contentId=objects.length;
+      objects.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${this.pageW} ${this.pageH}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${contentId} 0 R >>`);
+      pageIds.push(objects.length);
+    }
+    objects[1]=`<< /Type /Pages /Kids [${pageIds.map(i=>i+' 0 R').join(' ')}] /Count ${pageIds.length} >>`;
+    objects[0]='<< /Type /Catalog /Pages 2 0 R >>';
+    let pdf='%PDF-1.4\n%\xC4\xC5\xC6\xC7\n'; const offsets=[0];
+    for(let i=0;i<objects.length;i++){ offsets.push(pdf.length); pdf+=`${i+1} 0 obj\n${objects[i]}\nendobj\n`; }
+    const xrefOffset=pdf.length;
+    pdf+=`xref\n0 ${objects.length+1}\n0000000000 65535 f \n`;
+    for(let i=1;i<=objects.length;i++) pdf+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';
+    pdf+=`trailer\n<< /Size ${objects.length+1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`;
+    return pdf;
+  }
+  toBase64(trailerComment){
+    let pdf=this.build();
+    if(trailerComment) pdf+=trailerComment;   // unsichtbar nach %%EOF (von PDF-Viewern ignoriert)
+    return btoa(pdf);
+  }
+}
+function fmtDateTime(d){
+  if(!d) d=new Date();
+  const date=d.toLocaleDateString('de-DE');
+  const time=d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
+  return date+', '+time+' Uhr';
+}
+
+/* ============================================================
+   ÜBERSICHTS-SEITEN (aus dem Escape-Room übergeben) — werden als
+   zusätzliche Seiten hinter den Aufgaben-Seiten in die PDF gehängt.
+   Liefert Content-Streams (nutzt /F1 = Helvetica, /F2 = Helvetica-Bold,
+   die der Feiditor-Writer ebenfalls definiert).
+   ============================================================ */
+function buildOverviewPages(ov){
+  // Portiert aus generateMistakesPdf() des Escape-Rooms „Das Gutachten" (Ev. Religion, E-Phase):
+  // gleiche Farben, gleicher Aufbau, gleiche Fehlerarten (falsch_einsortiert, falsche_eingabe,
+  // falsche_wahl, falsche_zuweisung) und die Vermerke zur Hinweisnutzung je Ordner.
+  const doc=new PdfDoc();
+  const W=doc.pageW,H=doc.pageH,M=doc.margin; const CW=W-2*M;
+  const PRIMARY=[21,95,148], ACCENT=[59,157,221], RED=[155,61,61], GREEN=[47,125,65], MUTE=[85,85,85], TEXT=[25,25,25];
+  const attempts=Array.isArray(ov.attempts)?ov.attempts:[];
+  const mistakes=Array.isArray(ov.mistakes)?ov.mistakes:[];
+  const hintMax=Array.isArray(ov.hintMax)?ov.hintMax:[];
+  const roomLabels=Array.isArray(ov.roomLabels)?ov.roomLabels:[];
+  const notes=Array.isArray(ov.solutionNotes)?ov.solutionNotes:[];
+  const subtitle=ov.subtitle||'';
+
+  function header(title){
+    doc.startPage();
+    doc.rect(0,H-80,W,80,PRIMARY);
+    doc.text(title,M,H-40,17,true,[255,255,255]);
+    if(subtitle) doc.text(subtitle,M,H-60,10,false,[207,230,247]);
+    return H-80-24;
+  }
+  function ensure(y,need){ if(y-need<60){ doc.endPage(); return header('Überblick deiner Antworten & Erläuterungen'); } return y; }
+
+  let y=header('Überblick deiner Antworten & Erläuterungen');
+
+  // Pflichthinweis (fett, ganz oben) – kein Notfall-Tipp: diese kombinierte PDF trägt keine %ESCAPEDATA
+  doc.rect(M,y-46,CW,46,[230,242,251]);
+  doc.rect(M,y-46,3,46,ACCENT);
+  doc.paragraph('Diese Datei musst du bei Moodle in der dafür vorgesehenen Abgabe hochladen, um deinem Lehrer nachzuweisen, dass du den Escape-Room erfolgreich absolviert hast.',
+    M+12,y-16,CW-24,10.5,true,PRIMARY,13.5);
+  y-=46+14;
+
+  // Identifikationsblock
+  const blockH=80;
+  doc.rect(M,y-blockH,CW,blockH,[244,248,252]);
+  doc.rect(M,y-blockH,3,blockH,ACCENT);
+  doc.text('SCHÜLERIN / SCHÜLER',M+14,y-16,8.5,true,ACCENT);
+  doc.text(((ov.firstName||'')+' '+(ov.lastName||'')).trim(),M+14,y-31,13,true,PRIMARY);
+  doc.text('GEBURTSDATUM',M+14,y-50,8.5,true,ACCENT);
+  doc.text(ov.birthDate||'',M+14,y-64,11,false,TEXT);
+  doc.text('BESTÄTIGUNGSCODE',M+300,y-16,8.5,true,ACCENT);
+  doc.text(String(ov.code||''),M+300,y-31,13,true,PRIMARY);
+  doc.text('ABGESCHLOSSEN AM',M+300,y-50,8.5,true,ACCENT);
+  doc.text(ov.completedAt||'',M+300,y-64,11,false,TEXT);
+  y-=blockH+16;
+
+  y=doc.paragraph('Diese Seiten fassen zusammen, welche Antworten du in jedem Rätselraum beim ersten Versuch gegeben hast. Du hast jeden Raum am Ende erfolgreich gelöst – diese Übersicht zeigt nur, wo es anfangs noch hakte. Danach findest du ausführliche Lösungserläuterungen zum Nacharbeiten.',
+    M,y,CW,10.5,false,TEXT,14);
+  y-=10;
+
+  const totalErrors=mistakes.reduce((a,m)=>a+(m&&m.errors?m.errors.length:0),0);
+  const perfectRooms=attempts.filter((a,i)=>a>=1 && (!mistakes[i]||!mistakes[i].errors||mistakes[i].errors.length===0)).length;
+  doc.rect(M,y-36,CW,36,[248,251,247]);
+  doc.rect(M,y-36,3,36,GREEN);
+  doc.text('ÜBERSICHT',M+14,y-14,8.5,true,GREEN);
+  doc.text(`Räume im ersten Versuch fehlerfrei: ${perfectRooms} von ${roomLabels.length||6}   ·   Fehler im ersten Versuch insgesamt: ${totalErrors}`,M+14,y-27,10.5,true,TEXT);
+  y-=50;
+
+  for(let i=0;i<roomLabels.length;i++){
+    y=ensure(y,60);
+    doc.text(roomLabels[i],M,y,12.5,true,PRIMARY);
+    doc.line(M,y-4,M+CW,y-4,ACCENT,0.8);
+    y-=18;
+    const att=attempts[i]; const m=mistakes[i];
+    const attemptsLabel=att===1?'1 Versuch':att+' Versuche';
+    const hm=(typeof hintMax[i]==='number')?hintMax[i]:-1;
+    const hintLabelPdf=hm<0?'Keine Hinweise genutzt.'
+      :(hm>=3?'Hinweise genutzt bis Stufe 4 (Lösung eingesehen).':'Hinweise genutzt bis Stufe '+(hm+1)+' von 4.');
+    if(!m||!m.errors||m.errors.length===0){
+      y=doc.paragraph('Fehlerfrei beim ersten Versuch gelöst. ('+attemptsLabel+')',M,y,CW,10.5,true,GREEN,14);
+      y=doc.paragraph(hintLabelPdf,M,y,CW,10,false,MUTE,13);
+      y-=8; continue;
+    }
+    y=doc.paragraph('Insgesamt benötigt: '+attemptsLabel+'. '+hintLabelPdf+' Beim ersten Versuch waren folgende Punkte falsch:',M,y,CW,10.5,false,MUTE,14);
+    y-=6;
+    for(const err of m.errors){
+      y=ensure(y,60);
+      doc.text('•',M,y,11,true,RED);
+      if(err.kind==='falsch_einsortiert'){
+        y=doc.paragraph('"'+err.item+'"',M+14,y,CW-14,10.5,true,TEXT,13);
+        y=doc.paragraph('Du hast einsortiert in: '+err.wrongAnswer+'   ·   Richtig: '+err.correctAnswer,M+14,y,CW-14,10,false,MUTE,13);
+        if(err.explanation) y=doc.paragraph('→ '+err.explanation,M+14,y,CW-14,10,false,MUTE,13);
+      } else if(err.kind==='falsche_eingabe'){
+        y=doc.paragraph(err.item,M+14,y,CW-14,10.5,true,TEXT,13);
+        y=doc.paragraph('Deine Eingabe: "'+err.wrongAnswer+'"   ·   Richtig: '+err.correctAnswer,M+14,y,CW-14,10,false,MUTE,13);
+      } else if(err.kind==='falsche_wahl'){
+        y=doc.paragraph(err.item,M+14,y,CW-14,10.5,true,TEXT,13);
+        y=doc.paragraph('Du hast gewählt: '+err.wrongAnswer,M+14,y,CW-14,10,false,RED,13);
+        y=doc.paragraph('Richtig wäre: '+err.correctAnswer,M+14,y,CW-14,10,true,GREEN,13);
+        if(err.explanation) y=doc.paragraph('→ '+err.explanation,M+14,y,CW-14,10,false,MUTE,13);
+      } else if(err.kind==='falsche_zuweisung'){
+        y=doc.paragraph(err.item,M+14,y,CW-14,10.5,true,TEXT,13);
+        y=doc.paragraph('Du hast zugewiesen: '+err.wrongAnswer+'   ·   Richtig: '+err.correctAnswer,M+14,y,CW-14,10,false,MUTE,13);
+        if(err.explanation) y=doc.paragraph('→ '+err.explanation,M+14,y,CW-14,10,false,MUTE,13);
+      } else {
+        y=doc.paragraph(String(err.item||''),M+14,y,CW-14,10.5,true,TEXT,13);
+        if(err.wrongAnswer!==undefined) y=doc.paragraph('Deine Antwort: '+err.wrongAnswer+(err.correctAnswer!==undefined?'   ·   Richtig: '+err.correctAnswer:''),M+14,y,CW-14,10,false,MUTE,13);
+        if(err.explanation) y=doc.paragraph('→ '+err.explanation,M+14,y,CW-14,10,false,MUTE,13);
+      }
+      y-=5;
+    }
+    y-=10;
+  }
+
+  y=ensure(y,50);
+  doc.line(M,y,M+CW,y,[200,200,200],0.4); y-=14;
+  doc.text('Bestätigungscode für Moodle: '+String(ov.code||''),M,y,10,true,PRIMARY);
+  y-=22;
+  doc.text('Copyright Jan-Rickmer Feindt',M,y,8.5,false,MUTE);
+  doc.endPage();
+
+  /* ---- Lösungserläuterungen ---- */
+  if(notes.length){
+    let y2=header('Lösungserläuterungen');
+    y2=doc.paragraph('Hier werden die richtigen Lösungen der sechs Rätselräume noch einmal genauer erklärt. Nutze diese Seiten, um den Stoff der Sitzung zu vertiefen und nachzuarbeiten.',M,y2,CW,10.5,false,TEXT,14);
+    y2-=10;
+    function ensure2(yy,need){ if(yy-need<60){ doc.endPage(); return header('Lösungserläuterungen'); } return yy; }
+    for(const note of notes){
+      y2=ensure2(y2,96);
+      doc.text(note.room||'',M,y2,12.5,true,PRIMARY);
+      doc.line(M,y2-4,M+CW,y2-4,ACCENT,0.8);
+      y2-=18;
+      y2=doc.paragraph(note.text||'',M,y2,CW,10.5,false,TEXT,14.5);
+      y2-=14;
+    }
+    y2=ensure2(y2,30);
+    doc.line(M,y2,M+CW,y2,[200,200,200],0.4); y2-=14;
+    doc.text('Copyright Jan-Rickmer Feindt',M,y2,8.5,false,MUTE);
+    doc.endPage();
+  }
+  return doc.pages.map(p=>p.content);
 }
 
 function buildPdf(opts){
   const PW=595.28,PH=841.89, ML=56,MR=56,MT=56,MB=64;
-  const HEAD_SIZE=13,BODY_SIZE=11,NOTE_SIZE=11,LEAD=15.5;
+  const HEAD_SIZE=13, BODY_SIZE=11, HEAD2_SIZE=22, NOTE_SIZE=11;
+  const BODY_LEAD=15.5, HEAD_LEAD=28;
   const usableW=PW-ML-MR;
   const headerBaseline=PH-MT-HEAD_SIZE, ruleY=headerBaseline-6, bodyTop=ruleY-22, bodyBottom=MB+24;
-  const allLines=wrapText(opts.body||"",usableW,BODY_SIZE);
-  if(allLines.length===0) allLines.push("");
+
+  const text=opts.text||""; const fmt=opts.fmt||[];
+  // in Absätze an '\n' teilen
+  const paras=[]; { let cur=[]; for(let i=0;i<text.length;i++){ const ch=text[i]; if(ch==="\n"){paras.push(cur);cur=[];} else { const ft=fmt[i]||{}; cur.push({ch,b:!!ft.b,i:!!ft.i,u:!!ft.u,h:!!ft.h}); } } paras.push(cur); }
+
+  // Anzeigezeilen mit Größe/Durchschuss
+  const dispLines=[];
+  for(const para of paras){
+    const heading=para.length?para[0].h:false;
+    const size=heading?HEAD2_SIZE:BODY_SIZE;
+    const lead=heading?HEAD_LEAD:BODY_LEAD;
+    if(para.length===0){ dispLines.push({runs:[],size:BODY_SIZE,lead:BODY_LEAD}); continue; }
+    const wrapped=wrapPara(para,size,usableW);
+    for(const wl of wrapped) dispLines.push({runs:lineToRuns(wl),size,lead});
+  }
+  if(dispLines.length===0) dispLines.push({runs:[],size:BODY_SIZE,lead:BODY_LEAD});
+
+  // Seiten füllen
   const pages=[]; let idx=0;
-  while(idx<allLines.length){
+  while(idx<dispLines.length){
     const pageLines=[]; let y=bodyTop;
-    while(idx<allLines.length&&y>=bodyBottom){pageLines.push({text:allLines[idx],y});y-=LEAD;idx++;}
+    while(idx<dispLines.length && y>=bodyBottom){ const dl=dispLines[idx]; pageLines.push({dl,y}); y-=dl.lead; idx++; }
+    if(pageLines.length===0){ pageLines.push({dl:dispLines[idx],y:bodyTop}); idx++; }
     pages.push({lines:pageLines});
   }
   const nPages=pages.length;
+  // Übersichts-Seiten (aus dem Escape-Room) werden hinter die Aufgaben-Seiten gehängt
+  const ovStreams=(opts.overview&&typeof buildOverviewPages==="function")?buildOverviewPages(opts.overview):[];
+  const nAll=nPages+ovStreams.length;
 
-  // roter Moodle-Hinweis unten auf der letzten Seite
   const noteText="Bitte diese PDF-Datei herunterladen und bei Moodle hochladen.";
-  const noteLines=wrapText(noteText,usableW,NOTE_SIZE);
-  const noteBottom=46; // Grundlinie der untersten Hinweiszeile
+  const noteLines=[]; { // Hinweis ist immer normal/unformatiert
+    const arr=noteText.split("").map(ch=>({ch,b:false,i:false,u:false}));
+    for(const wl of wrapPara(arr,NOTE_SIZE,usableW)) noteLines.push(lineToRuns(wl));
+  }
+  const noteBottom=46;
 
-  const pageObjNum=(i)=>4+i*2, contObjNum=(i)=>5+i*2;
+  const pageObjNum=(i)=>7+i*2, contObjNum=(i)=>8+i*2;
   const objects={};
   objects[1]="<< /Type /Catalog /Pages 2 0 R >>";
-  objects[2]=`<< /Type /Pages /Count ${nPages} /Kids [${pages.map((_,i)=>`${pageObjNum(i)} 0 R`).join(" ")}] >>`;
+  objects[2]=`<< /Type /Pages /Count ${nAll} /Kids [${Array.from({length:nAll},(_,i)=>`${pageObjNum(i)} 0 R`).join(" ")}] >>`;
   objects[3]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>";
+  objects[4]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>";
+  objects[5]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding >>";
+  objects[6]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-BoldOblique /Encoding /WinAnsiEncoding >>";
+
   for(let i=0;i<nPages;i++){
-    objects[pageObjNum(i)]=`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW.toFixed(2)} ${PH.toFixed(2)}] /Resources << /Font << /F1 3 0 R >> >> /Contents ${contObjNum(i)} 0 R >>`;
+    objects[pageObjNum(i)]=`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW.toFixed(2)} ${PH.toFixed(2)}] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents ${contObjNum(i)} 0 R >>`;
     let s="0.5 w\n";
+    // Name + Linie
     s+=`BT /F1 ${HEAD_SIZE} Tf 0 0 0 rg ${ML} ${headerBaseline.toFixed(2)} Td (${encStr(opts.name||"")}) Tj ET\n`;
     s+=`${ML} ${ruleY.toFixed(2)} m ${(PW-MR).toFixed(2)} ${ruleY.toFixed(2)} l S\n`;
-    const pl=pages[i].lines;
-    if(pl.length){
-      s+=`BT /F1 ${BODY_SIZE} Tf 0 0 0 rg ${ML} ${pl[0].y.toFixed(2)} Td ${LEAD} TL\n`;
-      for(let j=0;j<pl.length;j++){if(j>0)s+="T*\n"; s+=`(${encStr(pl[j].text)}) Tj\n`;}
-      s+="ET\n";
+    // Textzeilen
+    const underlines=[];
+    for(const pl of pages[i].lines){
+      const dl=pl.dl, y=pl.y;
+      if(dl.runs.length){
+        s+=`BT 1 0 0 1 ${ML.toFixed(2)} ${y.toFixed(2)} Tm 0 0 0 rg\n`;
+        let x=ML;
+        for(const run of dl.runs){
+          const fn=fontFor(run.b,run.i);
+          s+=`/${fn} ${dl.size} Tf (${encStr(run.text)}) Tj\n`;
+          const rw=runWidth(run.text,run.b,dl.size);
+          if(run.u){ underlines.push({x1:x,x2:x+rw,y:y-dl.size*0.12,lw:Math.max(0.5,dl.size*0.06)}); }
+          x+=rw;
+        }
+        s+="ET\n";
+      }
     }
-    if(i===nPages-1){ // roter Hinweis nur auf der letzten Seite
-      const topY=noteBottom+(noteLines.length-1)*LEAD;
-      s+=`BT /F1 ${NOTE_SIZE} Tf 0.78 0.05 0.05 rg ${ML} ${topY.toFixed(2)} Td ${LEAD} TL\n`;
-      for(let j=0;j<noteLines.length;j++){if(j>0)s+="T*\n"; s+=`(${encStr(noteLines[j])}) Tj\n`;}
-      s+="ET\n";
+    for(const ul of underlines){
+      s+=`${ul.lw.toFixed(2)} w 0 0 0 RG ${ul.x1.toFixed(2)} ${ul.y.toFixed(2)} m ${ul.x2.toFixed(2)} ${ul.y.toFixed(2)} l S\n`;
+    }
+    // roter Hinweis nur auf der letzten Seite
+    if(i===nPages-1){
+      let yy=noteBottom+(noteLines.length-1)*BODY_LEAD;
+      for(const runs of noteLines){
+        s+=`BT 1 0 0 1 ${ML.toFixed(2)} ${yy.toFixed(2)} Tm 0.78 0.05 0.05 rg\n`;
+        for(const run of runs){ s+=`/F1 ${NOTE_SIZE} Tf (${encStr(run.text)}) Tj\n`; }
+        s+="ET\n";
+        yy-=BODY_LEAD;
+      }
     }
     objects[contObjNum(i)]={stream:s};
   }
+
+  // Übersichts-Seiten anhängen (Content-Streams nutzen /F1 und /F2, die oben definiert sind)
+  for(let k=0;k<ovStreams.length;k++){
+    const i=nPages+k;
+    objects[pageObjNum(i)]=`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW.toFixed(2)} ${PH.toFixed(2)}] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents ${contObjNum(i)} 0 R >>`;
+    objects[contObjNum(i)]={stream:ovStreams[k]+"\n"};
+  }
+
   let pdf="%PDF-1.7\n%\u00E2\u00E3\u00CF\u00D3\n";
   if(opts.trackB64) pdf+=`%TRACKDATA ${opts.trackB64}\n`;
-  const offsets={}; const maxNum=3+nPages*2;
+  const offsets={}; const maxNum=6+nAll*2;
   for(let n=1;n<=maxNum;n++){
     offsets[n]=pdf.length; const o=objects[n];
     if(o&&o.stream!==undefined){const st=o.stream;pdf+=`${n} 0 obj\n<< /Length ${st.length} >>\nstream\n${st}endstream\nendobj\n`;}
@@ -884,60 +1271,109 @@ async function aesEncrypt(plain,codeStr){const iv=crypto.getRandomValues(new Uin
 async function aesDecrypt(bundle,codeStr){const parts=bundle.split(":");const iv=b64ToBytes(parts[0]);const ct=b64ToBytes(parts[1]);const key=await _key(codeStr,["decrypt"]);const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv},key,ct);return new TextDecoder().decode(pt);}
 function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
 function classify(isVisible,src,gap){
-  const COL={plain:"#23201b",paste:"#b3261e",fast:"#c2710c",slow:"#1f7a34",system:"#9c948a"};
+  const COL={plain:"#23201b",paste:"#b3261e",fast:"#c2710c",slow:"#1f7a34",system:"#23201b"};
+  if(src==="s") return COL.system;           // System-Text (vorbefüllte Aufgaben) -> schwarz wie normaler Text, nie farbig
   if(!isVisible) return COL.plain;
-  if(src==="s") return COL.system;           // System-Text (vorbefüllte Aufgaben) -> gedämpftes Grau
   if(src==="p") return COL.paste;            // aus Zwischenablage -> rot
   if(gap>=0&&gap<=15) return COL.paste;      // <= 0,015 s getippt -> rot
   if(gap>15&&gap<=70) return COL.fast;       // 0,015-0,07 s -> orange
   return COL.slow;                           // > 0,07 s / erstes Zeichen -> grün
 }
+const RED_LIMIT=50; // Rot-Anteil strikt ÜBER diesem Wert wird rot und fett hervorgehoben
+/* Zählt sichtbare, nicht vorbefüllte Zeichen nach Farbe – EINE Formel für Einzelansicht, Export und Tabelle */
+function computeStats(t,m){
+  const WS=/\s/; let total=0,red=0,orange=0,green=0;
+  for(let i=0;i<t.length;i++){
+    const ch=t[i]; const isV=!WS.test(ch);
+    const mark=m[i]||["t",-1]; const col=classify(isV,mark[0],mark[1]);
+    if(isV && mark[0]!=="s"){ total++;
+      if(col==="#b3261e") red++;
+      else if(col==="#c2710c") orange++;
+      else green++;
+    }
+  }
+  const pct=(x)=>total?Math.round(x/total*100):0;
+  return {total,red,orange,green,redPct:pct(red),orangePct:pct(orange),greenPct:pct(green)};
+}
 function renderAnalysis(payload){
-  const t=payload.t, m=payload.m||[];
-  let html=""; let total=0,red=0,orange=0,green=0,sysCount=0;
+  const t=payload.t, m=payload.m||[], f=payload.f||[];
+  let html="";
   const WS=/\s/;
   for(let i=0;i<t.length;i++){
     const ch=t[i]; const isV=!WS.test(ch);
     const mark=m[i]||["t",-1]; const src=mark[0]; const gap=mark[1];
     const col=classify(isV,src,gap);
-    if(isV){
-      if(src==="s"){ sysCount++; }
-      else{
-        total++;
-        if(col==="#b3261e") red++;
-        else if(col==="#c2710c") orange++;
-        else green++;
-      }
-    }
-    html+=`<span style="color:${col}">${esc(ch)}</span>`;
+    const fl=f[i]||0; let st="color:"+col;
+    if(fl&8){ st+=";font-weight:700;font-size:1.6em"; } else if(fl&1){ st+=";font-weight:700"; }
+    if(fl&2) st+=";font-style:italic";
+    if(fl&4) st+=";text-decoration:underline";
+    html+=`<span style="${st}">${esc(ch)}</span>`;
   }
-  const pct=(x)=>total?Math.round(x/total*100):0;
+  const s=computeStats(t,m);
+  // gespeicherter Rot-Anteil aus der PDF; ältere PDFs ohne Wert: aus den Tracking-Daten berechnet
+  const rp=(typeof payload.r==="number"&&isFinite(payload.r))?payload.r:s.redPct;
+  const badge=`<div class="redbadge${rp>RED_LIMIT?" high":""}">Rot-Anteil: ${rp} %</div>`;
   const legend=
     '<div class="legend">'+
-      '<span><i class="sw" style="background:#9c948a"></i>vorbefüllte Aufgabenstellung (kein Schülertext)</span>'+
       '<span><i class="sw" style="background:#b3261e"></i>eingefügt oder ≤ 0,015 s getippt</span>'+
       '<span><i class="sw" style="background:#c2710c"></i>0,015–0,07 s nach vorherigem Zeichen getippt</span>'+
       '<span><i class="sw" style="background:#1f7a34"></i>&gt; 0,07 s nach vorherigem Zeichen getippt</span>'+
     '</div>';
-  const stat=`<p class="stat">Schülertext (ohne vorbefüllte Aufgaben): ${total} Zeichen · rot: ${red} (${pct(red)} %) · orange: ${orange} (${pct(orange)} %) · grün: ${green} (${pct(green)} %) · vorbefüllt: ${sysCount} Zeichen</p>`;
-  let escapeBlock="";
-  if(payload.e){
-    escapeBlock=
-      '<div style="background:#fffdf8;border:1px solid #ddd5c4;border-radius:10px;padding:18px 22px;margin:0 0 18px;font-family:Iowan Old Style,Palatino,Georgia,serif;font-size:15.5px;line-height:1.55">'+
-        '<div style="font-family:Avenir Next,system-ui,sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#6f675a;margin-bottom:10px">Escape-Room-Daten</div>'+
-        '<div><strong>Name:</strong> '+esc(payload.e.fn||"")+' '+esc(payload.e.ln||"")+'</div>'+
-        '<div><strong>Geburtsdatum:</strong> '+esc(payload.e.bd||"")+'</div>'+
-        '<div><strong>Bestätigungscode:</strong> '+esc(payload.e.cd||"")+'</div>'+
-      '</div>';
-  }
+  const stat=`<p class="stat">Zeichen gesamt: ${s.total} · rot: ${s.red} (${s.redPct} %) · orange: ${s.orange} (${s.orangePct} %) · grün: ${s.green} (${s.greenPct} %)</p>`;
   const head=`<div class="nmeta">Verfasser:in — ${esc(payload.n||"")}</div>`;
-  return head+escapeBlock+legend+stat+`<div class="analysis">${html}</div>`;
+  return head+badge+legend+stat+`<div class="analysis">${html}</div>`;
 }
 
-/* ---------------- gemeinsame Krypto-Funktionen werden nur noch lokal genutzt ---------------- */
+/* ---------------- Lehrkraft-Seite für den data:-Link bauen ---------------- */
+function buildTeacherHtml(bundle){
+  const shared="const RED_LIMIT="+RED_LIMIT+";\n"+[bytesToB64,b64ToBytes,_key,aesDecrypt,esc,classify,computeStats,renderAnalysis].map(f=>f.toString()).join("\n");
+  const css=
+    'body{margin:0;background:#f7f4ec;color:#221f1a;font-family:"Avenir Next",Avenir,"Segoe UI","Helvetica Neue",system-ui,sans-serif;line-height:1.5}'+
+    '.wrap{max-width:920px;margin:0 auto;padding:40px 22px 80px}'+
+    'h1{font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;font-weight:600;font-size:26px;margin:0 0 6px}'+
+    '.sub{color:#6f675a;margin:0 0 22px;font-size:14.5px}'+
+    'input{font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:18px;letter-spacing:.12em;width:180px;background:#fffdf8;border:1px solid #ddd5c4;border-radius:9px;padding:10px 12px;outline:none}'+
+    'input:focus{border-color:#8a6a3c;box-shadow:0 0 0 3px rgba(138,106,60,.16)}'+
+    'button{font-family:inherit;font-size:15px;font-weight:600;color:#fffdf8;background:#221f1a;border:1px solid #221f1a;border-radius:9px;padding:11px 18px;cursor:pointer;margin-left:10px}'+
+    '.err{color:#b3261e;font-size:13.5px;min-height:18px;margin:10px 0 0}'+
+    '.legend{display:flex;gap:18px;flex-wrap:wrap;margin:20px 0 14px;font-size:13.5px;color:#6f675a}'+
+    '.legend span{display:inline-flex;align-items:center;gap:7px}'+
+    '.sw{width:13px;height:13px;border-radius:3px;display:inline-block}'+
+    '.stat{font-size:13px;color:#6f675a;margin:0 0 16px}'+
+    '.nmeta,.nmeta{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#6f675a;margin-bottom:14px}'+
+    '.redbadge{display:inline-block;font-size:14px;font-weight:600;background:#fffdf8;border:1px solid #ddd5c4;border-radius:9px;padding:8px 14px;margin:0 0 6px}'+
+    '.redbadge.high{color:#b3261e;border-color:#b3261e;font-weight:800}'+
+    '.analysis{background:#fffdf8;border:1px solid #ddd5c4;border-radius:10px;padding:30px 34px;font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;font-size:17.5px;line-height:1.85;white-space:pre-wrap;word-wrap:break-word;overflow-wrap:anywhere}';
+  const boot=
+    'const BUNDLE='+JSON.stringify(bundle)+';'+
+    'const app=document.getElementById("app");'+
+    'async function go(){'+
+      'const code=document.getElementById("c").value.trim();'+
+      'const e=document.getElementById("e"); e.textContent="";'+
+      'try{const json=await aesDecrypt(BUNDLE,code);const p=JSON.parse(json);'+
+        'app.innerHTML=renderAnalysis(p);'+
+      '}catch(err){e.textContent="Falscher Code.";}'+
+    '}'+
+    'document.getElementById("b").addEventListener("click",go);'+
+    'document.getElementById("c").addEventListener("keydown",ev=>{if(ev.key==="Enter")go();});';
+  const body=
+    '<div class="wrap">'+
+      '<h1>Auswertung für die Lehrkraft</h1>'+
+      '<p class="sub">Bitte den Code eingeben, um die Schreib-Auswertung anzuzeigen.</p>'+
+      '<div><input id="c" type="password" inputmode="numeric" placeholder="Code" autofocus>'+
+      '<button id="b">Anzeigen</button></div>'+
+      '<p class="err" id="e"></p>'+
+      '<div id="app"></div>'+
+    '</div>';
+  return '<!doctype html><html lang="de"><head><meta charset="utf-8">'+
+    '<meta name="viewport" content="width=device-width, initial-scale=1">'+
+    '<title>Auswertung</title><style>'+css+'</style></head><body>'+body+
+    '<scr'+'ipt>'+shared+'\n'+boot+'<\/scr'+'ipt></body></html>';
+}
 
 /* ----------------------- geheime Code-Bildung (Lehrkraft) ----------------------- */
-function _kf(s){const n=(s.match(/\p{L}/gu)||[]).length;return String(n*(0x230+0x220));}
+function _kfN(n){return String(n*(0x230+0x220));}          // Code aus Buchstabenzahl
+function _kf(s){const n=(s.match(/\p{L}/gu)||[]).length;return _kfN(n);}
 
 /* ------------------------------ Tracking ------------------------------ */
 let prevValue="";
@@ -952,22 +1388,41 @@ function reconcile(newVal,pasted,now){
   const inserted=b.slice(p,b.length-s);
   const ins=inserted.split("").map(()=>({src:pasted?"p":"t",t:now}));
   recs.splice(p,removed,...ins);
-  if(recs.length!==b.length){ // Sicherheitsnetz gegen Desync
-    recs=b.split("").map(()=>({src:"t",t:now}));
+  if(recs.length!==b.length){ // Sicherheitsnetz gegen Desync: Tipp-Info unbekannt (t=-1), nie fälschlich rot
+    recs=b.split("").map(()=>({src:"t",t:-1}));
   }
   prevValue=newVal;
 }
 
-function buildPayload(name,text){
-  if(recs.length!==text.length){ // letzte Absicherung
-    const now=Date.now(); recs=text.split("").map(()=>({src:"t",t:now}));
+let systemSnippets=[]; // vorgeschriebene Textbausteine (Aufgabenlabels + Aufgabentexte) – immer System-Text
+function markSystemByContent(text,m){
+  // Markiert jedes Vorkommen eines vorgeschriebenen Bausteins als System ("s"), unabhängig vom
+  // Tracking-Zustand. So werden Aufgabenstellungen nie farbig (rot/orange/grün) ausgewertet.
+  for(const snip of systemSnippets){
+    if(!snip) continue;
+    let from=0, idx;
+    while((idx=text.indexOf(snip,from))!==-1){
+      for(let i=idx;i<idx+snip.length;i++){ if(m[i]) m[i][0]="s"; }
+      from=idx+snip.length;
+    }
   }
-  const m=[];
+}
+function buildPayload(name,text,fmt,vn,nn){
+  if(recs.length!==text.length){ // letzte Absicherung: Tipp-Info verloren -> Abstand unbekannt (nie fälschlich rot)
+    recs=text.split("").map(()=>({src:"t",t:-1}));
+  }
+  fmt=fmt||[];
+  const m=[]; const f=[];
   for(let i=0;i<text.length;i++){
-    const gap=(i===0)?-1:(recs[i].t-recs[i-1].t);
+    const gap=(i===0||recs[i].t<0||recs[i-1].t<0)?-1:(recs[i].t-recs[i-1].t);
     m.push([recs[i].src,gap]);
+    const ft=fmt[i]||{};
+    let bits=0; if(ft.b)bits|=1; if(ft.i)bits|=2; if(ft.u)bits|=4; if(ft.h)bits|=8;
+    f.push(bits);
   }
-  return {n:name,t:text,m};
+  markSystemByContent(text,m);   // vorgeschriebene Aufgaben: immer System, nie farbig
+  const r=computeStats(text,m).redPct; // Rot-Anteil in Prozent, wie ihn die Lehrkraft-Ansicht zeigt
+  return {n:name,t:text,m,f,vn:vn||"",nn:nn||"",r};
 }
 
 /* ------------------------------ UI-Steuerung ------------------------------ */
@@ -995,6 +1450,16 @@ function downloadBlob(blob,filename){
 }
 
 let studentVorname="", studentNachname="";
+let escapeRed=[];     // Texte der beiden roten Felder im Escape-Room-Modus
+
+function updateCharcount(){
+  let n=0; for(const r of recs){ if(r.src!=="s") n++; }
+  $("charcount").textContent=String(n);
+}
+function renderMoodleHints(){
+  const box=$("moodle-hints"); if(!box) return;
+  box.innerHTML=escapeRed.map(t=>`<div class="moodle-hint">${esc(t)}</div>`).join("");
+}
 
 /* Start */
 $("start-btn").addEventListener("click",()=>{
@@ -1002,7 +1467,8 @@ $("start-btn").addEventListener("click",()=>{
   if(!v||!n){$("start-err").textContent="Bitte Vor- und Nachnamen eintragen.";return;}
   studentVorname=v; studentNachname=n;
   $("who-name").textContent=v+" "+n;
-  prevValue=""; recs=[]; $("editor").value="";
+  escapeRed=[]; renderMoodleHints();          // normaler Modus: keine roten Felder
+  prevValue=""; recs=[]; setEditorText("");
   $("charcount").textContent="0";
   show("screen-editor");
   setTimeout(()=>$("editor").focus(),40);
@@ -1012,99 +1478,7 @@ $("nachname").addEventListener("keydown",e=>{if(e.key==="Enter")$("start-btn").c
 $("to-teacher").addEventListener("click",e=>{e.preventDefault();show("screen-teacher");});
 $("back-start").addEventListener("click",e=>{e.preventDefault();show("screen-start");});
 
-/* Editor-Tracking */
-const ed=$("editor");
-function updateCharcount(){
-  let n=0; for(const r of recs){ if(r.src!=="s") n++; }
-  $("charcount").textContent=String(n);
-}
-ed.addEventListener("paste",()=>{justPasted=true;});
-ed.addEventListener("drop",()=>{justPasted=true;});
-ed.addEventListener("input",()=>{
-  reconcile(ed.value,justPasted,Date.now());
-  justPasted=false;
-  updateCharcount();
-});
-
-/* Export: erzeugt NUR die Text-PDF (mit rotem Moodle-Hinweis); die Zeiterfassungs- und
-   Escape-Room-Daten stecken verschlüsselt (als %TRACKDATA) im PDF und sind nur mit dem
-   Feiditor-Code (Anzahl Buchstaben im Vornamen × 1104) durch die Lehrkraft auslesbar. */
-$("export-btn").addEventListener("click",async()=>{
-  const btn=$("export-btn"); const text=ed.value;
-  const name=studentVorname+" "+studentNachname;
-  btn.disabled=true; const old=btn.textContent; btn.textContent="Erzeuge PDF…";
-  try{
-    const payload=buildPayload(name,text);
-    // Escape-Room-Daten zusätzlich (versteckt) ins PDF einbetten
-    if(window.__ESCAPE_DATA__){
-      payload.e={
-        fn:window.__ESCAPE_DATA__.firstName||"",
-        ln:window.__ESCAPE_DATA__.lastName||"",
-        bd:window.__ESCAPE_DATA__.birthDate||"",
-        cd:window.__ESCAPE_DATA__.code||""
-      };
-    }
-    const code=_kf(studentVorname);              // Feiditor-Code: NICHT der Escape-Room-Code
-    const bundle=await aesEncrypt(JSON.stringify(payload),code);
-
-    const pdfName=fileSafe("Text von "+studentVorname)+".pdf";
-
-    // PDF: Text + roter Moodle-Hinweis; Tracking- und Escape-Daten verschlüsselt als %TRACKDATA-Reserve
-    const pdfStr=buildPdf({name,body:text,trackB64:bundle});
-    const u8=new Uint8Array(pdfStr.length);
-    for(let i=0;i<pdfStr.length;i++)u8[i]=pdfStr.charCodeAt(i)&0xFF;
-
-    downloadBlob(new Blob([u8],{type:"application/pdf"}), pdfName);
-
-    btn.textContent="PDF erstellt ✓";
-    setTimeout(()=>{ btn.textContent=old; }, 2200);
-  }catch(err){ alert("Fehler beim Erzeugen der PDF: "+err.message); btn.textContent=old; }
-  finally{ btn.disabled=false; }
-});
-
-/* Lehrkraft: PDF laden + Code */
-let teacherBundle=null;
-function readPdfFile(file){
-  $("teacher-err").textContent=""; $("result").innerHTML="";
-  $("code-area").classList.add("hidden"); teacherBundle=null;
-  const fr=new FileReader();
-  fr.onload=()=>{
-    const bytes=new Uint8Array(fr.result);
-    let str=""; for(let i=0;i<bytes.length;i++) str+=String.fromCharCode(bytes[i]);
-    const mm=str.match(/%TRACKDATA (\S+)/);
-    if(!mm){$("teacher-err").textContent="In dieser PDF wurden keine Tracking-Daten gefunden.";return;}
-    teacherBundle=mm[1];
-    $("code-area").classList.remove("hidden");
-    setTimeout(()=>$("code-input").focus(),40);
-  };
-  fr.onerror=()=>{$("teacher-err").textContent="Datei konnte nicht gelesen werden.";};
-  fr.readAsArrayBuffer(file);
-}
-$("pdf-input").addEventListener("change",e=>{const f=e.target.files[0];if(f)readPdfFile(f);});
-const dropZone=document.querySelector(".drop");
-["dragover","dragenter"].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();dropZone.style.borderColor="#8a6a3c";}));
-["dragleave","drop"].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();dropZone.style.borderColor="";}));
-dropZone.addEventListener("drop",e=>{const f=e.dataTransfer.files[0];if(f)readPdfFile(f);});
-
-async function showTeacherResult(){
-  const code=$("code-input").value.trim();
-  $("teacher-err").textContent="";
-  if(!teacherBundle)return;
-  try{
-    const json=await aesDecrypt(teacherBundle,code);
-    const p=JSON.parse(json);
-    $("result").innerHTML=renderAnalysis(p);
-  }catch(err){
-    $("result").innerHTML="";
-    $("teacher-err").textContent="Falscher Code.";
-  }
-}
-$("code-btn").addEventListener("click",showTeacherResult);
-$("code-input").addEventListener("keydown",e=>{if(e.key==="Enter")showTeacherResult();});
-
-/* ============================================================
-   Auto-Start aus dem Escape-Room (überspringt die Anmeldung)
-   ============================================================ */
+/* ---------- Escape-Room-Modus: aus hochgeladener Überblick-PDF rekonstruieren ---------- */
 function buildPrefill(tasks){
   const lines=[];
   tasks.forEach((task,i)=>{
@@ -1114,34 +1488,410 @@ function buildPrefill(tasks){
   });
   return lines.join("\n");
 }
+function startEscapeMode(v,n,tasks,red){
+  studentVorname=(v||"").trim(); studentNachname=(n||"").trim();
+  $("who-name").textContent=(studentVorname+" "+studentNachname).trim();
+  escapeRed=Array.isArray(red)?red:[];
+  // Vorgeschriebene Bausteine merken: Aufgabenlabels + Aufgabentexte -> beim Export immer System-Text
+  systemSnippets=[];
+  if(Array.isArray(tasks)) tasks.forEach((task,i)=>{ systemSnippets.push("Aufgabe "+(i+1)); if(task) systemSnippets.push(String(task)); });
+  const prefill=(Array.isArray(tasks)&&tasks.length)?buildPrefill(tasks):"";
+  const now=Date.now();
+  setEditorText(prefill); prevValue=prefill;
+  recs=prefill.split("").map(()=>({src:"s",t:now}));   // vorbefüllter Text = System (grau, nicht gezählt)
+  renderMoodleHints();
+  updateCharcount();
+  show("screen-editor");
+  setTimeout(()=>{
+    ed.focus();
+    // Cursor in die erste leere Lösungszeile setzen
+    const pf=prefill.split("\n");
+    let bi=pf.indexOf(""); if(bi<0) bi=pf.length-1;
+    const blocks=Array.prototype.filter.call(ed.childNodes,n=>n.nodeType===1);
+    placeCaretAtBlockStart(blocks[bi]||blocks[blocks.length-1]);
+  },50);
+}
+function readEscapePdf(file){
+  $("esc-err").textContent="";
+  const fr=new FileReader();
+  fr.onload=()=>{
+    const bytes=new Uint8Array(fr.result);
+    let str=""; for(let i=0;i<bytes.length;i++) str+=String.fromCharCode(bytes[i]);
+    const mm=str.match(/%ESCAPEDATA (\S+)/);
+    if(!mm){$("esc-err").textContent="In dieser PDF wurden keine Escape-Room-Daten gefunden. Bitte lade die Überblick-PDF aus dem Escape-Room hoch.";return;}
+    let d;
+    try{ d=JSON.parse(decodeURIComponent(escape(atob(mm[1])))); }
+    catch(e){ $("esc-err").textContent="Die Escape-Room-Daten konnten nicht gelesen werden."; return; }
+    startEscapeMode(d.v,d.n,d.t,d.r);
+  };
+  fr.onerror=()=>{$("esc-err").textContent="Datei konnte nicht gelesen werden.";};
+  fr.readAsArrayBuffer(file);
+}
+$("esc-input").addEventListener("change",e=>{const f=e.target.files[0];if(f)readEscapePdf(f);});
+const escDrop=$("esc-drop");
+["dragover","dragenter"].forEach(ev=>escDrop.addEventListener(ev,e=>{e.preventDefault();escDrop.style.borderColor="#8a6a3c";}));
+["dragleave","drop"].forEach(ev=>escDrop.addEventListener(ev,e=>{e.preventDefault();escDrop.style.borderColor="";}));
+escDrop.addEventListener("drop",e=>{const f=e.dataTransfer.files[0];if(f)readEscapePdf(f);});
+
+/* ---------- Rich-Text-Editor: Serialisierung & Formatierung ---------- */
+/* Read-only: liest den contenteditable-Inhalt als {text, fmt} aus, OHNE das DOM
+   oder den Cursor zu verändern. Inline-Formatierung ändert den Text nicht, nur fmt –
+   dadurch bleiben die Tipp-Tempo-Daten (recs) über Formatierungen hinweg erhalten. */
+function serializeEditor(){
+  const root=$("editor");
+  const chars=[]; const fmt=[];
+  function isBlock(node){ return node.nodeType===1 && /^(DIV|P|H[1-6]|LI|BLOCKQUOTE|PRE)$/.test(node.tagName); }
+  function lastIsNL(){ return chars.length===0 || chars[chars.length-1]==="\n"; }
+  function pushCh(ch,st){ chars.push(ch); fmt.push({b:st.b,i:st.i,u:st.u,h:st.h}); }
+  function lastChildOfBlock(node){
+    const p=node.parentNode; return p && isBlock(p) && p.childNodes[p.childNodes.length-1]===node;
+  }
+  function walk(node, st){
+    const kids=node.childNodes||[];
+    for(let k=0;k<kids.length;k++){
+      const child=kids[k];
+      if(child.nodeType===3){
+        const s=child.nodeValue||"";
+        for(const ch of s) pushCh(ch, st);
+      } else if(child.nodeType===1){
+        const tag=child.tagName;
+        if(tag==="BR"){
+          if(lastChildOfBlock(child)){ /* Platzhalter-<br> -> kein Umbruch */ }
+          else pushCh("\n", st);
+          continue;
+        }
+        const ns={b:st.b,i:st.i,u:st.u,h:st.h};
+        if(tag==="B"||tag==="STRONG") ns.b=true;
+        if(tag==="I"||tag==="EM") ns.i=true;
+        if(tag==="U"||tag==="INS") ns.u=true;
+        const sty=child.style||{};
+        const fw=sty.fontWeight; if(fw==="bold"||fw==="bolder"||(fw&&parseInt(fw,10)>=600)) ns.b=true;
+        const fst=sty.fontStyle; if(fst&&String(fst).indexOf("italic")>=0) ns.i=true;
+        const td=(sty.textDecorationLine||sty.textDecoration||""); if(String(td).indexOf("underline")>=0) ns.u=true;
+        if(child.classList&&child.classList.contains("heading")){ ns.h=true; ns.b=true; }
+        if(/^H[1-6]$/.test(tag)){ ns.h=true; ns.b=true; }
+        try{ const cs=getComputedStyle(child); if(cs){ const w=cs.fontWeight; if(w==="bold"||w==="bolder"||(parseInt(w,10)>=600)) ns.b=true; if(String(cs.fontStyle||"").indexOf("italic")>=0) ns.i=true; } }catch(e){}
+        if(isBlock(child) && !lastIsNL()) pushCh("\n", st);
+        walk(child, ns);
+      }
+    }
+  }
+  walk(root, {b:false,i:false,u:false,h:false});
+  return { text: chars.join(""), fmt };
+}
+
+/* Baut den Editor-Inhalt aus reinem Text neu auf (jede Zeile = ein Block-DIV). */
+function setEditorText(plain){
+  const root=$("editor"); root.innerHTML="";
+  const lines=String(plain||"").split("\n");
+  for(const line of lines){
+    const div=document.createElement("div");
+    if(line==="") div.appendChild(document.createElement("br"));
+    else div.appendChild(document.createTextNode(line));
+    root.appendChild(div);
+  }
+  if(root.childNodes.length===0){ const d=document.createElement("div"); d.appendChild(document.createElement("br")); root.appendChild(d); }
+  updateEmpty();
+}
+
+/* Platzhalter ein-/ausblenden (CSS: #editor.empty::before) */
+function updateEmpty(){
+  const root=$("editor");
+  root.classList.toggle("empty", serializeEditor().text.length===0);
+}
+
+/* Den Block (oberste DIV-Ebene im Editor), in dem ein Knoten liegt. */
+function blockOf(node){
+  const root=$("editor"); if(!node) return null;
+  if(node===root){ return null; }
+  let n=node;
+  while(n && n.parentNode!==root) n=n.parentNode;
+  return (n && n.parentNode===root && n.nodeType===1) ? n : null;
+}
+/* Alle Blöcke, die von der aktuellen Auswahl berührt werden. */
+function selectedBlocks(){
+  const root=$("editor"); const sel=window.getSelection();
+  if(!sel||sel.rangeCount===0) return [];
+  const r=sel.getRangeAt(0);
+  let a=blockOf(r.startContainer), b=blockOf(r.endContainer);
+  const blocks=Array.prototype.filter.call(root.childNodes,n=>n.nodeType===1);
+  if(!a) a=blocks[0]; if(!b) b=blocks[blocks.length-1];
+  if(!a||!b) return [];
+  const ia=blocks.indexOf(a), ib=blocks.indexOf(b);
+  if(ia<0||ib<0) return [];
+  const lo=Math.min(ia,ib), hi=Math.max(ia,ib);
+  return blocks.slice(lo,hi+1);
+}
+/* Überschrift für die ausgewählten Blöcke umschalten. */
+function toggleHeading(){
+  const blocks=selectedBlocks(); if(!blocks.length) return;
+  const allHead=blocks.every(b=>b.classList.contains("heading"));
+  blocks.forEach(b=>{ if(allHead) b.classList.remove("heading"); else b.classList.add("heading"); });
+  $("editor").focus();
+  updateFormatButtons();
+}
+/* Button-Zustände an die aktuelle Auswahl/Cursorposition anpassen. */
+function updateFormatButtons(){
+  const q=(c)=>{ try{ return document.queryCommandState(c); }catch(e){ return false; } };
+  $("fb-bold").classList.toggle("active", q("bold"));
+  $("fb-italic").classList.toggle("active", q("italic"));
+  $("fb-underline").classList.toggle("active", q("underline"));
+  const blocks=selectedBlocks();
+  const head = blocks.length>0 && blocks.every(b=>b.classList.contains("heading"));
+  $("fb-heading").classList.toggle("active", head);
+}
+/* Inline-Befehl (bold/italic/underline) ausführen; Auswahl bleibt erhalten. */
+function execInline(cmd){
+  $("editor").focus();
+  try{ document.execCommand(cmd,false,null); }catch(e){}
+  updateFormatButtons();
+  updateEmpty();
+}
+/* Cursor an den Anfang eines Blocks setzen. */
+function placeCaretAtBlockStart(block){
+  if(!block) return;
+  const sel=window.getSelection(); const r=document.createRange();
+  r.setStart(block,0); r.collapse(true);
+  sel.removeAllRanges(); sel.addRange(r);
+}
+
+/* Editor-Tracking */
+const ed=$("editor");
+ed.addEventListener("paste",(e)=>{
+  // Nur reinen Text einfügen, damit das DOM sauber bleibt (keine fremde Formatierung)
+  if(e.clipboardData){
+    e.preventDefault();
+    const txt=e.clipboardData.getData("text/plain");
+    justPasted=true;
+    try{ document.execCommand("insertText",false,txt); }
+    catch(err){ justPasted=true; }
+  } else { justPasted=true; }
+});
+ed.addEventListener("drop",()=>{justPasted=true;});
+ed.addEventListener("keydown",(e)=>{
+  // Strg/Cmd+B/I/U: Browser formatiert selbst; danach Button-Status aktualisieren
+  if((e.ctrlKey||e.metaKey)&&!e.altKey){
+    const k=e.key.toLowerCase();
+    if(k==="b"||k==="i"||k==="u"){ setTimeout(()=>{ updateFormatButtons(); updateEmpty(); },0); }
+  }
+  // Enter in einer Überschrift: neue Zeile soll normal sein
+  if(e.key==="Enter"){
+    setTimeout(()=>{
+      const blocks=selectedBlocks();
+      blocks.forEach(b=>{ const txt=(b.textContent||"").replace(/\u200B/g,""); if(b.classList.contains("heading")&&txt==="") b.classList.remove("heading"); });
+      updateFormatButtons();
+    },0);
+  }
+});
+ed.addEventListener("input",()=>{
+  reconcile(serializeEditor().text,justPasted,Date.now());
+  justPasted=false;
+  updateCharcount();
+  updateEmpty();
+});
+ed.addEventListener("keyup",updateFormatButtons);
+ed.addEventListener("mouseup",updateFormatButtons);
+document.addEventListener("selectionchange",()=>{ if(document.activeElement===$("editor")) updateFormatButtons(); });
+
+/* Formatierungsleiste verdrahten – mousedown + preventDefault, damit die Auswahl erhalten bleibt */
+function wireFmtBtn(id,fn){
+  const b=$(id); if(!b) return;
+  b.addEventListener("mousedown",(e)=>{ e.preventDefault(); fn(); });
+}
+wireFmtBtn("fb-bold",()=>execInline("bold"));
+wireFmtBtn("fb-italic",()=>execInline("italic"));
+wireFmtBtn("fb-underline",()=>execInline("underline"));
+wireFmtBtn("fb-heading",toggleHeading);
+try{ document.execCommand("styleWithCSS",false,false); }catch(e){}
+
+/* Export: erzeugt NUR die Text-PDF (mit rotem Moodle-Hinweis); die Tracking-Daten stecken
+   verschlüsselt als %TRACKDATA in der PDF und sind über „Lehrkraft → PDF laden + Code" auslesbar */
+$("export-btn").addEventListener("click",async()=>{
+  const btn=$("export-btn"); const ser=serializeEditor(); const text=ser.text; const fmt=ser.fmt;
+  const name=studentVorname+" "+studentNachname;
+  btn.disabled=true; const old=btn.textContent; btn.textContent="Erzeuge PDF…";
+  try{
+    const payload=buildPayload(name,text,fmt,studentVorname,studentNachname);
+    const code=_kf(studentVorname);
+    const bundle=await aesEncrypt(JSON.stringify(payload),code);
+
+    const pdfName=fileSafe("Escape Room Daten von "+studentVorname+" "+studentNachname)+".pdf";
+
+    // PDF: Aufgaben-Seiten (formatierter Text + roter Moodle-Hinweis) + Übersichts-Seiten aus dem Escape-Room;
+    // Tracking-Daten stecken (verschlüsselt) als %TRACKDATA drin
+    const overview=(window.__ESCAPE_DATA__&&window.__ESCAPE_DATA__.overview)||null;
+    const pdfStr=buildPdf({name,text,fmt,trackB64:bundle,overview});
+    const u8=new Uint8Array(pdfStr.length);
+    for(let i=0;i<pdfStr.length;i++)u8[i]=pdfStr.charCodeAt(i)&0xFF;
+
+    downloadBlob(new Blob([u8],{type:"application/octet-stream"}), pdfName); // octet-stream: erzwingt Speichern statt Anzeigen
+
+    btn.textContent="PDF erstellt ✓";
+    setTimeout(()=>{ btn.textContent=old; }, 2200);
+  }catch(err){ alert("Fehler beim Erzeugen der PDF: "+err.message); btn.textContent=old; }
+  finally{ btn.disabled=false; }
+});
+
+/* Lehrkraft: PDF laden + Code (Einzelansicht) bzw. mehrere PDFs (Tabellenansicht) */
+let teacherBundle=null;
+let batchRows=[];        // Zeilen der Tabellenansicht
+let batchSelected=null;  // in der Tabelle angeklickte Zeile
+const TRACK_RE=/%TRACKDATA (\S+)/;
+
+function readAsBinaryStr(file){
+  return new Promise((res,rej)=>{
+    const fr=new FileReader();
+    fr.onload=()=>{const u=new Uint8Array(fr.result);let s="";const CH=0x8000;for(let i=0;i<u.length;i+=CH)s+=String.fromCharCode.apply(null,u.subarray(i,i+CH));res(s);};
+    fr.onerror=()=>rej(new Error("Datei konnte nicht gelesen werden."));
+    fr.readAsArrayBuffer(file);
+  });
+}
+function setCodeFor(text){
+  const el=$("code-for"); if(!el) return;
+  el.textContent=text?("Einzelansicht für "+text+" – bitte Code eingeben."):"";
+  el.classList.toggle("hidden",!text);
+}
+function resetTeacherView(){
+  $("teacher-err").textContent=""; $("result").innerHTML="";
+  $("code-area").classList.add("hidden"); $("code-input").value="";
+  setCodeFor(""); teacherBundle=null; batchRows=[]; batchSelected=null;
+}
+
+/* Einzelansicht: eine PDF, Code wird von der Lehrkraft eingegeben */
+async function readPdfFile(file){
+  resetTeacherView();
+  try{
+    const str=await readAsBinaryStr(file);
+    const mm=str.match(TRACK_RE);
+    if(!mm){$("teacher-err").textContent="In dieser PDF wurden keine Tracking-Daten gefunden.";return;}
+    teacherBundle=mm[1];
+    $("code-area").classList.remove("hidden");
+    setTimeout(()=>$("code-input").focus(),40);
+  }catch(err){ $("teacher-err").textContent=err.message||"Datei konnte nicht gelesen werden."; }
+}
+
+/* Code automatisch ermitteln: alle plausiblen Buchstabenzahlen des Vornamens durchprobieren
+   (AES-GCM schlägt bei falschem Code sauber fehl) */
+async function autoDecrypt(bundle){
+  for(let n=1;n<=40;n++){
+    const code=_kfN(n);
+    try{ const json=await aesDecrypt(bundle,code); return {payload:JSON.parse(json),code}; }catch(e){}
+  }
+  throw new Error("Code konnte nicht ermittelt werden.");
+}
+function splitName(p){
+  let vn=(p.vn||"").trim(), nn=(p.nn||"").trim();
+  if(!vn&&!nn){ // ältere PDFs: nur Gesamtname gespeichert -> am ersten Leerzeichen teilen
+    const n=(p.n||"").trim(); const i=n.indexOf(" ");
+    if(i<0) vn=n; else { vn=n.slice(0,i); nn=n.slice(i+1).trim(); }
+  }
+  return {vn,nn};
+}
+function redPercent(p){ return (typeof p.r==="number"&&isFinite(p.r))?p.r:computeStats(p.t||"",p.m||[]).redPct; }
+
+/* Tabellenansicht: mehrere PDFs */
+async function readBatch(files){
+  resetTeacherView();
+  $("result").innerHTML=`<p class="batchsum">Werte ${files.length} PDF-Dateien aus…</p>`;
+  const rows=[];
+  for(const f of files){
+    try{
+      const str=await readAsBinaryStr(f);
+      const mm=str.match(TRACK_RE);
+      if(!mm) throw new Error("keine Tracking-Daten gefunden");
+      const {payload}=await autoDecrypt(mm[1]);
+      const nm=splitName(payload);
+      rows.push({file:f.name,vn:nm.vn,nn:nm.nn,r:redPercent(payload),bundle:mm[1]});
+    }catch(err){ rows.push({file:f.name,error:err.message||"Fehler"}); }
+  }
+  batchRows=rows;
+  renderBatchTable();
+}
+function renderBatchTable(){
+  const rows=batchRows.slice();
+  rows.sort((a,b)=>{
+    if(!!a.error!==!!b.error) return a.error?1:-1;            // Fehlerzeilen ans Ende
+    if(!a.error && b.r!==a.r) return b.r-a.r;                  // Rot-Anteil absteigend
+    const c=(a.nn||"").localeCompare(b.nn||"","de"); if(c) return c;
+    return (a.vn||"").localeCompare(b.vn||"","de");
+  });
+  const ok=rows.filter(r=>!r.error), high=ok.filter(r=>r.r>RED_LIMIT).length, errs=rows.length-ok.length;
+  let html=`<p class="batchsum">${rows.length} PDF-Dateien · ${high} über ${RED_LIMIT} %${errs?` · ${errs} nicht lesbar`:""}</p>`;
+  html+='<div class="tablewrap"><table class="batch"><thead><tr><th>Vorname</th><th>Nachname</th><th class="pct">Rot-Anteil</th></tr></thead><tbody>';
+  rows.forEach(r=>{
+    if(r.error){ html+=`<tr class="errrow"><td colspan="3">${esc(r.file)} – ${esc(r.error)}</td></tr>`; return; }
+    const hi=r.r>RED_LIMIT;
+    html+=`<tr class="clickable" data-idx="${batchRows.indexOf(r)}" title="Einzelansicht öffnen (Code erforderlich)"><td>${esc(r.vn)}</td><td>${esc(r.nn)}</td><td class="pct${hi?" high":""}">${r.r}&nbsp;%</td></tr>`;
+  });
+  html+='</tbody></table></div>';
+  html+='<p class="batchhint">Rot-Anteil = Anteil der rot markierten Zeichen (eingefügt oder ≤ 0,015 s getippt). Klick auf eine Zeile öffnet die Einzelansicht nach Eingabe des Codes.</p>';
+  $("result").innerHTML=html;
+  $("code-area").classList.add("hidden"); setCodeFor(""); $("teacher-err").textContent="";
+  batchSelected=null; teacherBundle=null;
+  $("result").querySelectorAll("tr.clickable").forEach(tr=>tr.addEventListener("click",()=>selectBatchRow(parseInt(tr.dataset.idx,10),tr)));
+}
+function selectBatchRow(idx,tr){
+  const row=batchRows[idx]; if(!row||row.error) return;
+  batchSelected=row; teacherBundle=row.bundle;
+  $("result").querySelectorAll("tr.selected").forEach(x=>x.classList.remove("selected"));
+  tr.classList.add("selected");
+  setCodeFor((row.vn+" "+row.nn).trim());
+  $("teacher-err").textContent="";
+  $("code-area").classList.remove("hidden"); $("code-input").value="";
+  try{ $("code-area").scrollIntoView({behavior:"smooth",block:"center"}); }catch(e){}
+  setTimeout(()=>$("code-input").focus(),40);
+}
+
+function handleFiles(list){
+  const files=Array.prototype.slice.call(list||[]);
+  if(!files.length) return;
+  if(files.length===1) readPdfFile(files[0]); else readBatch(files);
+}
+$("pdf-input").addEventListener("change",e=>{handleFiles(e.target.files); e.target.value="";});
+const dropZone=$("teacher-drop");
+["dragover","dragenter"].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();dropZone.style.borderColor="#8a6a3c";}));
+["dragleave","drop"].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();dropZone.style.borderColor="";}));
+dropZone.addEventListener("drop",e=>{handleFiles(e.dataTransfer.files);});
+
+async function showTeacherResult(){
+  const code=$("code-input").value.trim();
+  $("teacher-err").textContent="";
+  if(!teacherBundle)return;
+  try{
+    const json=await aesDecrypt(teacherBundle,code);
+    const p=JSON.parse(json);
+    let html=renderAnalysis(p);
+    if(batchSelected) html='<a href="#" class="backlink" id="back-table">← zurück zur Tabelle</a>'+html;
+    $("result").innerHTML=html;
+    if(batchSelected){
+      $("code-area").classList.add("hidden"); setCodeFor("");
+      $("back-table").addEventListener("click",e=>{e.preventDefault();renderBatchTable();});
+    }
+  }catch(err){
+    if(!batchSelected) $("result").innerHTML="";   // in der Tabellenansicht bleibt die Tabelle stehen
+    $("teacher-err").textContent="Falscher Code.";
+  }
+}
+$("code-btn").addEventListener("click",showTeacherResult);
+$("code-input").addEventListener("keydown",e=>{if(e.key==="Enter")showTeacherResult();});
+
+/* ============================================================
+   Auto-Start aus dem Escape-Room (überspringt die Anmeldung)
+   Der Escape-Room injiziert window.__ESCAPE_DATA__ mit Name,
+   Aufgaben, roten Feldern und den Daten für die Übersichts-Seiten.
+   ============================================================ */
 (function autoStartFromEscape(){
   const D=window.__ESCAPE_DATA__;
   if(!D) return;                                   // ohne Daten: normaler Anmeldebildschirm
-  studentVorname=(D.firstName||"").trim();
-  studentNachname=(D.lastName||"").trim();
-  $("who-name").textContent=(studentVorname+" "+studentNachname).trim();
-  const tasks=Array.isArray(D.tasks)?D.tasks:[];
-  const prefill=tasks.length?buildPrefill(tasks):"";
-  const now=Date.now();
-  ed.value=prefill;
-  prevValue=prefill;
-  recs=prefill.split("").map(()=>({src:"s",t:now}));   // vorbefüllter Text = System (grau, nicht gezählt)
-  updateCharcount();
-  show("screen-editor");
-  // Cursor an den Anfang des ersten Lösungsbereichs setzen (nach Aufgabe 1)
-  setTimeout(()=>{
-    ed.focus();
-    const firstGap=prefill.indexOf("\n\n");
-    const pos=firstGap>=0?firstGap+2:prefill.length;
-    try{ ed.setSelectionRange(pos,pos); }catch(e){}
-  },50);
+  try{
+    startEscapeMode(D.firstName, D.lastName, Array.isArray(D.tasks)?D.tasks:[], Array.isArray(D.redFields)?D.redFields:[]);
+  }catch(e){ console.error("Escape-Auto-Start fehlgeschlagen:", e); }
 })();
 <\/script>
 </body>
 </html>
 
 </script>
-
 <script>
 /* ============================================================
    GAME STATE & DATA
@@ -3423,51 +4173,83 @@ function renderFinal() {
       </span>
     </div>
 
-    <div class="card" style="padding: 32px 36px;">
-      <h2 style="font-size:24px; margin-bottom: 14px;">Zwei Schritte zum Abschluss</h2>
-
+    <div class="card" style="padding: 28px 32px;">
+      <h2 style="font-size:22px; margin-bottom: 14px;">Zum Abschluss</h2>
       <div class="final-video">
         <div class="video-wrap">
           <iframe width="560" height="315" src="https://www.youtube.com/embed/4Xfhu4AiD-E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
-        <div class="fallback-line">
+        <div class="fallback-line" style="margin-bottom:0;">
           <a class="btn btn-ghost btn-small" href="https://youtu.be/4Xfhu4AiD-E" target="_blank" rel="noopener noreferrer">Video auf YouTube öffnen ↗</a>
           <span>Falls das Video hier nicht abspielt, öffnet der Button es in einem neuen Tab.</span>
         </div>
       </div>
+    </div>
 
-      <p class="text-mute" style="font-size: 14px; margin-bottom: 24px;">Beide Schritte sind nötig, damit deine Lehrkraft den Abschluss verbuchen kann.</p>
+    <div class="card" style="padding: 28px 32px;">
+      <h2 style="font-size:22px; margin-bottom:6px;">Deine Übersicht sichern</h2>
+      <p class="text-mute" style="font-size:13.5px; margin-bottom:16px;">Hier bekommst du eine PDF mit deinen Antworten, deinem Code und den Lösungserläuterungen. Die Datei landet in deinem Download-Ordner – dort kannst du sie jederzeit öffnen. Sie ist deine Sicherheitskopie: Falls du den Weg in die Arena einmal verlierst, kannst du diese Datei auf <strong>feiditor.janrickmer.de</strong> hochladen und dort weitermachen.</p>
+      <button class="btn-download" onclick="downloadOverviewPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 19h16"/></svg>
+        Überblick als PDF herunterladen
+      </button>
+    </div>
 
-      <div class="final-actions">
-        <button class="final-action" onclick="downloadMistakesPDF()">
-          <div class="icon-row">
-            <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8" fill="none"/>
-              <line x1="9" y1="13" x2="15" y2="13"/>
-              <line x1="9" y1="16" x2="15" y2="16"/>
-            </svg>
-            <span class="label">Schritt 1 · Pflicht</span>
-          </div>
-          <div class="title">„Überblick deiner Antworten & Erläuterungen" herunterladen</div>
-          <div class="desc">Persönliches PDF mit deinem Namen, Geburtsdatum, dem Bestätigungscode und dem Abschlusszeitpunkt – plus einer Seite mit Lösungserläuterungen. <strong>Lade dieses PDF in Moodle hoch.</strong></div>
-        </button>
+    <div class="arena">
+      <div class="arena-kicker">Das große Finale</div>
+      <h2>Betritt die Arena</h2>
+      <p>Alle sechs Ordner sind abgezeichnet, der Tresor ist offen. Jetzt wartet dein letzter Gegner: der <strong style="color:#f0cf78">Feiditor</strong>. In der Arena zeigst du schriftlich, was du wirklich verstanden hast. Klicke auf den Durchgang, um einzutreten – die Arena öffnet sich in einem neuen Tab.</p>
+      <button class="arena-gate" onclick="openFeiditor()" aria-label="Durchgang anklicken und die Arena betreten">
+        <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ein dunkler Gang führt auf das hell erleuchtete Spielfeld einer Arena">
+          <defs>
+            <linearGradient id="arWallL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#25324f"/></linearGradient>
+            <linearGradient id="arWallR" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#25324f"/></linearGradient>
+            <linearGradient id="arCeil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05080f"/><stop offset="1" stop-color="#1b2744"/></linearGradient>
+            <linearGradient id="arFloor" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#080d18"/><stop offset="1" stop-color="#2a3856"/></linearGradient>
+            <linearGradient id="arSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2a4c"/><stop offset="1" stop-color="#6a8fc4"/></linearGradient>
+            <linearGradient id="arGrass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#62c45c"/><stop offset="1" stop-color="#2d8a3c"/></linearGradient>
+            <radialGradient id="arGlow" cx="50%" cy="55%" r="60%"><stop offset="0" stop-color="#fff8e1" stop-opacity="1"/><stop offset="0.5" stop-color="#d9f0c8" stop-opacity=".7"/><stop offset="1" stop-color="#d9f0c8" stop-opacity="0"/></radialGradient>
+            <pattern id="arCrowd" width="9" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.5" fill="#ffd97a"/></pattern>
+          </defs>
+          <rect width="800" height="460" fill="#05080f"/>
+          <g class="gate-field">
+            <rect x="300" y="140" width="200" height="200" fill="url(#arSky)"/>
+            <rect x="300" y="196" width="200" height="66" fill="#1f2f4f"/>
+            <rect x="300" y="200" width="200" height="60" fill="url(#arCrowd)" opacity=".55"/>
+            <rect x="300" y="262" width="200" height="78" fill="url(#arGrass)"/>
+            <line x1="300" y1="300" x2="500" y2="300" stroke="#fff" stroke-opacity=".75" stroke-width="1.4"/>
+            <circle cx="400" cy="300" r="20" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="1.4"/>
+            <rect x="300" y="262" width="200" height="78" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.2"/>
+            <g fill="#fff6d5" opacity=".95">
+              <rect x="318" y="150" width="4" height="52" rx="1"/><rect x="304" y="146" width="32" height="7" rx="2"/>
+              <rect x="478" y="150" width="4" height="52" rx="1"/><rect x="464" y="146" width="32" height="7" rx="2"/>
+            </g>
+            <ellipse cx="400" cy="240" rx="150" ry="118" fill="url(#arGlow)" opacity=".7"/>
+          </g>
+          <polygon points="0,0 300,140 300,340 0,460" fill="url(#arWallL)"/>
+          <polygon points="800,0 500,140 500,340 800,460" fill="url(#arWallR)"/>
+          <polygon points="0,0 800,0 500,140 300,140" fill="url(#arCeil)"/>
+          <polygon points="0,460 800,460 500,340 300,340" fill="url(#arFloor)"/>
+          <g stroke="#3b4d74" stroke-width="1" opacity=".5">
+            <line x1="90" y1="460" x2="325" y2="340"/><line x1="215" y1="460" x2="355" y2="340"/><line x1="400" y1="460" x2="400" y2="340"/><line x1="585" y1="460" x2="445" y2="340"/><line x1="710" y1="460" x2="475" y2="340"/>
+            <line x1="0" y1="118" x2="300" y2="192"/><line x1="0" y1="232" x2="300" y2="242"/><line x1="0" y1="346" x2="300" y2="292"/>
+            <line x1="800" y1="118" x2="500" y2="192"/><line x1="800" y1="232" x2="500" y2="242"/><line x1="800" y1="346" x2="500" y2="292"/>
+            <line x1="150" y1="70" x2="300" y2="140"/><line x1="150" y1="390" x2="300" y2="340"/><line x1="650" y1="70" x2="500" y2="140"/><line x1="650" y1="390" x2="500" y2="340"/>
+          </g>
+          <g fill="#ffe9a8" opacity=".85">
+            <rect x="140" y="52" width="40" height="6" rx="3"/><rect x="232" y="92" width="30" height="5" rx="2.5"/><rect x="288" y="122" width="20" height="4" rx="2"/>
+            <rect x="620" y="52" width="40" height="6" rx="3"/><rect x="538" y="92" width="30" height="5" rx="2.5"/><rect x="492" y="122" width="20" height="4" rx="2"/>
+          </g>
+          <ellipse class="gate-glow" cx="400" cy="240" rx="230" ry="190" fill="url(#arGlow)"/>
+          <rect x="300" y="140" width="200" height="200" fill="none" stroke="#d6b25e" stroke-width="2.5" opacity=".9"/>
+        </svg>
+        <span class="arena-cta">Durchgang anklicken · Arena betreten</span>
+      </button>
+      <div class="arena-foot">In der Arena sind die Aufgaben schon eingetragen. Am Ende wandelst du deinen Text in eine PDF-Datei um und lädst sie bei Moodle hoch.</div>
+    </div>
 
-        <button class="final-action" onclick="openFeiditor()">
-          <div class="icon-row">
-            <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8" fill="none"/>
-              <path d="M16.5 11.5l1.4 1.4-4.2 4.2-1.6.2.2-1.6z" fill="none" stroke-linejoin="round"/>
-            </svg>
-            <span class="label">Schritt 2 · Digitales Arbeitsblatt</span>
-          </div>
-          <div class="title">Arbeitsblatt im Feiditor öffnen</div>
-          <div class="desc">Der Feiditor öffnet sich in einem neuen Fenster mit den vorgegebenen Aufgaben. Beantworte sie dort, wandle deinen Text in eine PDF um und <strong>lade auch diese PDF in Moodle hoch.</strong></div>
-        </button>
-      </div>
-
-      <div style="margin-top:32px; padding-top:24px; border-top:1px solid var(--c-border-soft);">
+    <div class="card" style="padding: 28px 32px; margin-top:22px;">
+      <div>
         <h3 style="font-size:18px; font-weight:700; margin-bottom:12px;">Was du jetzt weißt</h3>
         <ul class="muted-list" style="font-size:14px;">
           <li><strong style="color:var(--c-blue-deep)">Religionsbegriffe</strong> – substanziell (Was ist Religion ihrem Kern nach?) und funktional (Was leistet Religion?)</li>
@@ -3593,9 +4375,11 @@ window.downloadReflexionPDF = () => {
 };
 
 /* ============================================================
-   DIGITALES ARBEITSBLATT IM FEIDITOR
-   (Programmierung wie in den Referenz-Escape-Rooms; nur die
-    Aufgabenstellungen wurden an diesen Escape-Room angepasst)
+   DIGITALES ARBEITSBLATT IM FEIDITOR („Arena")
+   Der eingebettete Feiditor (neue Version mit Rich-Text, Rot-Anteil,
+   Batch-Ansicht und Rekonstruktion per PDF-Upload) wird per
+   document.write in einem neuen Tab geöffnet und startet automatisch
+   mit den Aufgaben dieses Escape-Rooms.
    ============================================================ */
 window.openFeiditor = () => {
   try {
@@ -3603,50 +4387,69 @@ window.openFeiditor = () => {
     if (!tplEl) { alert('Der Feiditor konnte nicht geladen werden.'); return; }
     // Eingebetteten Feiditor-Quelltext holen und die escapten Script-End-Tags wiederherstellen
     let html = tplEl.textContent.replace(/<\\\/script>/gi, '<\/script>');
-    // Escape-Room-Daten + die ersten sechs Aufgaben in den Feiditor injizieren (vor </head>)
+    // Escape-Room-Daten in den Feiditor injizieren: Name, die sechs Aufgaben, die roten Felder
+    // und alle Daten für die Übersichts-Seiten der kombinierten PDF
     const data = {
       firstName: state.firstName,
       lastName:  state.lastName,
       birthDate: state.birthDate,
       code:      state.code,
-      tasks:     REFLECT_TASKS.slice(0, 6)
+      tasks:     REFLECT_TASKS.slice(0, 6),
+      redFields: RED_FIELDS,
+      overview:  {
+        firstName:     state.firstName,
+        lastName:      state.lastName,
+        birthDate:     state.birthDate,
+        code:          state.code,
+        completedAt:   fmtDateTime(state.completedAt),
+        attempts:      state.attempts,
+        mistakes:      state.mistakes,
+        hintMax:       state.hintMax,
+        roomLabels:    ROOM_LABELS,
+        solutionNotes: SOLUTION_NOTES,
+        subtitle:      PDF_SUBLINE
+      }
     };
     const inject = '<script>window.__ESCAPE_DATA__=' + JSON.stringify(data).replace(/</g, '\\u003c') + ';<\/script>';
-    if (html.indexOf('</head>') !== -1) html = html.replace('</head>', inject + '\n</head>');
+    // Direkt nach dem öffnenden <head> einfügen (erstes Vorkommen = echter Dokument-Head;
+    // ein </head> käme auch in JS-Strings des Feiditors vor und wäre kein sicherer Anker)
+    if (html.indexOf('<head>') !== -1) html = html.replace('<head>', '<head>\n' + inject);
     else html = inject + html;
     // Per document.write öffnen, damit der sichere Kontext (crypto.subtle) erhalten bleibt.
     // Ein Blob-URL würde den secure context verlieren -> Verschlüsselung schlägt fehl.
+    // window.open steht synchron im Klick-Handler (kein await davor).
     const win = window.open('', '_blank');
-    if (!win) { alert('Bitte erlaube Pop-ups für diese Seite, damit sich das digitale Arbeitsblatt öffnen kann.'); return; }
+    if (!win) { alert('Bitte erlaube Pop-ups für diese Seite, damit sich die Arena (der Feiditor) öffnen kann.'); return; }
     win.document.open();
     win.document.write(html);
     win.document.close();
-  } catch (e) { console.error(e); alert('Das digitale Arbeitsblatt konnte nicht geöffnet werden: ' + e.message); }
+  } catch (e) { console.error(e); alert('Die Arena (der Feiditor) konnte nicht geöffnet werden: ' + e.message); }
 };
 
-window.downloadMistakesPDF = () => {
+window.downloadOverviewPDF = () => {
   try {
     const b64 = generateMistakesPdf();
-    const name = translit(state.lastName) || 'Schueler';
-    const filename = `Ueberblick_${name}_${state.code}.pdf`;
+    const clean = (s) => (s || '').trim().replace(/\s+/g, '-').replace(/[\/\\:*?"<>|]+/g, '');
+    const vn = clean(state.firstName) || 'Vorname';
+    const nn = clean(state.lastName) || 'Nachname';
+    const filename = `Escape-Room-Überblick_von_${vn}_${nn}.pdf`;
     const binary = atob(b64);
     const bytes = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-    const blob = new Blob([bytes], { type: 'application/pdf' });
+    // Als generischer Binärstrom (octet-stream) statt application/pdf: So kann kein Browser die Datei
+    // inline anzeigen – auch Firefox/Chrome mit „PDF im Browser öffnen" müssen sie speichern. Der Name
+    // (.pdf) kommt über das download-Attribut; die Datei selbst ist eine ganz normale PDF.
+    const blob = new Blob([bytes], { type: 'application/octet-stream' });
     const url = URL.createObjectURL(blob);
-    // 1) PDF in neuem Tab öffnen (die finale Seite bleibt im Ausgangstab bestehen)
-    window.open(url, '_blank');
-    // 2) Dieselbe Datei zusätzlich im Hintergrund herunterladen
     const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
+    link.href = url; link.download = filename; link.rel = 'noopener'; link.style.display = 'none';
     document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    setTimeout(() => URL.revokeObjectURL(url), 60000);
+    link.click();   // synchron im Klick-Handler -> gilt als vom Nutzer ausgelöst; kein window.open, kein neuer Tab
+    // Link und Object-URL erst verzögert entfernen: manche Browser brechen den Download sonst ab
+    setTimeout(() => { try { document.body.removeChild(link); } catch (e) {} URL.revokeObjectURL(url); }, 5000);
   } catch (e) {
     console.error('Overview PDF generation failed:', e);
-    alert('Konnte die Datei „Überblick deiner Antworten & Erläuterungen" nicht erzeugen: ' + e.message);
+    alert('Konnte die Datei „Escape-Room-Überblick" nicht erzeugen: ' + e.message);
   }
 };
 
