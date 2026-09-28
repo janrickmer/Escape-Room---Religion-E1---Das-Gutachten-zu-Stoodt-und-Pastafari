@@ -609,10 +609,11 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
   .screen.active{display:block}
 
   /* ---------- Start ---------- */
-  #screen-start{display:none; place-items:center; padding:40px 20px}
-  #screen-start.active{display:grid}
+  #screen-start{display:none; padding:0}
+  #screen-start.active{display:block}
+  .start-wrap{max-width:680px; margin:0 auto; padding:48px 20px 90px}
   .card{
-    width:100%; max-width:440px; background:var(--paper2);
+    width:100%; max-width:440px; margin:0 auto; background:var(--paper2);
     border:1px solid var(--line); border-radius:14px; padding:40px 36px;
     box-shadow:0 18px 50px -28px var(--shadow);
   }
@@ -641,6 +642,18 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
   .foot{margin-top:24px; padding-top:16px; border-top:1px solid var(--line); text-align:center}
   .foot a{color:var(--muted); font-size:12.5px; text-decoration:none; letter-spacing:.04em}
   .foot a:hover{color:var(--accent); text-decoration:underline}
+  /* Infokasten unter der Anmeldekarte (optional, z. B. Lerntagebuch-Feiditor) */
+  .infobox{
+    margin:28px auto 0; max-width:680px; background:#f4ecd9;
+    border:1px solid #e4d8bd; border-left:4px solid var(--accent); border-radius:12px;
+    padding:24px 28px; color:#3f372b; font-size:14px; line-height:1.62;
+  }
+  .ib-title{font-family:var(--serif); font-size:21px; color:var(--accent); margin:0 0 12px; font-weight:600}
+  .infobox p{margin:0 0 12px}
+  .ib-sub{font-family:var(--sans); font-size:13.5px; letter-spacing:.02em; color:var(--ink); margin:18px 0 8px; font-weight:700}
+  .infobox ul{margin:0 0 12px; padding-left:20px}
+  .infobox li{margin:0 0 5px}
+  .infobox li:last-child{margin-bottom:0}
 
   /* ---------- Editor ---------- */
   #screen-editor{display:none; flex-direction:column; height:100vh}
@@ -652,10 +665,15 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
   .who{font-family:var(--serif); font-size:16px}
   .who .lbl{font-family:var(--sans); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-right:8px}
   .count{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums}
-  .paperwrap{flex:1; overflow:auto; display:flex; flex-direction:column; align-items:center; padding:34px 20px 150px}
+  .paperwrap{flex:1; overflow:auto; display:flex; flex-direction:column; align-items:center; padding:34px 20px 170px}
+  /* Roter Hinweis über dem Texteditor (nur ohne vorbefüllte Aufgaben) */
+  .taskhint{
+    width:100%; max-width:760px; margin:0 0 14px; color:#b3261e; font-family:var(--sans);
+    font-size:14.5px; font-weight:700; line-height:1.45; text-align:center;
+  }
   .sheet{
-    width:100%; max-width:760px; background:var(--paper2); border:1px solid var(--line);
-    border-radius:6px; box-shadow:0 24px 60px -40px var(--shadow); padding:56px 60px;
+    position:relative; width:100%; max-width:760px; background:var(--paper2); border:1px solid var(--line);
+    border-radius:6px; box-shadow:0 24px 60px -40px var(--shadow); padding:56px 60px 110px;
   }
   #editor{
     width:100%; min-height:60vh; border:0; outline:0; background:transparent;
@@ -665,6 +683,47 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
   #editor:focus{outline:0}
   #editor .heading{font-weight:700; font-size:2em; line-height:1.25; margin:.1em 0}
   #editor.empty::before{content:attr(data-placeholder); color:#b9b0a0; pointer-events:none}
+
+  /* Aufgabenblöcke: fest (nicht editierbar), fett; ein Klick zeigt das rote „x" zum Entfernen.
+     Der obere Abstand lässt Platz für den Button „Neuen Aufgabentext eintragen" unter der Antwortzeile davor. */
+  #editor .task{
+    position:relative; font-weight:700; margin:44px 0 6px; padding:2px 34px 2px 0;
+    border-radius:4px; cursor:default;
+  }
+  #editor .task:first-child{margin-top:0}
+  #editor .task.selected{background:#fdecea; box-shadow:0 0 0 1px #f5b8b1}
+  #editor .task .task-label{
+    display:inline-block; font-family:var(--sans); font-size:12px; font-weight:700;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:2px;
+  }
+  #editor .task .task-x{
+    display:none; position:absolute; right:4px; top:4px; width:22px; height:22px; padding:0;
+    border:1.5px solid #b3261e; border-radius:50%; background:#fff; color:#b3261e;
+    font:700 15px/19px var(--sans); text-align:center; cursor:pointer;
+  }
+  #editor .task.selected .task-x{display:block}
+  #editor .task .task-x:hover{background:#b3261e; color:#fff}
+
+  /* Button „Neuen Aufgabentext eintragen" – schwebt immer eine Zeile unter der aktuellen Eingabezeile */
+  .taskbtn{
+    position:absolute; left:60px; top:56px; z-index:3; font-family:var(--sans); font-size:12.5px; font-weight:600;
+    letter-spacing:.01em; color:#b3261e; background:var(--paper2); border:1px dashed #d9a39c; border-radius:8px;
+    padding:5px 11px; cursor:pointer; white-space:nowrap; transition:background .12s;
+  }
+  .taskbtn:hover{background:#fdecea}
+  .taskbtn:active{transform:translateY(1px)}
+  .taskform{
+    position:absolute; left:60px; right:60px; top:56px; z-index:4; background:var(--paper2);
+    border:1.5px solid #b3261e; border-radius:10px; padding:14px 16px; box-shadow:0 18px 40px -22px var(--shadow);
+  }
+  .taskform label{color:#b3261e}
+  .taskform textarea{
+    display:block; width:100%; min-height:74px; resize:vertical; font-family:var(--serif); font-size:17px; line-height:1.5;
+    color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:9px; padding:9px 12px; outline:none;
+  }
+  .taskform textarea:focus{border-color:#b3261e; box-shadow:0 0 0 3px rgba(179,38,30,.14)}
+  .taskform .row{display:flex; gap:10px; justify-content:flex-end; margin-top:10px}
+  .taskform .btn{padding:9px 14px; font-size:14px}
 
   /* ---------- Formatierungsleiste (Word-artig) ---------- */
   .formatbar{
@@ -686,9 +745,13 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
   .fbtn .u{text-decoration:underline}
   .fsep{width:1px; height:22px; background:var(--line); margin:0 3px}
   .actionbar{
-    position:fixed; left:0; right:0; bottom:0; display:flex; justify-content:center;
+    position:fixed; left:0; right:0; bottom:0; display:flex; flex-direction:column; align-items:center; gap:12px;
     padding:16px 16px 46px; background:linear-gradient(to top, var(--paper) 60%, rgba(247,244,236,0));
   }
+  .dl-panel{display:flex; flex-direction:column; align-items:center; gap:9px}
+  .dl-hint{font-size:12.5px; color:var(--muted); text-align:center}
+  .dl-row{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
+  .dl-link{text-decoration:none; font-size:13.5px; padding:9px 14px}
   .copyright{
     position:fixed; left:0; right:0; bottom:13px; text-align:center;
     font-size:11px; letter-spacing:.05em; color:var(--muted); pointer-events:none; z-index:6;
@@ -770,31 +833,34 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 
 <!-- ============ START ============ -->
 <section id="screen-start" class="screen active">
-  <div class="card">
-    <p class="brand">Feiditor</p>
-    <h1>Bevor du beginnst</h1>
-    <p class="sub">Bitte trage deinen Namen ein. Danach öffnet sich der Schreibbereich.</p>
-    <div class="field">
-      <label for="vorname">Vorname</label>
-      <input type="text" id="vorname" autocomplete="off" spellcheck="false">
-    </div>
-    <div class="field">
-      <label for="nachname">Nachname</label>
-      <input type="text" id="nachname" autocomplete="off" spellcheck="false">
-    </div>
-    <p class="err" id="start-err"></p>
-    <button class="btn block" id="start-btn">Schreibbereich öffnen</button>
-
-    <div class="esc-upload">
-      <p class="sub">Kommst du aus einem Escape-Room und hast den Feiditor-Link verloren? Lade hier deine <strong>Überblick-PDF</strong> hoch – der Feiditor öffnet sich dann mit deinen Aufgaben.</p>
-      <div class="drop" id="esc-drop">
-        <p style="margin:0 0 10px"><strong>Überblick-PDF auswählen</strong> oder hierher ziehen</p>
-        <input type="file" id="esc-input" accept="application/pdf,.pdf">
+  <div class="start-wrap">
+    <div class="card">
+      <p class="brand">Feiditor</p>
+      <h1>Bevor du beginnst</h1>
+      <p class="sub">Bitte trage deinen Namen ein. Danach öffnet sich der Schreibbereich.</p>
+      <div class="field">
+        <label for="vorname">Vorname</label>
+        <input type="text" id="vorname" autocomplete="off" spellcheck="false">
       </div>
-      <p class="err" id="esc-err"></p>
-    </div>
+      <div class="field">
+        <label for="nachname">Nachname</label>
+        <input type="text" id="nachname" autocomplete="off" spellcheck="false">
+      </div>
+      <p class="err" id="start-err"></p>
+      <button class="btn block" id="start-btn">Schreibbereich öffnen</button>
 
-    <div class="foot"><a href="#" id="to-teacher">Lehrkraft</a></div>
+      <div class="esc-upload" id="esc-upload">
+        <p class="sub">Kommst du aus einem Escape-Room und hast den Feiditor-Link verloren? Lade hier deine <strong>Überblick-PDF</strong> hoch – der Feiditor öffnet sich dann mit deinen Aufgaben.</p>
+        <div class="drop" id="esc-drop">
+          <p style="margin:0 0 10px"><strong>Überblick-PDF auswählen</strong> oder hierher ziehen</p>
+          <input type="file" id="esc-input" accept="application/pdf,.pdf">
+        </div>
+        <p class="err" id="esc-err"></p>
+      </div>
+
+      <div class="foot"><a href="#" id="to-teacher">Lehrkraft</a></div>
+    </div>
+    <!-- Infokasten (optional; im Lerntagebuch-Feiditor steht hier die Erläuterung zum Lerntagebuch) -->
   </div>
 </section>
 
@@ -812,12 +878,28 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
     <button type="button" class="fbtn wide" id="fb-heading" title="Überschrift (fett, doppelte Größe)">Überschrift</button>
   </div>
   <div class="paperwrap">
-    <div class="sheet">
+    <p class="taskhint" id="taskhint">Bitte trage zuerst die Aufgabenstellung ein (Button „Neuen Aufgabentext eintragen“ unter der Eingabezeile), bevor du deine Antwort verfasst.</p>
+    <div class="sheet" id="sheet">
       <div id="editor" contenteditable="true" spellcheck="true" data-placeholder="Hier schreiben…"></div>
+      <button type="button" class="taskbtn" id="taskbtn">Neuen Aufgabentext eintragen</button>
+      <div class="taskform hidden" id="taskform">
+        <label for="taskinput">Aufgabentext</label>
+        <textarea id="taskinput" rows="3" spellcheck="true" placeholder="Aufgabenstellung hier eintragen …"></textarea>
+        <div class="row">
+          <button type="button" class="btn ghost" id="task-cancel">Abbrechen</button>
+          <button type="button" class="btn" id="task-ok">Aufgabentext einfügen</button>
+        </div>
+      </div>
     </div>
     <div class="moodle-hints" id="moodle-hints"></div>
   </div>
   <div class="actionbar">
+    <div id="dl-panel" class="dl-panel hidden">
+      <span class="dl-hint">Datei erstellt. Falls der Download nicht automatisch startet, hier herunterladen:</span>
+      <div class="dl-row">
+        <a id="dl-pdf" class="btn ghost dl-link" download>Textdatei (PDF)</a>
+      </div>
+    </div>
     <button class="btn" id="export-btn">Text in PDF-Datei umwandeln</button>
   </div>
 </section>
@@ -849,11 +931,24 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 
 <div id="pagefoot" class="copyright">Copyright Jan-Rickmer Feindt</div>
 
+<!-- Optionale Konfiguration (z. B. Lerntagebuch-Feiditor): ein eigenes Skript vor der Engine kann window.FEIDITOR_CONFIG={prefill:[…],prefillLabels:false,showEscapeUpload:false,pdfName:function(vorname,nachname){…}} setzen -->
 <script>
 /* ====================================================================== *
  *  Selbst gebauter, vollständig offline laufender Editor mit Tracking.   *
  *  Keine externen Bibliotheken, keine Netzwerkaufrufe.                   *
+ *                                                                        *
+ *  EINE Engine für alle Feiditoren (Standalone, Lerntagebuch, Escape-    *
+ *  Rooms). Unterschiede entstehen nur über window.FEIDITOR_CONFIG        *
+ *  (vorbefüllte Aufgaben usw.) bzw. window.__ESCAPE_DATA__ (Escape-Room).*
  * ====================================================================== */
+
+/* ---------------------------- Konfiguration ---------------------------- */
+const CFG=Object.assign({
+  prefill:[],             // vorbefüllte Aufgaben (Strings) – z. B. die Fragen des Lerntagebuchs
+  prefillLabels:false,    // true: „Aufgabe 1", „Aufgabe 2", … über jeder vorbefüllten Aufgabe
+  showEscapeUpload:true,  // Upload einer Escape-Room-Überblick-PDF auf der Startseite anbieten
+  pdfName:null            // function(vorname,nachname) -> Dateiname der PDF; null = Standard
+}, window.FEIDITOR_CONFIG||{});
 
 /* ---------- Helvetica-Glyphbreiten (AFM, Einheiten/1000), nach Byte ---------- */
 const HELV={32:278,33:278,34:355,35:556,36:556,37:889,38:667,39:191,40:333,41:333,42:389,43:584,44:278,45:333,46:278,47:278,48:556,49:556,50:556,51:556,52:556,53:556,54:556,55:556,56:556,57:556,58:278,59:278,60:584,61:584,62:584,63:556,64:1015,65:667,66:667,67:722,68:722,69:667,70:611,71:778,72:722,73:278,74:500,75:667,76:556,77:833,78:722,79:778,80:667,81:778,82:722,83:667,84:611,85:722,86:667,87:944,88:667,89:667,90:611,91:278,92:278,93:278,94:469,95:556,96:333,97:556,98:556,99:500,100:556,101:556,102:278,103:556,104:556,105:222,106:222,107:500,108:222,109:833,110:556,111:556,112:556,113:556,114:333,115:500,116:278,117:556,118:500,119:722,120:500,121:500,122:500,123:334,124:260,125:334,126:584,133:1000,145:222,146:222,147:333,148:333,149:350,150:556,151:1000,160:278,161:333,162:556,163:556,164:556,165:556,166:260,167:556,168:333,169:737,170:370,171:556,172:584,173:333,174:737,175:333,176:400,177:584,178:333,179:333,180:333,181:556,182:537,183:278,184:333,185:333,186:365,187:556,188:834,189:834,190:834,191:611,192:667,193:667,194:667,195:667,196:667,197:667,198:1000,199:722,200:667,201:667,202:667,203:667,204:278,205:278,206:278,207:278,208:722,209:722,210:778,211:778,212:778,213:778,214:778,215:584,216:778,217:722,218:722,219:722,220:722,221:667,222:667,223:611,224:556,225:556,226:556,227:556,228:556,229:556,230:889,231:500,232:556,233:556,234:556,235:556,236:278,237:278,238:278,239:278,240:556,241:556,242:556,243:556,244:556,245:556,246:556,247:584,248:611,249:556,250:556,251:556,252:556,253:500,254:556,255:500};
@@ -900,6 +995,11 @@ function lineToRuns(lineChars){
   return runs;
 }
 
+/* ============================================================
+   HILFSKLASSEN FÜR DIE ÜBERSICHTS-SEITEN DER ESCAPE-ROOMS
+   (in allen Feiditoren identisch; genutzt nur, wenn ein Escape-Room
+   eine Funktion buildOverviewPages(ov) ergänzt – siehe unten)
+   ============================================================ */
 const WIN_ANSI_MAP = {
   'ä':0xE4,'ö':0xF6,'ü':0xFC,'Ä':0xC4,'Ö':0xD6,'Ü':0xDC,'ß':0xDF,
   '€':0x80,'‚':0x82,'„':0x84,'…':0x85,'†':0x86,'‡':0x87,
@@ -1010,10 +1110,11 @@ function fmtDateTime(d){
 }
 
 /* ============================================================
-   ÜBERSICHTS-SEITEN (aus dem Escape-Room übergeben) — werden als
-   zusätzliche Seiten hinter den Aufgaben-Seiten in die PDF gehängt.
-   Liefert Content-Streams (nutzt /F1 = Helvetica, /F2 = Helvetica-Bold,
-   die der Feiditor-Writer ebenfalls definiert).
+   ESCAPE-ROOM-ÜBERSICHTS-SEITEN
+   Jeder Escape-Room ergänzt an dieser Stelle seine eigene Funktion
+   buildOverviewPages(ov) (liefert die Content-Streams seiner Übersichts-
+   Seiten). Fehlt sie – wie im Standalone- und Lerntagebuch-Feiditor –,
+   hat die PDF keine Übersichts-Seiten.
    ============================================================ */
 function buildOverviewPages(ov){
   // Portiert aus generateMistakesPdf() des Escape-Rooms „Das Gutachten" (Ev. Religion, E-Phase):
@@ -1238,7 +1339,6 @@ function buildPdf(opts){
     }
     objects[contObjNum(i)]={stream:s};
   }
-
   // Übersichts-Seiten anhängen (Content-Streams nutzen /F1 und /F2, die oben definiert sind)
   for(let k=0;k<ovStreams.length;k++){
     const i=nPages+k;
@@ -1272,7 +1372,7 @@ async function aesDecrypt(bundle,codeStr){const parts=bundle.split(":");const iv
 function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
 function classify(isVisible,src,gap){
   const COL={plain:"#23201b",paste:"#b3261e",fast:"#c2710c",slow:"#1f7a34",system:"#23201b"};
-  if(src==="s") return COL.system;           // System-Text (vorbefüllte Aufgaben) -> schwarz wie normaler Text, nie farbig
+  if(src==="s"||src==="q") return COL.system; // vorgegebener Aufgabentext (bzw. Frage älterer Lerntagebuch-PDFs) -> schwarz, nie farbig
   if(!isVisible) return COL.plain;
   if(src==="p") return COL.paste;            // aus Zwischenablage -> rot
   if(gap>=0&&gap<=15) return COL.paste;      // <= 0,015 s getippt -> rot
@@ -1280,13 +1380,13 @@ function classify(isVisible,src,gap){
   return COL.slow;                           // > 0,07 s / erstes Zeichen -> grün
 }
 const RED_LIMIT=50; // Rot-Anteil strikt ÜBER diesem Wert wird rot und fett hervorgehoben
-/* Zählt sichtbare, nicht vorbefüllte Zeichen nach Farbe – EINE Formel für Einzelansicht, Export und Tabelle */
+/* Zählt sichtbare, nicht vorgegebene Zeichen nach Farbe – EINE Formel für Einzelansicht, Export und Tabelle */
 function computeStats(t,m){
   const WS=/\s/; let total=0,red=0,orange=0,green=0;
   for(let i=0;i<t.length;i++){
     const ch=t[i]; const isV=!WS.test(ch);
     const mark=m[i]||["t",-1]; const col=classify(isV,mark[0],mark[1]);
-    if(isV && mark[0]!=="s"){ total++;
+    if(isV && mark[0]!=="s" && mark[0]!=="q"){ total++;
       if(col==="#b3261e") red++;
       else if(col==="#c2710c") orange++;
       else green++;
@@ -1318,6 +1418,7 @@ function renderAnalysis(payload){
       '<span><i class="sw" style="background:#b3261e"></i>eingefügt oder ≤ 0,015 s getippt</span>'+
       '<span><i class="sw" style="background:#c2710c"></i>0,015–0,07 s nach vorherigem Zeichen getippt</span>'+
       '<span><i class="sw" style="background:#1f7a34"></i>&gt; 0,07 s nach vorherigem Zeichen getippt</span>'+
+      '<span><i class="sw" style="background:#23201b"></i>vorgegebener Aufgabentext (nicht gewertet)</span>'+
     '</div>';
   const stat=`<p class="stat">Zeichen gesamt: ${s.total} · rot: ${s.red} (${s.redPct} %) · orange: ${s.orange} (${s.orangePct} %) · grün: ${s.green} (${s.greenPct} %)</p>`;
   const head=`<div class="nmeta">Verfasser:in — ${esc(payload.n||"")}</div>`;
@@ -1377,36 +1478,39 @@ function _kf(s){const n=(s.match(/\p{L}/gu)||[]).length;return _kfN(n);}
 
 /* ------------------------------ Tracking ------------------------------ */
 let prevValue="";
-let recs=[];          // pro Zeichen: {src:'t'|'p', t:ms}
+let recs=[];          // pro Zeichen: {src:'t'|'p'|'s', t:ms} – 's' = vorgegebener Aufgabentext (t=-1: kein Tipp-Tempo)
 let justPasted=false; // wird durch paste/drop gesetzt, nach einem input-Event geleert
 
-function reconcile(newVal,pasted,now){
+function reconcile(newVal,src,now){
   const a=prevValue,b=newVal; const minL=Math.min(a.length,b.length);
   let p=0; while(p<minL&&a[p]===b[p])p++;
   let s=0; while(s<minL-p&&a[a.length-1-s]===b[b.length-1-s])s++;
   const removed=a.length-p-s;
   const inserted=b.slice(p,b.length-s);
-  const ins=inserted.split("").map(()=>({src:pasted?"p":"t",t:now}));
+  const ins=inserted.split("").map(()=>({src:src,t:(src==="s")?-1:now}));
   recs.splice(p,removed,...ins);
   if(recs.length!==b.length){ // Sicherheitsnetz gegen Desync: Tipp-Info unbekannt (t=-1), nie fälschlich rot
     recs=b.split("").map(()=>({src:"t",t:-1}));
   }
   prevValue=newVal;
 }
-
-let systemSnippets=[]; // vorgeschriebene Textbausteine (Aufgabenlabels + Aufgabentexte) – immer System-Text
-function markSystemByContent(text,m){
-  // Markiert jedes Vorkommen eines vorgeschriebenen Bausteins als System ("s"), unabhängig vom
-  // Tracking-Zustand. So werden Aufgabenstellungen nie farbig (rot/orange/grün) ausgewertet.
-  for(const snip of systemSnippets){
-    if(!snip) continue;
-    let from=0, idx;
-    while((idx=text.indexOf(snip,from))!==-1){
-      for(let i=idx;i<idx+snip.length;i++){ if(m[i]) m[i][0]="s"; }
-      from=idx+snip.length;
-    }
+/* Aufgabenblöcke sind immer System-Text. Maßgeblich ist der Editor-Inhalt (fmt[i].s),
+   nicht der Tracking-Verlauf – so wird eine Aufgabenstellung nie farbig ausgewertet. */
+function applySystemFlags(fmt){
+  for(let i=0;i<recs.length;i++){
+    const sys=!!(fmt[i]&&fmt[i].s);
+    if(sys) recs[i]={src:"s",t:-1};
+    else if(recs[i].src==="s") recs[i]={src:"t",t:-1};
   }
 }
+/* Editor-Inhalt lesen und die Tracking-Daten daran angleichen (src: 't' getippt, 'p' eingefügt, 's' vorgegeben) */
+function syncTracking(src){
+  const ser=serializeEditor();
+  reconcile(ser.text,src,Date.now());
+  applySystemFlags(ser.fmt);
+  return ser;
+}
+
 function buildPayload(name,text,fmt,vn,nn){
   if(recs.length!==text.length){ // letzte Absicherung: Tipp-Info verloren -> Abstand unbekannt (nie fälschlich rot)
     recs=text.split("").map(()=>({src:"t",t:-1}));
@@ -1414,13 +1518,13 @@ function buildPayload(name,text,fmt,vn,nn){
   fmt=fmt||[];
   const m=[]; const f=[];
   for(let i=0;i<text.length;i++){
-    const gap=(i===0||recs[i].t<0||recs[i-1].t<0)?-1:(recs[i].t-recs[i-1].t);
-    m.push([recs[i].src,gap]);
     const ft=fmt[i]||{};
-    let bits=0; if(ft.b)bits|=1; if(ft.i)bits|=2; if(ft.u)bits|=4; if(ft.h)bits|=8;
+    const src=ft.s?"s":recs[i].src;
+    const gap=(i===0||src==="s"||recs[i].t<0||recs[i-1].t<0)?-1:(recs[i].t-recs[i-1].t);
+    m.push([src,gap]);
+    let bits=0; if(ft.b)bits|=1; if(ft.i)bits|=2; if(ft.u)bits|=4; if(ft.h)bits|=8; if(ft.s)bits|=16;
     f.push(bits);
   }
-  markSystemByContent(text,m);   // vorgeschriebene Aufgaben: immer System, nie farbig
   const r=computeStats(text,m).redPct; // Rot-Anteil in Prozent, wie ihn die Lehrkraft-Ansicht zeigt
   return {n:name,t:text,m,f,vn:vn||"",nn:nn||"",r};
 }
@@ -1448,9 +1552,16 @@ function downloadBlob(blob,filename){
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(()=>URL.revokeObjectURL(a.href),5000);
 }
+function setLink(el,blob,filename){
+  if(el._url) URL.revokeObjectURL(el._url);
+  const url=URL.createObjectURL(blob);
+  el._url=url; el.href=url; el.download=filename;
+}
 
 let studentVorname="", studentNachname="";
-let escapeRed=[];     // Texte der beiden roten Felder im Escape-Room-Modus
+let escapeRed=[];     // Texte der roten Felder im Escape-Room-Modus
+let escapeMode=false; // true: aus einem Escape-Room gestartet (Autostart oder Überblick-PDF)
+let prefilled=false;  // true: Aufgaben wurden vorbefüllt (Escape-Room, Lerntagebuch)
 
 function updateCharcount(){
   let n=0; for(const r of recs){ if(r.src!=="s") n++; }
@@ -1460,6 +1571,360 @@ function renderMoodleHints(){
   const box=$("moodle-hints"); if(!box) return;
   box.innerHTML=escapeRed.map(t=>`<div class="moodle-hint">${esc(t)}</div>`).join("");
 }
+function hideDlPanel(){ const dp=$("dl-panel"); if(dp) dp.classList.add("hidden"); }
+function makePdfName(){
+  if(typeof CFG.pdfName==="function") return CFG.pdfName(studentVorname,studentNachname);
+  if(escapeMode) return fileSafe("Escape Room Daten von "+studentVorname+" "+studentNachname)+".pdf";
+  return fileSafe("Text von "+studentVorname)+".pdf";
+}
+if(!CFG.showEscapeUpload){ const eu=$("esc-upload"); if(eu) eu.classList.add("hidden"); }
+
+/* ---------- Rich-Text-Editor: Blöcke, Aufgabenblöcke, Serialisierung ---------- */
+const ed=$("editor");
+function isBlockEl(node){ return !!(node&&node.nodeType===1&&/^(DIV|P|H[1-6]|LI|BLOCKQUOTE|PRE)$/.test(node.tagName)); }
+function isTask(el){ return !!(el&&el.nodeType===1&&el.classList&&el.classList.contains("task")); }
+function editorBlocks(){ return Array.prototype.filter.call(ed.childNodes,n=>n.nodeType===1); }
+function emptyBlock(){ const d=document.createElement("div"); d.appendChild(document.createElement("br")); return d; }
+function blockIsEmpty(b){ return !b || (b.textContent||"").replace(/\u200B/g,"")===""; }
+/* Aufgabenblock: nicht editierbar, fett; das „x" (data-noser) wird nie mit serialisiert */
+function makeTaskBlock(label,text){
+  const div=document.createElement("div");
+  div.className="task"; div.setAttribute("contenteditable","false"); div.setAttribute("draggable","false");
+  if(label){
+    const l=document.createElement("span"); l.className="task-label"; l.textContent=label;
+    div.appendChild(l); div.appendChild(document.createElement("br"));
+  }
+  const t=document.createElement("span"); t.className="task-text"; t.textContent=text; div.appendChild(t);
+  const x=document.createElement("button"); x.type="button"; x.className="task-x"; x.tabIndex=-1;
+  x.setAttribute("data-noser","1"); x.setAttribute("contenteditable","false");
+  x.title="Aufgabentext entfernen"; x.setAttribute("aria-label","Aufgabentext entfernen"); x.textContent="×";
+  div.appendChild(x);
+  return div;
+}
+/* Den Block (oberste DIV-Ebene im Editor), in dem ein Knoten liegt. */
+function blockOf(node){
+  if(!node||node===ed) return null;
+  let n=node;
+  while(n && n.parentNode!==ed) n=n.parentNode;
+  return (n && n.parentNode===ed && n.nodeType===1) ? n : null;
+}
+/* Block zu einer Selektionsgrenze (Container + Offset); liegt die Grenze direkt im Editor, zählt das Kind an dieser Stelle. */
+function blockAt(container,offset){
+  if(container===ed){
+    const kids=ed.childNodes; if(!kids.length) return null;
+    const n=kids[Math.min(offset,kids.length-1)]; return (n&&n.nodeType===1)?n:null;
+  }
+  return blockOf(container);
+}
+/* Aufgabenblock, in dem ein Knoten liegt (oder null). */
+function taskOf(node){ let n=node; while(n&&n!==ed){ if(isTask(n)) return n; n=n.parentNode; } return null; }
+
+/* Read-only: liest den contenteditable-Inhalt als {text, fmt} aus, OHNE das DOM
+   oder den Cursor zu verändern. Inline-Formatierung ändert den Text nicht, nur fmt –
+   dadurch bleiben die Tipp-Tempo-Daten (recs) über Formatierungen hinweg erhalten.
+   fmt[i].s = Zeichen gehört zu einem Aufgabenblock (inkl. der Zeilenumbrüche davor/danach). */
+function serializeEditor(){
+  const root=ed;
+  const chars=[]; const fmt=[];
+  const SYS={b:false,i:false,u:false,h:false,s:true};
+  function isBlock(node){ return isBlockEl(node); }
+  function lastIsNL(){ return chars.length===0 || chars[chars.length-1]==="\n"; }
+  function pushCh(ch,st){ chars.push(ch); fmt.push({b:st.b,i:st.i,u:st.u,h:st.h,s:st.s}); }
+  function lastSerializable(p){
+    for(let k=p.childNodes.length-1;k>=0;k--){ const c=p.childNodes[k]; if(c.nodeType===1&&c.hasAttribute("data-noser")) continue; return c; }
+    return null;
+  }
+  function lastChildOfBlock(node){ const p=node.parentNode; return p && isBlock(p) && lastSerializable(p)===node; }
+  function walk(node, st){
+    const kids=node.childNodes||[];
+    for(let k=0;k<kids.length;k++){
+      const child=kids[k];
+      if(child.nodeType===3){
+        const s=child.nodeValue||"";
+        for(const ch of s) pushCh(ch, st);
+      } else if(child.nodeType===1){
+        if(child.hasAttribute("data-noser")) continue;
+        const tag=child.tagName;
+        if(tag==="BR"){
+          if(lastChildOfBlock(child)){ /* Platzhalter-<br> -> kein Umbruch */ }
+          else pushCh("\n", st);
+          continue;
+        }
+        const ns={b:st.b,i:st.i,u:st.u,h:st.h,s:st.s};
+        if(tag==="B"||tag==="STRONG") ns.b=true;
+        if(tag==="I"||tag==="EM") ns.i=true;
+        if(tag==="U"||tag==="INS") ns.u=true;
+        const sty=child.style||{};
+        const fw=sty.fontWeight; if(fw==="bold"||fw==="bolder"||(fw&&parseInt(fw,10)>=600)) ns.b=true;
+        const fst=sty.fontStyle; if(fst&&String(fst).indexOf("italic")>=0) ns.i=true;
+        const td=(sty.textDecorationLine||sty.textDecoration||""); if(String(td).indexOf("underline")>=0) ns.u=true;
+        if(child.classList&&child.classList.contains("heading")){ ns.h=true; ns.b=true; }
+        if(/^H[1-6]$/.test(tag)){ ns.h=true; ns.b=true; }
+        try{ const cs=getComputedStyle(child); if(cs){ const w=cs.fontWeight; if(w==="bold"||w==="bolder"||(parseInt(w,10)>=600)) ns.b=true; if(String(cs.fontStyle||"").indexOf("italic")>=0) ns.i=true; } }catch(e){}
+        const task=isTask(child);
+        if(task){ ns.s=true; ns.b=true; ns.h=false; }
+        if(isBlock(child) && !lastIsNL()){
+          // Umbruch vor einem Block: gehört zum Aufgabentext, wenn dieser oder der vorherige Block ein Aufgabenblock ist
+          const prevTask=isTask(child.previousElementSibling);
+          pushCh("\n", (task||prevTask)?SYS:st);
+        }
+        walk(child, ns);
+      }
+    }
+  }
+  walk(root, {b:false,i:false,u:false,h:false,s:false});
+  return { text: chars.join(""), fmt };
+}
+
+/* Baut den Editor-Inhalt aus reinem Text neu auf (jede Zeile = ein Block-DIV). */
+function setEditorText(plain){
+  const root=ed; root.innerHTML="";
+  const lines=String(plain||"").split("\n");
+  for(const line of lines){
+    const div=document.createElement("div");
+    if(line==="") div.appendChild(document.createElement("br"));
+    else div.appendChild(document.createTextNode(line));
+    root.appendChild(div);
+  }
+  if(root.childNodes.length===0) root.appendChild(emptyBlock());
+  updateEmpty();
+}
+/* Editor mit vorgegebenen Aufgaben füllen: je Aufgabe ein fester Aufgabenblock + eine leere Antwortzeile.
+   Der Ausgangszustand ist komplett System-Text (grau gezählt wird nichts, nichts ist farbig). */
+function fillEditor(tasks,labelFn){
+  const root=ed; root.innerHTML="";
+  (tasks||[]).forEach((task,i)=>{
+    root.appendChild(makeTaskBlock(labelFn?labelFn(i):"", String(task==null?"":task)));
+    root.appendChild(emptyBlock());
+  });
+  if(!root.firstChild) root.appendChild(emptyBlock());
+  const ser=serializeEditor();
+  prevValue=ser.text; recs=ser.text.split("").map(()=>({src:"s",t:-1}));
+  applySystemFlags(ser.fmt);
+  updateEmpty(); updateCharcount();
+}
+
+/* Platzhalter ein-/ausblenden (CSS: #editor.empty::before) */
+function updateEmpty(){
+  ed.classList.toggle("empty", serializeEditor().text.length===0);
+}
+
+/* Struktur absichern: lose Text-/Inline-Knoten auf oberster Ebene werden zu Zeilenblöcken;
+   nach jedem Aufgabenblock (und am Ende) steht immer eine editierbare Zeile. */
+function normalizeBlocks(){
+  const root=ed; let changed=false;
+  const sel=window.getSelection(); let sc=null,so=0;
+  if(sel&&sel.rangeCount&&root.contains(sel.getRangeAt(0).startContainer)){ const r=sel.getRangeAt(0); sc=r.startContainer; so=r.startOffset; }
+  let n=root.firstChild;
+  while(n){
+    const next=n.nextSibling;
+    if(n.nodeType===3||(n.nodeType===1&&!isBlockEl(n))){
+      if(n.nodeType===3&&!n.nodeValue){ root.removeChild(n); changed=true; n=next; continue; }
+      const div=document.createElement("div"); root.insertBefore(div,n); div.appendChild(n);
+      let m=div.nextSibling;
+      while(m&&(m.nodeType===3||(m.nodeType===1&&!isBlockEl(m)))){ const mm=m.nextSibling; div.appendChild(m); m=mm; }
+      changed=true; n=div.nextSibling; continue;
+    }
+    n=next;
+  }
+  Array.prototype.slice.call(root.children).forEach((t)=>{
+    if(isTask(t)){ const nx=t.nextElementSibling; if(!nx||isTask(nx)){ root.insertBefore(emptyBlock(),t.nextSibling); changed=true; } }
+  });
+  if(!root.firstChild){ root.appendChild(emptyBlock()); changed=true; }
+  if(changed&&sc&&root.contains(sc)&&sc!==root){
+    try{
+      const r=document.createRange();
+      r.setStart(sc,Math.min(so,(sc.nodeType===3?sc.nodeValue.length:sc.childNodes.length))); r.collapse(true);
+      sel.removeAllRanges(); sel.addRange(r);
+    }catch(e){}
+  }
+  return changed;
+}
+
+/* Alle (editierbaren) Blöcke, die von der aktuellen Auswahl berührt werden. */
+function selectedBlocks(){
+  const root=ed; const sel=window.getSelection();
+  if(!sel||sel.rangeCount===0) return [];
+  const r=sel.getRangeAt(0);
+  let a=blockAt(r.startContainer,r.startOffset), b=blockAt(r.endContainer,r.endOffset);
+  const blocks=editorBlocks();
+  if(!a) a=blocks[0]; if(!b) b=blocks[blocks.length-1];
+  if(!a||!b) return [];
+  const ia=blocks.indexOf(a), ib=blocks.indexOf(b);
+  if(ia<0||ib<0) return [];
+  const lo=Math.min(ia,ib), hi=Math.max(ia,ib);
+  return blocks.slice(lo,hi+1).filter(x=>!isTask(x));
+}
+/* Überschrift für die ausgewählten Blöcke umschalten. */
+function toggleHeading(){
+  const blocks=selectedBlocks(); if(!blocks.length) return;
+  const allHead=blocks.every(b=>b.classList.contains("heading"));
+  blocks.forEach(b=>{ if(allHead) b.classList.remove("heading"); else b.classList.add("heading"); });
+  ed.focus();
+  updateFormatButtons();
+  positionTaskBtn();
+}
+/* Button-Zustände an die aktuelle Auswahl/Cursorposition anpassen. */
+function updateFormatButtons(){
+  const q=(c)=>{ try{ return document.queryCommandState(c); }catch(e){ return false; } };
+  $("fb-bold").classList.toggle("active", q("bold"));
+  $("fb-italic").classList.toggle("active", q("italic"));
+  $("fb-underline").classList.toggle("active", q("underline"));
+  const blocks=selectedBlocks();
+  const head = blocks.length>0 && blocks.every(b=>b.classList.contains("heading"));
+  $("fb-heading").classList.toggle("active", head);
+}
+/* Inline-Befehl (bold/italic/underline) ausführen; Auswahl bleibt erhalten. */
+function execInline(cmd){
+  ed.focus();
+  try{ document.execCommand(cmd,false,null); }catch(e){}
+  updateFormatButtons();
+  updateEmpty();
+}
+/* Cursor an den Anfang bzw. an das Ende eines Blocks setzen. */
+function placeCaretAtBlockStart(block){
+  if(!block) return;
+  const sel=window.getSelection(); const r=document.createRange();
+  r.setStart(block,0); r.collapse(true);
+  sel.removeAllRanges(); sel.addRange(r);
+}
+function placeCaretAtBlockEnd(block){
+  if(!block) return;
+  const sel=window.getSelection(); const r=document.createRange();
+  let n=block.lastChild; if(n&&n.nodeType===1&&n.tagName==="BR") n=n.previousSibling;
+  while(n&&n.nodeType===1&&n.tagName!=="BR"&&n.lastChild) n=n.lastChild;
+  if(n&&n.nodeType===3) r.setStart(n,n.nodeValue.length);
+  else if(n&&n.parentNode) r.setStartAfter(n);
+  else r.setStart(block,0);
+  r.collapse(true); sel.removeAllRanges(); sel.addRange(r);
+}
+/* Cursor in die erste Antwortzeile (erster editierbarer Block) setzen. */
+function focusFirstAnswer(){
+  ed.focus();
+  const blocks=editorBlocks();
+  const first=blocks.find(b=>!isTask(b))||blocks[0];
+  placeCaretAtBlockStart(first);
+}
+
+/* ---------- Aufgabenblöcke schützen: nur über das rote „x" entfernbar, nie per Rücktaste/Entf ---------- */
+function rangeTouchesTask(r){
+  if(!r) return false;
+  if(taskOf(r.startContainer)||taskOf(r.endContainer)) return true;
+  let live;
+  try{ live=document.createRange(); live.setStart(r.startContainer,r.startOffset); live.setEnd(r.endContainer,r.endOffset); }
+  catch(e){ return false; }
+  if(live.collapsed) return false;
+  const tasks=ed.querySelectorAll(".task");
+  for(const t of tasks){ if(live.intersectsNode(t)) return true; }
+  return false;
+}
+function selectionTouchesTask(){
+  const sel=window.getSelection();
+  return !!(sel&&sel.rangeCount&&rangeTouchesTask(sel.getRangeAt(0)));
+}
+function caretAtBlockStart(r,blk){ const pre=document.createRange(); pre.setStart(blk,0); pre.setEnd(r.startContainer,r.startOffset); return pre.toString().length===0; }
+function caretAtBlockEnd(r,blk){ const post=document.createRange(); post.setStart(r.endContainer,r.endOffset); post.setEnd(blk,blk.childNodes.length); return post.toString().length===0; }
+
+ed.addEventListener("beforeinput",(e)=>{
+  let hit=false;
+  try{ const trs=(typeof e.getTargetRanges==="function")?e.getTargetRanges():[]; for(const tr of trs){ if(rangeTouchesTask(tr)){ hit=true; break; } } }catch(err){}
+  if(!hit && selectionTouchesTask()) hit=true;
+  if(hit) e.preventDefault();
+});
+ed.addEventListener("dragstart",(e)=>{ if(taskOf(e.target)) e.preventDefault(); });
+
+/* Klick auf einen Aufgabenblock zeigt das rote „x"; Klick auf das „x" entfernt den Block */
+function selectTask(t){
+  ed.querySelectorAll(".task.selected").forEach(x=>{ if(x!==t) x.classList.remove("selected"); });
+  if(t) t.classList.add("selected");
+}
+function removeTaskBlock(t){
+  if(!t||!ed.contains(t)) return;
+  const next=t.nextElementSibling, prev=t.previousElementSibling;
+  ed.removeChild(t);
+  normalizeBlocks();
+  const target=(next&&!isTask(next))?next:((prev&&!isTask(prev))?prev:editorBlocks().find(b=>!isTask(b)));
+  ed.focus(); placeCaretAtBlockStart(target); lastCaretBlock=target||null;
+  syncTracking("t"); updateCharcount(); updateEmpty(); positionTaskBtn();
+}
+ed.addEventListener("mousedown",(e)=>{
+  const x=(e.target.closest)?e.target.closest(".task-x"):null;
+  if(x) e.preventDefault();  // Fokus/Selektion nicht verändern
+});
+ed.addEventListener("click",(e)=>{
+  const x=(e.target.closest)?e.target.closest(".task-x"):null;
+  if(x){ e.preventDefault(); removeTaskBlock(x.closest(".task")); return; }
+  const t=(e.target.closest)?e.target.closest(".task"):null;
+  selectTask((t&&ed.contains(t))?t:null);
+});
+document.addEventListener("mousedown",(e)=>{ if(!ed.contains(e.target)) selectTask(null); });
+
+/* ---------- Button „Neuen Aufgabentext eintragen" (schwebt eine Zeile unter der aktuellen Eingabezeile) ---------- */
+const taskBtn=$("taskbtn"), taskForm=$("taskform"), taskInput=$("taskinput");
+let taskAnchor=null, taskFormOpen=false, lastCaretBlock=null;
+
+function currentBlock(){
+  const sel=window.getSelection(); let b=null;
+  if(sel&&sel.rangeCount){ const r=sel.getRangeAt(0); if(ed.contains(r.startContainer)) b=blockAt(r.startContainer,r.startOffset); }
+  if(!b && lastCaretBlock && ed.contains(lastCaretBlock)) b=lastCaretBlock;
+  if(!b){ const bl=editorBlocks(); b=bl[bl.length-1]||null; }
+  return b;
+}
+function positionTaskBtn(){
+  if(!taskBtn) return;
+  const blk=taskFormOpen?taskAnchor:currentBlock();
+  const top=blk?(blk.offsetTop+blk.offsetHeight+6):(ed.offsetTop+6);
+  taskBtn.style.top=top+"px"; taskForm.style.top=top+"px";
+}
+function autoGrow(ta){ ta.style.height="auto"; ta.style.height=Math.max(74,ta.scrollHeight+2)+"px"; }
+function openTaskForm(){
+  if(!taskAnchor||!ed.contains(taskAnchor)) taskAnchor=currentBlock();
+  taskFormOpen=true; positionTaskBtn();
+  taskBtn.classList.add("hidden"); taskForm.classList.remove("hidden");
+  taskInput.value=""; autoGrow(taskInput);
+  setTimeout(()=>{ taskInput.focus(); try{ taskForm.scrollIntoView({block:"nearest"}); }catch(e){} },0);
+}
+function closeTaskForm(){
+  taskFormOpen=false; taskForm.classList.add("hidden"); taskBtn.classList.remove("hidden");
+}
+function cancelTaskForm(){
+  const anchor=(taskAnchor&&ed.contains(taskAnchor))?taskAnchor:null;
+  closeTaskForm(); ed.focus();
+  if(anchor&&!isTask(anchor)) placeCaretAtBlockEnd(anchor);
+  positionTaskBtn();
+}
+/* Bestätigen: Aufgabentext als festen, fetten Block eine Zeile unter der letzten Eingabe einfügen;
+   der Cursor springt in die Antwortzeile darunter. */
+function confirmTaskForm(){
+  const text=taskInput.value.replace(/\r\n?/g,"\n").replace(/\n{3,}/g,"\n\n").trim();
+  if(!text){ taskInput.focus(); return; }
+  const anchor=(taskAnchor&&ed.contains(taskAnchor))?taskAnchor:currentBlock();
+  const block=makeTaskBlock("",text);
+  let caretBlock;
+  if(anchor && !isTask(anchor) && blockIsEmpty(anchor)){
+    ed.insertBefore(block,anchor); caretBlock=anchor;          // leere Eingabezeile wird zur Antwortzeile unter der Aufgabe
+  } else if(anchor){
+    caretBlock=emptyBlock(); ed.insertBefore(block,anchor.nextSibling); ed.insertBefore(caretBlock,block.nextSibling);
+  } else {
+    caretBlock=emptyBlock(); ed.appendChild(block); ed.appendChild(caretBlock);
+  }
+  normalizeBlocks();
+  closeTaskForm();
+  syncTracking("s"); updateCharcount(); updateEmpty();
+  ed.focus(); placeCaretAtBlockStart(caretBlock); lastCaretBlock=caretBlock;
+  selectTask(null); positionTaskBtn();
+  try{ caretBlock.scrollIntoView({block:"nearest"}); }catch(e){}
+}
+taskBtn.addEventListener("mousedown",(e)=>{ e.preventDefault(); taskAnchor=currentBlock(); });
+taskBtn.addEventListener("click",()=>openTaskForm());
+$("task-ok").addEventListener("click",confirmTaskForm);
+$("task-cancel").addEventListener("click",cancelTaskForm);
+taskInput.addEventListener("input",()=>autoGrow(taskInput));
+taskInput.addEventListener("keydown",(e)=>{
+  if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); confirmTaskForm(); }
+  else if(e.key==="Escape"){ e.preventDefault(); cancelTaskForm(); }
+});
+window.addEventListener("resize",positionTaskBtn);
 
 /* Start */
 $("start-btn").addEventListener("click",()=>{
@@ -1467,49 +1932,32 @@ $("start-btn").addEventListener("click",()=>{
   if(!v||!n){$("start-err").textContent="Bitte Vor- und Nachnamen eintragen.";return;}
   studentVorname=v; studentNachname=n;
   $("who-name").textContent=v+" "+n;
-  escapeRed=[]; renderMoodleHints();          // normaler Modus: keine roten Felder
-  prevValue=""; recs=[]; setEditorText("");
-  $("charcount").textContent="0";
+  escapeMode=false; escapeRed=[]; renderMoodleHints();          // normaler Modus: keine roten Felder
+  const tasks=Array.isArray(CFG.prefill)?CFG.prefill:[];
+  prefilled=tasks.length>0;
+  fillEditor(tasks, CFG.prefillLabels?(i=>"Aufgabe "+(i+1)):null);
+  $("taskhint").classList.toggle("hidden",prefilled);            // roter Hinweis nur ohne vorbefüllte Aufgaben
+  hideDlPanel(); closeTaskForm(); selectTask(null);
   show("screen-editor");
-  setTimeout(()=>$("editor").focus(),40);
+  setTimeout(()=>{ focusFirstAnswer(); positionTaskBtn(); },40);
 });
 $("vorname").addEventListener("keydown",e=>{if(e.key==="Enter")$("nachname").focus();});
 $("nachname").addEventListener("keydown",e=>{if(e.key==="Enter")$("start-btn").click();});
 $("to-teacher").addEventListener("click",e=>{e.preventDefault();show("screen-teacher");});
 $("back-start").addEventListener("click",e=>{e.preventDefault();show("screen-start");});
 
-/* ---------- Escape-Room-Modus: aus hochgeladener Überblick-PDF rekonstruieren ---------- */
-function buildPrefill(tasks){
-  const lines=[];
-  tasks.forEach((task,i)=>{
-    lines.push("Aufgabe "+(i+1));
-    lines.push(task);
-    for(let k=0;k<8;k++) lines.push("");   // 8 Leerzeilen Lösungsraum
-  });
-  return lines.join("\n");
-}
+/* ---------- Escape-Room-Modus: Aufgaben vorbefüllt (Autostart aus dem Escape-Room oder aus der Überblick-PDF) ---------- */
 function startEscapeMode(v,n,tasks,red){
   studentVorname=(v||"").trim(); studentNachname=(n||"").trim();
   $("who-name").textContent=(studentVorname+" "+studentNachname).trim();
-  escapeRed=Array.isArray(red)?red:[];
-  // Vorgeschriebene Bausteine merken: Aufgabenlabels + Aufgabentexte -> beim Export immer System-Text
-  systemSnippets=[];
-  if(Array.isArray(tasks)) tasks.forEach((task,i)=>{ systemSnippets.push("Aufgabe "+(i+1)); if(task) systemSnippets.push(String(task)); });
-  const prefill=(Array.isArray(tasks)&&tasks.length)?buildPrefill(tasks):"";
-  const now=Date.now();
-  setEditorText(prefill); prevValue=prefill;
-  recs=prefill.split("").map(()=>({src:"s",t:now}));   // vorbefüllter Text = System (grau, nicht gezählt)
-  renderMoodleHints();
-  updateCharcount();
+  escapeMode=true; escapeRed=Array.isArray(red)?red:[];
+  const list=Array.isArray(tasks)?tasks:[];
+  prefilled=list.length>0;
+  fillEditor(list, i=>"Aufgabe "+(i+1));                         // vorbefüllte Aufgaben = feste Aufgabenblöcke
+  $("taskhint").classList.toggle("hidden",prefilled);
+  renderMoodleHints(); hideDlPanel(); closeTaskForm(); selectTask(null);
   show("screen-editor");
-  setTimeout(()=>{
-    ed.focus();
-    // Cursor in die erste leere Lösungszeile setzen
-    const pf=prefill.split("\n");
-    let bi=pf.indexOf(""); if(bi<0) bi=pf.length-1;
-    const blocks=Array.prototype.filter.call(ed.childNodes,n=>n.nodeType===1);
-    placeCaretAtBlockStart(blocks[bi]||blocks[blocks.length-1]);
-  },50);
+  setTimeout(()=>{ focusFirstAnswer(); positionTaskBtn(); },50);
 }
 function readEscapePdf(file){
   $("esc-err").textContent="";
@@ -1533,132 +1981,10 @@ const escDrop=$("esc-drop");
 ["dragleave","drop"].forEach(ev=>escDrop.addEventListener(ev,e=>{e.preventDefault();escDrop.style.borderColor="";}));
 escDrop.addEventListener("drop",e=>{const f=e.dataTransfer.files[0];if(f)readEscapePdf(f);});
 
-/* ---------- Rich-Text-Editor: Serialisierung & Formatierung ---------- */
-/* Read-only: liest den contenteditable-Inhalt als {text, fmt} aus, OHNE das DOM
-   oder den Cursor zu verändern. Inline-Formatierung ändert den Text nicht, nur fmt –
-   dadurch bleiben die Tipp-Tempo-Daten (recs) über Formatierungen hinweg erhalten. */
-function serializeEditor(){
-  const root=$("editor");
-  const chars=[]; const fmt=[];
-  function isBlock(node){ return node.nodeType===1 && /^(DIV|P|H[1-6]|LI|BLOCKQUOTE|PRE)$/.test(node.tagName); }
-  function lastIsNL(){ return chars.length===0 || chars[chars.length-1]==="\n"; }
-  function pushCh(ch,st){ chars.push(ch); fmt.push({b:st.b,i:st.i,u:st.u,h:st.h}); }
-  function lastChildOfBlock(node){
-    const p=node.parentNode; return p && isBlock(p) && p.childNodes[p.childNodes.length-1]===node;
-  }
-  function walk(node, st){
-    const kids=node.childNodes||[];
-    for(let k=0;k<kids.length;k++){
-      const child=kids[k];
-      if(child.nodeType===3){
-        const s=child.nodeValue||"";
-        for(const ch of s) pushCh(ch, st);
-      } else if(child.nodeType===1){
-        const tag=child.tagName;
-        if(tag==="BR"){
-          if(lastChildOfBlock(child)){ /* Platzhalter-<br> -> kein Umbruch */ }
-          else pushCh("\n", st);
-          continue;
-        }
-        const ns={b:st.b,i:st.i,u:st.u,h:st.h};
-        if(tag==="B"||tag==="STRONG") ns.b=true;
-        if(tag==="I"||tag==="EM") ns.i=true;
-        if(tag==="U"||tag==="INS") ns.u=true;
-        const sty=child.style||{};
-        const fw=sty.fontWeight; if(fw==="bold"||fw==="bolder"||(fw&&parseInt(fw,10)>=600)) ns.b=true;
-        const fst=sty.fontStyle; if(fst&&String(fst).indexOf("italic")>=0) ns.i=true;
-        const td=(sty.textDecorationLine||sty.textDecoration||""); if(String(td).indexOf("underline")>=0) ns.u=true;
-        if(child.classList&&child.classList.contains("heading")){ ns.h=true; ns.b=true; }
-        if(/^H[1-6]$/.test(tag)){ ns.h=true; ns.b=true; }
-        try{ const cs=getComputedStyle(child); if(cs){ const w=cs.fontWeight; if(w==="bold"||w==="bolder"||(parseInt(w,10)>=600)) ns.b=true; if(String(cs.fontStyle||"").indexOf("italic")>=0) ns.i=true; } }catch(e){}
-        if(isBlock(child) && !lastIsNL()) pushCh("\n", st);
-        walk(child, ns);
-      }
-    }
-  }
-  walk(root, {b:false,i:false,u:false,h:false});
-  return { text: chars.join(""), fmt };
-}
-
-/* Baut den Editor-Inhalt aus reinem Text neu auf (jede Zeile = ein Block-DIV). */
-function setEditorText(plain){
-  const root=$("editor"); root.innerHTML="";
-  const lines=String(plain||"").split("\n");
-  for(const line of lines){
-    const div=document.createElement("div");
-    if(line==="") div.appendChild(document.createElement("br"));
-    else div.appendChild(document.createTextNode(line));
-    root.appendChild(div);
-  }
-  if(root.childNodes.length===0){ const d=document.createElement("div"); d.appendChild(document.createElement("br")); root.appendChild(d); }
-  updateEmpty();
-}
-
-/* Platzhalter ein-/ausblenden (CSS: #editor.empty::before) */
-function updateEmpty(){
-  const root=$("editor");
-  root.classList.toggle("empty", serializeEditor().text.length===0);
-}
-
-/* Den Block (oberste DIV-Ebene im Editor), in dem ein Knoten liegt. */
-function blockOf(node){
-  const root=$("editor"); if(!node) return null;
-  if(node===root){ return null; }
-  let n=node;
-  while(n && n.parentNode!==root) n=n.parentNode;
-  return (n && n.parentNode===root && n.nodeType===1) ? n : null;
-}
-/* Alle Blöcke, die von der aktuellen Auswahl berührt werden. */
-function selectedBlocks(){
-  const root=$("editor"); const sel=window.getSelection();
-  if(!sel||sel.rangeCount===0) return [];
-  const r=sel.getRangeAt(0);
-  let a=blockOf(r.startContainer), b=blockOf(r.endContainer);
-  const blocks=Array.prototype.filter.call(root.childNodes,n=>n.nodeType===1);
-  if(!a) a=blocks[0]; if(!b) b=blocks[blocks.length-1];
-  if(!a||!b) return [];
-  const ia=blocks.indexOf(a), ib=blocks.indexOf(b);
-  if(ia<0||ib<0) return [];
-  const lo=Math.min(ia,ib), hi=Math.max(ia,ib);
-  return blocks.slice(lo,hi+1);
-}
-/* Überschrift für die ausgewählten Blöcke umschalten. */
-function toggleHeading(){
-  const blocks=selectedBlocks(); if(!blocks.length) return;
-  const allHead=blocks.every(b=>b.classList.contains("heading"));
-  blocks.forEach(b=>{ if(allHead) b.classList.remove("heading"); else b.classList.add("heading"); });
-  $("editor").focus();
-  updateFormatButtons();
-}
-/* Button-Zustände an die aktuelle Auswahl/Cursorposition anpassen. */
-function updateFormatButtons(){
-  const q=(c)=>{ try{ return document.queryCommandState(c); }catch(e){ return false; } };
-  $("fb-bold").classList.toggle("active", q("bold"));
-  $("fb-italic").classList.toggle("active", q("italic"));
-  $("fb-underline").classList.toggle("active", q("underline"));
-  const blocks=selectedBlocks();
-  const head = blocks.length>0 && blocks.every(b=>b.classList.contains("heading"));
-  $("fb-heading").classList.toggle("active", head);
-}
-/* Inline-Befehl (bold/italic/underline) ausführen; Auswahl bleibt erhalten. */
-function execInline(cmd){
-  $("editor").focus();
-  try{ document.execCommand(cmd,false,null); }catch(e){}
-  updateFormatButtons();
-  updateEmpty();
-}
-/* Cursor an den Anfang eines Blocks setzen. */
-function placeCaretAtBlockStart(block){
-  if(!block) return;
-  const sel=window.getSelection(); const r=document.createRange();
-  r.setStart(block,0); r.collapse(true);
-  sel.removeAllRanges(); sel.addRange(r);
-}
-
 /* Editor-Tracking */
-const ed=$("editor");
 ed.addEventListener("paste",(e)=>{
   // Nur reinen Text einfügen, damit das DOM sauber bleibt (keine fremde Formatierung)
+  if(selectionTouchesTask()){ e.preventDefault(); return; }
   if(e.clipboardData){
     e.preventDefault();
     const txt=e.clipboardData.getData("text/plain");
@@ -1669,6 +1995,21 @@ ed.addEventListener("paste",(e)=>{
 });
 ed.addEventListener("drop",()=>{justPasted=true;});
 ed.addEventListener("keydown",(e)=>{
+  // Rücktaste/Entf dürfen einen Aufgabenblock nie (auch nicht zeichenweise) löschen
+  if(e.key==="Backspace"||e.key==="Delete"){
+    const sel=window.getSelection();
+    if(sel&&sel.rangeCount){
+      const r=sel.getRangeAt(0);
+      if(rangeTouchesTask(r)){ e.preventDefault(); return; }
+      if(r.collapsed){
+        const blk=blockAt(r.startContainer,r.startOffset);
+        if(blk&&!isTask(blk)){
+          if(e.key==="Backspace"&&isTask(blk.previousElementSibling)&&caretAtBlockStart(r,blk)){ e.preventDefault(); return; }
+          if(e.key==="Delete"&&isTask(blk.nextElementSibling)&&caretAtBlockEnd(r,blk)){ e.preventDefault(); return; }
+        }
+      }
+    }
+  }
   // Strg/Cmd+B/I/U: Browser formatiert selbst; danach Button-Status aktualisieren
   if((e.ctrlKey||e.metaKey)&&!e.altKey){
     const k=e.key.toLowerCase();
@@ -1684,14 +2025,24 @@ ed.addEventListener("keydown",(e)=>{
   }
 });
 ed.addEventListener("input",()=>{
-  reconcile(serializeEditor().text,justPasted,Date.now());
+  normalizeBlocks();
+  syncTracking(justPasted?"p":"t");
   justPasted=false;
   updateCharcount();
   updateEmpty();
+  positionTaskBtn();
 });
-ed.addEventListener("keyup",updateFormatButtons);
-ed.addEventListener("mouseup",updateFormatButtons);
-document.addEventListener("selectionchange",()=>{ if(document.activeElement===$("editor")) updateFormatButtons(); });
+ed.addEventListener("keyup",()=>{ updateFormatButtons(); positionTaskBtn(); });
+ed.addEventListener("mouseup",()=>{ updateFormatButtons(); positionTaskBtn(); });
+document.addEventListener("selectionchange",()=>{
+  const sel=window.getSelection();
+  if(!sel||!sel.rangeCount) return;
+  const r=sel.getRangeAt(0);
+  if(!ed.contains(r.startContainer)) return;
+  const b=blockAt(r.startContainer,r.startOffset); if(b) lastCaretBlock=b;
+  if(document.activeElement===ed) updateFormatButtons();
+  if(!taskFormOpen) positionTaskBtn();
+});
 
 /* Formatierungsleiste verdrahten – mousedown + preventDefault, damit die Auswahl erhalten bleibt */
 function wireFmtBtn(id,fn){
@@ -1707,7 +2058,9 @@ try{ document.execCommand("styleWithCSS",false,false); }catch(e){}
 /* Export: erzeugt NUR die Text-PDF (mit rotem Moodle-Hinweis); die Tracking-Daten stecken
    verschlüsselt als %TRACKDATA in der PDF und sind über „Lehrkraft → PDF laden + Code" auslesbar */
 $("export-btn").addEventListener("click",async()=>{
-  const btn=$("export-btn"); const ser=serializeEditor(); const text=ser.text; const fmt=ser.fmt;
+  const btn=$("export-btn");
+  const ser=syncTracking(justPasted?"p":"t"); justPasted=false;   // Editor und Tracking sicher synchron
+  const text=ser.text; const fmt=ser.fmt;
   const name=studentVorname+" "+studentNachname;
   btn.disabled=true; const old=btn.textContent; btn.textContent="Erzeuge PDF…";
   try{
@@ -1715,16 +2068,24 @@ $("export-btn").addEventListener("click",async()=>{
     const code=_kf(studentVorname);
     const bundle=await aesEncrypt(JSON.stringify(payload),code);
 
-    const pdfName=fileSafe("Escape Room Daten von "+studentVorname+" "+studentNachname)+".pdf";
+    const pdfName=makePdfName();
 
-    // PDF: Aufgaben-Seiten (formatierter Text + roter Moodle-Hinweis) + Übersichts-Seiten aus dem Escape-Room;
+    // PDF: formatierter Text (Aufgaben fett) + roter Moodle-Hinweis; im Escape-Room zusätzlich die Übersichts-Seiten;
     // Tracking-Daten stecken (verschlüsselt) als %TRACKDATA drin
     const overview=(window.__ESCAPE_DATA__&&window.__ESCAPE_DATA__.overview)||null;
     const pdfStr=buildPdf({name,text,fmt,trackB64:bundle,overview});
     const u8=new Uint8Array(pdfStr.length);
     for(let i=0;i<pdfStr.length;i++)u8[i]=pdfStr.charCodeAt(i)&0xFF;
+    // octet-stream im Escape-Room-Modus: erzwingt Speichern statt Anzeigen
+    const pdfBlob=new Blob([u8],{type:escapeMode?"application/octet-stream":"application/pdf"});
 
-    downloadBlob(new Blob([u8],{type:"application/octet-stream"}), pdfName); // octet-stream: erzwingt Speichern statt Anzeigen
+    // Fallback-Link setzen (bleibt anklickbar, falls der Auto-Download blockiert wird)
+    const dlPdf=$("dl-pdf");
+    setLink(dlPdf,pdfBlob,pdfName);
+    $("dl-panel").classList.remove("hidden");
+
+    // PDF direkt im Klick-Kontext herunterladen
+    dlPdf.click();
 
     btn.textContent="PDF erstellt ✓";
     setTimeout(()=>{ btn.textContent=old; }, 2200);
@@ -1884,13 +2245,13 @@ $("code-input").addEventListener("keydown",e=>{if(e.key==="Enter")showTeacherRes
   const D=window.__ESCAPE_DATA__;
   if(!D) return;                                   // ohne Daten: normaler Anmeldebildschirm
   try{
-    startEscapeMode(D.firstName, D.lastName, Array.isArray(D.tasks)?D.tasks:[], Array.isArray(D.redFields)?D.redFields:[]);
+    const red=Array.isArray(D.redFields)?D.redFields:(Array.isArray(D.red)?D.red:[]);
+    startEscapeMode(D.firstName, D.lastName, Array.isArray(D.tasks)?D.tasks:[], red);
   }catch(e){ console.error("Escape-Auto-Start fehlgeschlagen:", e); }
 })();
 <\/script>
 </body>
 </html>
-
 </script>
 <script>
 /* ============================================================
