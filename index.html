@@ -639,9 +639,11 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
   .btn.ghost{background:transparent; color:var(--ink); border-color:var(--line)}
   .btn.ghost:hover{background:var(--paper)}
   .err{color:#b3261e; font-size:13.5px; min-height:18px; margin:2px 0 0}
-  .foot{margin-top:24px; padding-top:16px; border-top:1px solid var(--line); text-align:center}
-  .foot a{color:var(--muted); font-size:12.5px; text-decoration:none; letter-spacing:.04em}
-  .foot a:hover{color:var(--accent); text-decoration:underline}
+  /* Startseite: Auswahl, was zutrifft (normal / Escape-Room / Zwischenstand) */
+  .choice-btn{white-space:normal; text-align:left; line-height:1.35; padding:13px 16px; margin-top:10px}
+  .choice-btn:first-of-type{margin-top:0}
+  #choice .sub{margin-bottom:16px}
+  .card .backlink{margin:18px 0 0}
   /* Infokasten unter der Anmeldekarte (optional, z. B. Lerntagebuch-Feiditor) */
   .infobox{
     margin:28px auto 0; max-width:680px; background:#f4ecd9;
@@ -665,6 +667,8 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
   .who{font-family:var(--serif); font-size:16px}
   .who .lbl{font-family:var(--sans); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-right:8px}
   .count{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums}
+  .topbar .right{display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:flex-end}
+  .btn.small{font-size:13px; padding:8px 12px; border-radius:8px}
   .paperwrap{flex:1; overflow:auto; display:flex; flex-direction:column; align-items:center; padding:34px 20px 170px}
   /* Roter Hinweis über dem Texteditor (nur ohne vorbefüllte Aufgaben) */
   .taskhint{
@@ -756,6 +760,8 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
     position:fixed; left:0; right:0; bottom:13px; text-align:center;
     font-size:11px; letter-spacing:.05em; color:var(--muted); pointer-events:none; z-index:6;
   }
+  .copyright a{pointer-events:auto; color:var(--muted); text-decoration:underline; text-underline-offset:2px}
+  .copyright a:hover{color:var(--accent)}
 
   /* ---------- Lehrkraft ---------- */
   #screen-teacher{display:none; place-items:start center; padding:40px 20px 80px}
@@ -823,10 +829,8 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
     text-align:center; line-height:1.5;
     user-select:none;
   }
-  /* Escape-Upload-Bereich auf der Anmeldeseite */
-  .esc-upload{margin-top:22px; padding-top:18px; border-top:1px solid var(--line)}
-  .esc-upload .sub{color:var(--muted); font-size:13.5px; margin:0 0 12px}
-  .esc-upload .drop{padding:18px}
+  /* Upload-Bereiche auf der Startseite (Überblick-PDF, Zwischenstand-PDF) */
+  .startsec .drop{padding:18px}
 </style>
 </head>
 <body>
@@ -837,20 +841,33 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
     <div class="card">
       <p class="brand">Feiditor</p>
       <h1>Bevor du beginnst</h1>
-      <p class="sub">Bitte trage deinen Namen ein. Danach öffnet sich der Schreibbereich.</p>
-      <div class="field">
-        <label for="vorname">Vorname</label>
-        <input type="text" id="vorname" autocomplete="off" spellcheck="false">
-      </div>
-      <div class="field">
-        <label for="nachname">Nachname</label>
-        <input type="text" id="nachname" autocomplete="off" spellcheck="false">
-      </div>
-      <p class="err" id="start-err"></p>
-      <button class="btn block" id="start-btn">Schreibbereich öffnen</button>
 
-      <div class="esc-upload" id="esc-upload">
-        <p class="sub">Kommst du aus einem Escape-Room und hast den Feiditor-Link verloren? Lade hier deine <strong>Überblick-PDF</strong> hoch – der Feiditor öffnet sich dann mit deinen Aufgaben.</p>
+      <!-- Schritt 1: Auswahl, was zutrifft -->
+      <div id="choice">
+        <p class="sub">Bitte klicke an, was auf dich zutrifft.</p>
+        <button type="button" class="btn block choice-btn" id="choose-normal">Ich möchte den normalen Feiditor öffnen</button>
+        <button type="button" class="btn block ghost choice-btn" id="choose-escape">Ich komme aus einem Escape-Room und möchte mithilfe meiner Überblicks-PDF nun die Feiditor-PDF-Aufgaben laden</button>
+        <button type="button" class="btn block ghost choice-btn" id="choose-resume">Ich möchte meinen Feiditor-Zwischenstand hochladen und weiterarbeiten</button>
+      </div>
+
+      <!-- Schritt 2a: normaler Start mit Namen -->
+      <div id="sec-normal" class="startsec hidden">
+        <p class="sub">Bitte trage deinen Namen ein. Danach öffnet sich der Schreibbereich.</p>
+        <div class="field">
+          <label for="vorname">Vorname</label>
+          <input type="text" id="vorname" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="field">
+          <label for="nachname">Nachname</label>
+          <input type="text" id="nachname" autocomplete="off" spellcheck="false">
+        </div>
+        <p class="err" id="start-err"></p>
+        <button class="btn block" id="start-btn">Schreibbereich öffnen</button>
+      </div>
+
+      <!-- Schritt 2b: Escape-Room – Name und Aufgaben aus der Überblick-PDF laden -->
+      <div id="sec-escape" class="startsec hidden">
+        <p class="sub">Lade hier deine <strong>Überblick-PDF</strong> aus dem Escape-Room hoch – der Feiditor öffnet sich dann mit deinem Namen und deinen Aufgaben.</p>
         <div class="drop" id="esc-drop">
           <p style="margin:0 0 10px"><strong>Überblick-PDF auswählen</strong> oder hierher ziehen</p>
           <input type="file" id="esc-input" accept="application/pdf,.pdf">
@@ -858,7 +875,17 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
         <p class="err" id="esc-err"></p>
       </div>
 
-      <div class="foot"><a href="#" id="to-teacher">Lehrkraft</a></div>
+      <!-- Schritt 2c: Zwischenstand hochladen und weiterarbeiten -->
+      <div id="sec-resume" class="startsec hidden">
+        <p class="sub">Lade hier deine <strong>Zwischenstand-PDF</strong> hoch (Datei „Zwischenstand vom … von …“). Text, Aufgaben und die gespeicherten Zeitwerte werden übernommen, und du arbeitest direkt weiter.</p>
+        <div class="drop" id="resume-drop">
+          <p style="margin:0 0 10px"><strong>Zwischenstand-PDF auswählen</strong> oder hierher ziehen</p>
+          <input type="file" id="resume-input" accept="application/pdf,.pdf">
+        </div>
+        <p class="err" id="resume-err"></p>
+      </div>
+
+      <a href="#" class="backlink hidden" id="back-choice">← zurück zur Auswahl</a>
     </div>
     <!-- Infokasten (optional; im Lerntagebuch-Feiditor steht hier die Erläuterung zum Lerntagebuch) -->
   </div>
@@ -868,7 +895,10 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 <section id="screen-editor" class="screen">
   <div class="topbar">
     <div class="who"><span class="lbl">Verfasser:in</span><span id="who-name"></span></div>
-    <div class="count"><span id="charcount">0</span> Zeichen</div>
+    <div class="right">
+      <div class="count"><span id="charcount">0</span> Zeichen</div>
+      <button type="button" class="btn ghost small" id="save-btn" title="Lädt dieselbe PDF wie „Text in PDF-Datei umwandeln“ herunter – als Zwischenstand, mit dem du später weiterarbeiten kannst">Zwischenstand herunterladen und speichern</button>
+    </div>
   </div>
   <div class="formatbar" id="formatbar">
     <button type="button" class="fbtn" id="fb-bold" title="Fett (Strg+B)" aria-label="Fett"><span class="b">F</span></button>
@@ -929,9 +959,9 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
   </div>
 </section>
 
-<div id="pagefoot" class="copyright">Copyright Jan-Rickmer Feindt</div>
+<div id="pagefoot" class="copyright">Copyright Jan-Rickmer Feindt · <a href="#" id="foot-teacher">Zugang für die Lehrkraft</a></div>
 
-<!-- Optionale Konfiguration (z. B. Lerntagebuch-Feiditor): ein eigenes Skript vor der Engine kann window.FEIDITOR_CONFIG={prefill:[…],prefillLabels:false,showEscapeUpload:false,pdfName:function(vorname,nachname){…}} setzen -->
+<!-- Optionale Konfiguration (z. B. Lerntagebuch-Feiditor): ein eigenes Skript vor der Engine kann window.FEIDITOR_CONFIG={prefill:[…],prefillLabels:false,showEscapeUpload:false,openLabel:"…",pdfName:function(vorname,nachname){…}} setzen -->
 <script>
 /* ====================================================================== *
  *  Selbst gebauter, vollständig offline laufender Editor mit Tracking.   *
@@ -946,8 +976,9 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 const CFG=Object.assign({
   prefill:[],             // vorbefüllte Aufgaben (Strings) – z. B. die Fragen des Lerntagebuchs
   prefillLabels:false,    // true: „Aufgabe 1", „Aufgabe 2", … über jeder vorbefüllten Aufgabe
-  showEscapeUpload:true,  // Upload einer Escape-Room-Überblick-PDF auf der Startseite anbieten
-  pdfName:null            // function(vorname,nachname) -> Dateiname der PDF; null = Standard
+  showEscapeUpload:true,  // Option „aus einem Escape-Room“ (Überblick-PDF laden) auf der Startseite anbieten
+  openLabel:null,         // Beschriftung der ersten Auswahl-Schaltfläche; null = „Ich möchte den normalen Feiditor öffnen"
+  pdfName:null            // function(vorname,nachname) -> Dateiname der fertigen PDF; null = Standard
 }, window.FEIDITOR_CONFIG||{});
 
 /* ---------- Helvetica-Glyphbreiten (AFM, Einheiten/1000), nach Byte ---------- */
@@ -1511,29 +1542,38 @@ function syncTracking(src){
   return ser;
 }
 
-function buildPayload(name,text,fmt,vn,nn){
+/* Hintergrunddaten für die PDF: Text (t), Marken je Zeichen (m: Quelle + Abstand), Format-Bits (f),
+   Blockstruktur (k: je Block [Art 0=Zeile/1=Aufgabe, Zeichenzahl, Labellänge]) und Escape-Infos (e).
+   Aus diesen Daten kann ein Zwischenstand vollständig wiederhergestellt werden. */
+function buildPayload(name,ser,vn,nn){
+  const text=ser.text, fmt=ser.fmt||[];
   if(recs.length!==text.length){ // letzte Absicherung: Tipp-Info verloren -> Abstand unbekannt (nie fälschlich rot)
     recs=text.split("").map(()=>({src:"t",t:-1}));
   }
-  fmt=fmt||[];
   const m=[]; const f=[];
   for(let i=0;i<text.length;i++){
-    const ft=fmt[i]||{};
-    const src=ft.s?"s":recs[i].src;
-    const gap=(i===0||src==="s"||recs[i].t<0||recs[i-1].t<0)?-1:(recs[i].t-recs[i-1].t);
+    const ft=fmt[i]||{}; const rc=recs[i];
+    const src=ft.s?"s":rc.src;
+    let gap;
+    if(src==="s"||i===0) gap=-1;
+    else if(typeof rc.g==="number") gap=rc.g;                      // aus einem Zwischenstand übernommener Zeitwert
+    else gap=(rc.t<0||recs[i-1].t<0)?-1:(rc.t-recs[i-1].t);
     m.push([src,gap]);
     let bits=0; if(ft.b)bits|=1; if(ft.i)bits|=2; if(ft.u)bits|=4; if(ft.h)bits|=8; if(ft.s)bits|=16;
     f.push(bits);
   }
   const r=computeStats(text,m).redPct; // Rot-Anteil in Prozent, wie ihn die Lehrkraft-Ansicht zeigt
-  return {n:name,t:text,m,f,vn:vn||"",nn:nn||"",r};
+  const p={n:name,t:text,m,f,vn:vn||"",nn:nn||"",r,k:ser.blocks||[]};
+  if(escapeMode) p.e={esc:true,red:escapeRed};
+  return p;
 }
 
 /* ------------------------------ UI-Steuerung ------------------------------ */
 const $=(id)=>document.getElementById(id);
+let currentScreen="screen-start";
 function show(screen){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  $(screen).classList.add("active");
+  $(screen).classList.add("active"); currentScreen=screen;
   const pf=$("pagefoot"); if(pf) pf.style.display=(screen==="screen-teacher")?"none":"block";
 }
 function sanitize(s){return (s||"").replace(/[^\p{L}\p{N}_-]/gu,"_").slice(0,40)||"Datei";}
@@ -1577,7 +1617,13 @@ function makePdfName(){
   if(escapeMode) return fileSafe("Escape Room Daten von "+studentVorname+" "+studentNachname)+".pdf";
   return fileSafe("Text von "+studentVorname)+".pdf";
 }
-if(!CFG.showEscapeUpload){ const eu=$("esc-upload"); if(eu) eu.classList.add("hidden"); }
+/* Zwischenstand: „Zwischenstand vom TT.MM.JJJJ um hh.mm von Vorname Nachname.pdf" (Doppelpunkt ist in Dateinamen nicht erlaubt) */
+function interimPdfName(){
+  const d=new Date(); const p2=n=>String(n).padStart(2,"0");
+  const datum=p2(d.getDate())+"."+p2(d.getMonth()+1)+"."+d.getFullYear();
+  const zeit=p2(d.getHours())+"."+p2(d.getMinutes());
+  return fileSafe("Zwischenstand vom "+datum+" um "+zeit+" von "+(studentVorname+" "+studentNachname).trim())+".pdf";
+}
 
 /* ---------- Rich-Text-Editor: Blöcke, Aufgabenblöcke, Serialisierung ---------- */
 const ed=$("editor");
@@ -1619,61 +1665,78 @@ function blockAt(container,offset){
 /* Aufgabenblock, in dem ein Knoten liegt (oder null). */
 function taskOf(node){ let n=node; while(n&&n!==ed){ if(isTask(n)) return n; n=n.parentNode; } return null; }
 
-/* Read-only: liest den contenteditable-Inhalt als {text, fmt} aus, OHNE das DOM
+/* Read-only: liest den contenteditable-Inhalt als {text, fmt, blocks} aus, OHNE das DOM
    oder den Cursor zu verändern. Inline-Formatierung ändert den Text nicht, nur fmt –
    dadurch bleiben die Tipp-Tempo-Daten (recs) über Formatierungen hinweg erhalten.
-   fmt[i].s = Zeichen gehört zu einem Aufgabenblock (inkl. der Zeilenumbrüche davor/danach). */
+   Jeder Block der obersten Ebene ist eine Zeile bzw. ein Aufgabenblock; Blöcke sind durch "\n" getrennt.
+   fmt[i].s = Zeichen gehört zu einem Aufgabenblock (inkl. der Trenner davor/danach).
+   blocks = je Block [Art (0 Zeile, 1 Aufgabe), Zeichenzahl, Labellänge] – damit lässt sich der
+   Editor aus den Hintergrunddaten einer PDF exakt wiederherstellen (Zwischenstand). */
 function serializeEditor(){
-  const root=ed;
-  const chars=[]; const fmt=[];
+  const chars=[]; const fmt=[]; const blocks=[];
+  const BASE={b:false,i:false,u:false,h:false,s:false};
   const SYS={b:false,i:false,u:false,h:false,s:true};
-  function isBlock(node){ return isBlockEl(node); }
-  function lastIsNL(){ return chars.length===0 || chars[chars.length-1]==="\n"; }
   function pushCh(ch,st){ chars.push(ch); fmt.push({b:st.b,i:st.i,u:st.u,h:st.h,s:st.s}); }
   function lastSerializable(p){
     for(let k=p.childNodes.length-1;k>=0;k--){ const c=p.childNodes[k]; if(c.nodeType===1&&c.hasAttribute("data-noser")) continue; return c; }
     return null;
   }
-  function lastChildOfBlock(node){ const p=node.parentNode; return p && isBlock(p) && lastSerializable(p)===node; }
-  function walk(node, st){
+  function placeholderBr(node){ const p=node.parentNode; return !!p && (p===ed||isBlockEl(p)) && lastSerializable(p)===node; }
+  function styleOf(el,st){
+    const tag=el.tagName;
+    const ns={b:st.b,i:st.i,u:st.u,h:st.h,s:st.s};
+    if(tag==="B"||tag==="STRONG") ns.b=true;
+    if(tag==="I"||tag==="EM") ns.i=true;
+    if(tag==="U"||tag==="INS") ns.u=true;
+    const sty=el.style||{};
+    const fw=sty.fontWeight; if(fw==="bold"||fw==="bolder"||(fw&&parseInt(fw,10)>=600)) ns.b=true;
+    const fst=sty.fontStyle; if(fst&&String(fst).indexOf("italic")>=0) ns.i=true;
+    const td=(sty.textDecorationLine||sty.textDecoration||""); if(String(td).indexOf("underline")>=0) ns.u=true;
+    if(el.classList&&el.classList.contains("heading")){ ns.h=true; ns.b=true; }
+    if(/^H[1-6]$/.test(tag)){ ns.h=true; ns.b=true; }
+    try{ const cs=getComputedStyle(el); if(cs){ const w=cs.fontWeight; if(w==="bold"||w==="bolder"||(parseInt(w,10)>=600)) ns.b=true; if(String(cs.fontStyle||"").indexOf("italic")>=0) ns.i=true; } }catch(e){}
+    if(isTask(el)){ ns.s=true; ns.b=true; ns.h=false; }
+    return ns;
+  }
+  function walk(node,st){
     const kids=node.childNodes||[];
     for(let k=0;k<kids.length;k++){
       const child=kids[k];
-      if(child.nodeType===3){
-        const s=child.nodeValue||"";
-        for(const ch of s) pushCh(ch, st);
-      } else if(child.nodeType===1){
+      if(child.nodeType===3){ const s=child.nodeValue||""; for(const ch of s) pushCh(ch,st); }
+      else if(child.nodeType===1){
         if(child.hasAttribute("data-noser")) continue;
-        const tag=child.tagName;
-        if(tag==="BR"){
-          if(lastChildOfBlock(child)){ /* Platzhalter-<br> -> kein Umbruch */ }
-          else pushCh("\n", st);
-          continue;
-        }
-        const ns={b:st.b,i:st.i,u:st.u,h:st.h,s:st.s};
-        if(tag==="B"||tag==="STRONG") ns.b=true;
-        if(tag==="I"||tag==="EM") ns.i=true;
-        if(tag==="U"||tag==="INS") ns.u=true;
-        const sty=child.style||{};
-        const fw=sty.fontWeight; if(fw==="bold"||fw==="bolder"||(fw&&parseInt(fw,10)>=600)) ns.b=true;
-        const fst=sty.fontStyle; if(fst&&String(fst).indexOf("italic")>=0) ns.i=true;
-        const td=(sty.textDecorationLine||sty.textDecoration||""); if(String(td).indexOf("underline")>=0) ns.u=true;
-        if(child.classList&&child.classList.contains("heading")){ ns.h=true; ns.b=true; }
-        if(/^H[1-6]$/.test(tag)){ ns.h=true; ns.b=true; }
-        try{ const cs=getComputedStyle(child); if(cs){ const w=cs.fontWeight; if(w==="bold"||w==="bolder"||(parseInt(w,10)>=600)) ns.b=true; if(String(cs.fontStyle||"").indexOf("italic")>=0) ns.i=true; } }catch(e){}
-        const task=isTask(child);
-        if(task){ ns.s=true; ns.b=true; ns.h=false; }
-        if(isBlock(child) && !lastIsNL()){
-          // Umbruch vor einem Block: gehört zum Aufgabentext, wenn dieser oder der vorherige Block ein Aufgabenblock ist
-          const prevTask=isTask(child.previousElementSibling);
-          pushCh("\n", (task||prevTask)?SYS:st);
-        }
-        walk(child, ns);
+        if(child.tagName==="BR"){ if(!placeholderBr(child)) pushCh("\n",st); continue; }
+        walk(child, styleOf(child,st));
       }
     }
   }
-  walk(root, {b:false,i:false,u:false,h:false,s:false});
-  return { text: chars.join(""), fmt };
+  let cur=null, prevTask=false;
+  function beginBlock(kind,taskFlag){
+    if(blocks.length>0) pushCh("\n",(taskFlag||prevTask)?SYS:BASE);   // Trenner zwischen Blöcken
+    cur={kind,start:chars.length,label:0};
+  }
+  function endBlock(){ if(cur){ blocks.push([cur.kind,chars.length-cur.start,cur.label]); prevTask=(cur.kind===1); cur=null; } }
+  const kids=ed.childNodes;
+  for(let k=0;k<kids.length;k++){
+    const node=kids[k];
+    if(node.nodeType===1&&node.hasAttribute("data-noser")) continue;
+    if(node.nodeType===1&&isBlockEl(node)){
+      endBlock();
+      const task=isTask(node);
+      beginBlock(task?1:0,task);
+      walk(node, styleOf(node,BASE));
+      if(task){ const lab=node.querySelector(":scope > .task-label"); cur.label=lab?(lab.textContent||"").length:0; }
+      endBlock();
+    } else if(node.nodeType===3||node.nodeType===1){
+      // lose Text-/Inline-Knoten auf oberster Ebene (kommen nach normalizeBlocks nicht vor): als Zeile zusammenfassen
+      if(!cur) beginBlock(0,false);
+      if(node.nodeType===3){ for(const ch of (node.nodeValue||"")) pushCh(ch,BASE); }
+      else if(node.tagName==="BR"){ if(!placeholderBr(node)) pushCh("\n",BASE); }
+      else walk(node, styleOf(node,BASE));
+    }
+  }
+  endBlock();
+  return { text: chars.join(""), fmt, blocks };
 }
 
 /* Baut den Editor-Inhalt aus reinem Text neu auf (jede Zeile = ein Block-DIV). */
@@ -1702,6 +1765,96 @@ function fillEditor(tasks,labelFn){
   prevValue=ser.text; recs=ser.text.split("").map(()=>({src:"s",t:-1}));
   applySystemFlags(ser.fmt);
   updateEmpty(); updateCharcount();
+}
+
+/* ---------- Wiederherstellung eines Zwischenstands aus den Hintergrunddaten einer PDF ---------- */
+function fmtFromBits(bits){ return {b:!!(bits&1),i:!!(bits&2),u:!!(bits&4),h:!!(bits&8),s:!!(bits&16)}; }
+/* Inline-Inhalt (Text mit Formatierung) in einen Zeilenblock schreiben; "\n" wird zu <br> */
+function buildInline(parent,text,fmts){
+  let run=null, lastBr=false;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i]; const f=fmts[i]||{};
+    if(ch==="\n"){ parent.appendChild(document.createElement("br")); run=null; lastBr=true; continue; }
+    lastBr=false;
+    if(!run||run.b!==!!f.b||run.i!==!!f.i||run.u!==!!f.u){
+      run={b:!!f.b,i:!!f.i,u:!!f.u,node:document.createTextNode("")};
+      let el=parent;
+      if(run.b){ const x=document.createElement("b"); el.appendChild(x); el=x; }
+      if(run.i){ const x=document.createElement("i"); el.appendChild(x); el=x; }
+      if(run.u){ const x=document.createElement("u"); el.appendChild(x); el=x; }
+      el.appendChild(run.node);
+    }
+    run.node.nodeValue+=ch;
+  }
+  if(lastBr||!parent.firstChild) parent.appendChild(document.createElement("br"));   // Platzhalter-<br>, damit der Umbruch erhalten bleibt
+}
+/* Editor aus t (Text), f (Format-Bits) und k (Blockstruktur) neu aufbauen */
+function rebuildEditorFromPayload(p){
+  const t=p.t||"", f=p.f||[], k=Array.isArray(p.k)?p.k:null;
+  const fm=i=>fmtFromBits(f[i]||0);
+  const root=ed; root.innerHTML="";
+  function addLine(content,fmts){
+    const div=document.createElement("div");
+    const heading=content.length>0&&fmts.every(x=>x.h);
+    if(heading){ div.classList.add("heading"); fmts=fmts.map(x=>({b:false,i:x.i,u:x.u})); }
+    buildInline(div,content,fmts); root.appendChild(div);
+  }
+  function addTask(content,labelLen){
+    const label=labelLen?content.slice(0,labelLen):"";
+    const text=labelLen?content.slice(labelLen+1):content;
+    root.appendChild(makeTaskBlock(label,text));
+  }
+  if(k&&k.length){
+    let idx=0;
+    k.forEach((rec,bi)=>{
+      if(bi>0) idx++;                                            // Trenner "\n"
+      const kind=rec[0]|0, n=Math.max(0,rec[1]|0), ll=Math.max(0,rec[2]|0);
+      const content=t.slice(idx,idx+n); const fmts=[]; for(let i=idx;i<idx+n;i++) fmts.push(fm(i));
+      if(kind===1) addTask(content,ll); else addLine(content,fmts);
+      idx+=n;
+    });
+  } else {
+    // ältere Dateien ohne Blockstruktur: Zeilen an "\n" trennen; zusammenhängende Zeilen aus vorgegebenem Text
+    // (Aufgaben-Bit bzw. Marke "s"/"q") bilden einen Aufgabenblock
+    const m=p.m||[]; const isSys=i=>fm(i).s||!!(m[i]&&(m[i][0]==="s"||m[i][0]==="q"));
+    const lines=[]; let start=0;
+    for(let i=0;i<=t.length;i++){ if(i===t.length||t[i]==="\n"){ lines.push([start,i]); start=i+1; } }
+    let taskBuf=null;
+    const flush=()=>{ if(taskBuf){ addTask(t.slice(taskBuf[0],taskBuf[1]),0); taskBuf=null; } };
+    for(const [a,b] of lines){
+      const isTaskLine=b>a; let allSys=isTaskLine; for(let i=a;i<b&&allSys;i++){ if(!isSys(i)) allSys=false; }
+      if(allSys){ if(taskBuf) taskBuf[1]=b; else taskBuf=[a,b]; continue; }
+      flush();
+      const fmts=[]; for(let i=a;i<b;i++) fmts.push(fm(i));
+      addLine(t.slice(a,b),fmts);
+    }
+    flush();
+  }
+  normalizeBlocks();
+}
+/* Zwischenstand fortsetzen: Name, Editor-Inhalt und die gespeicherten Zeitwerte je Zeichen übernehmen */
+function resumeFromPayload(p){
+  const nm=splitName(p); studentVorname=nm.vn; studentNachname=nm.nn;
+  $("who-name").textContent=(studentVorname+" "+studentNachname).trim();
+  const e=p.e||null; escapeMode=!!(e&&e.esc); escapeRed=(e&&Array.isArray(e.red))?e.red:[];
+  rebuildEditorFromPayload(p);
+  const t=p.t||"", m=p.m||[];
+  const fromFile=[];
+  for(let i=0;i<t.length;i++){
+    const mk=(m[i]&&m[i].length)?m[i]:["t",-1]; const src=mk[0];
+    if(src==="s"||src==="q") fromFile.push({src:"s",t:-1});
+    else fromFile.push({src:(src==="p"?"p":"t"),t:-1,g:(typeof mk[1]==="number")?mk[1]:-1});
+  }
+  prevValue=t; recs=fromFile;
+  const ser=serializeEditor();
+  if(ser.text!==t) reconcile(ser.text,"t",-1);   // Struktur nicht exakt rekonstruierbar: Abweichungen ohne Tipp-Info übernehmen
+  applySystemFlags(ser.fmt);
+  prefilled=escapeMode||(Array.isArray(CFG.prefill)&&CFG.prefill.length>0);
+  $("taskhint").classList.toggle("hidden",prefilled);
+  renderMoodleHints(); hideDlPanel(); closeTaskForm(); selectTask(null);
+  updateEmpty(); updateCharcount();
+  show("screen-editor");
+  setTimeout(()=>{ focusLastAnswer(); positionTaskBtn(); },50);
 }
 
 /* Platzhalter ein-/ausblenden (CSS: #editor.empty::before) */
@@ -1798,12 +1951,18 @@ function placeCaretAtBlockEnd(block){
   else r.setStart(block,0);
   r.collapse(true); sel.removeAllRanges(); sel.addRange(r);
 }
-/* Cursor in die erste Antwortzeile (erster editierbarer Block) setzen. */
+/* Cursor in die erste Antwortzeile (erster editierbarer Block) bzw. ans Ende der letzten setzen. */
 function focusFirstAnswer(){
   ed.focus();
   const blocks=editorBlocks();
   const first=blocks.find(b=>!isTask(b))||blocks[0];
   placeCaretAtBlockStart(first);
+}
+function focusLastAnswer(){
+  ed.focus();
+  const blocks=editorBlocks(); let last=null;
+  for(const b of blocks){ if(!isTask(b)) last=b; }
+  placeCaretAtBlockEnd(last||blocks[blocks.length-1]);
 }
 
 /* ---------- Aufgabenblöcke schützen: nur über das rote „x" entfernbar, nie per Rücktaste/Entf ---------- */
@@ -1943,8 +2102,48 @@ $("start-btn").addEventListener("click",()=>{
 });
 $("vorname").addEventListener("keydown",e=>{if(e.key==="Enter")$("nachname").focus();});
 $("nachname").addEventListener("keydown",e=>{if(e.key==="Enter")$("start-btn").click();});
-$("to-teacher").addEventListener("click",e=>{e.preventDefault();show("screen-teacher");});
-$("back-start").addEventListener("click",e=>{e.preventDefault();show("screen-start");});
+
+/* Startseite: zuerst auswählen, was zutrifft */
+function showStartSection(id){
+  ["sec-normal","sec-escape","sec-resume"].forEach(sid=>$(sid).classList.toggle("hidden",sid!==id));
+  $("choice").classList.toggle("hidden",!!id);
+  $("back-choice").classList.toggle("hidden",!id);
+}
+$("choose-normal").addEventListener("click",()=>{ showStartSection("sec-normal"); setTimeout(()=>$("vorname").focus(),30); });
+$("choose-escape").addEventListener("click",()=>showStartSection("sec-escape"));
+$("choose-resume").addEventListener("click",()=>showStartSection("sec-resume"));
+$("back-choice").addEventListener("click",e=>{ e.preventDefault(); showStartSection(null); });
+if(CFG.openLabel) $("choose-normal").textContent=CFG.openLabel;
+if(!CFG.showEscapeUpload) $("choose-escape").classList.add("hidden");
+
+/* Zugang für die Lehrkraft (Fußzeile) – „zurück" führt dorthin, wo man herkam (Editor-Inhalt bleibt erhalten) */
+let screenBeforeTeacher="screen-start";
+$("foot-teacher").addEventListener("click",e=>{
+  e.preventDefault();
+  screenBeforeTeacher=(currentScreen==="screen-editor")?"screen-editor":"screen-start";
+  show("screen-teacher");
+});
+$("back-start").addEventListener("click",e=>{
+  e.preventDefault(); show(screenBeforeTeacher);
+  if(screenBeforeTeacher==="screen-editor") setTimeout(positionTaskBtn,30);
+});
+
+/* Zwischenstand hochladen und weiterarbeiten */
+async function readResumePdf(file){
+  $("resume-err").textContent="";
+  try{
+    const str=await readAsBinaryStr(file);
+    const mm=str.match(TRACK_RE);
+    if(!mm){ $("resume-err").textContent="In dieser PDF wurden keine Feiditor-Daten gefunden. Bitte lade eine Zwischenstand-PDF aus dem Feiditor hoch."; return; }
+    const {payload}=await autoDecrypt(mm[1]);
+    resumeFromPayload(payload);
+  }catch(err){ $("resume-err").textContent="Der Zwischenstand konnte nicht gelesen werden: "+(err.message||"unbekannter Fehler"); }
+}
+$("resume-input").addEventListener("change",e=>{const f=e.target.files[0];if(f)readResumePdf(f); e.target.value="";});
+const resumeDrop=$("resume-drop");
+["dragover","dragenter"].forEach(ev=>resumeDrop.addEventListener(ev,e=>{e.preventDefault();resumeDrop.style.borderColor="#8a6a3c";}));
+["dragleave","drop"].forEach(ev=>resumeDrop.addEventListener(ev,e=>{e.preventDefault();resumeDrop.style.borderColor="";}));
+resumeDrop.addEventListener("drop",e=>{const f=e.dataTransfer.files[0];if(f)readResumePdf(f);});
 
 /* ---------- Escape-Room-Modus: Aufgaben vorbefüllt (Autostart aus dem Escape-Room oder aus der Überblick-PDF) ---------- */
 function startEscapeMode(v,n,tasks,red){
@@ -2055,20 +2254,22 @@ wireFmtBtn("fb-underline",()=>execInline("underline"));
 wireFmtBtn("fb-heading",toggleHeading);
 try{ document.execCommand("styleWithCSS",false,false); }catch(e){}
 
-/* Export: erzeugt NUR die Text-PDF (mit rotem Moodle-Hinweis); die Tracking-Daten stecken
-   verschlüsselt als %TRACKDATA in der PDF und sind über „Lehrkraft → PDF laden + Code" auslesbar */
-$("export-btn").addEventListener("click",async()=>{
-  const btn=$("export-btn");
+/* Export: erzeugt die Text-PDF (mit rotem Moodle-Hinweis); die Tracking-Daten stecken verschlüsselt
+   als %TRACKDATA in der PDF und sind über „Zugang für die Lehrkraft → PDF laden + Code" auslesbar.
+   interim=true: dieselbe PDF als Zwischenstand („Zwischenstand vom … um … von …"), aus dem sich später
+   über die Startseite weiterarbeiten lässt. */
+async function exportPdf(interim){
+  const btn=interim?$("save-btn"):$("export-btn");
   const ser=syncTracking(justPasted?"p":"t"); justPasted=false;   // Editor und Tracking sicher synchron
   const text=ser.text; const fmt=ser.fmt;
-  const name=studentVorname+" "+studentNachname;
-  btn.disabled=true; const old=btn.textContent; btn.textContent="Erzeuge PDF…";
+  const name=(studentVorname+" "+studentNachname).trim();
+  const old=btn.textContent; btn.disabled=true; btn.textContent="Erzeuge PDF…";
   try{
-    const payload=buildPayload(name,text,fmt,studentVorname,studentNachname);
+    const payload=buildPayload(name,ser,studentVorname,studentNachname);
     const code=_kf(studentVorname);
     const bundle=await aesEncrypt(JSON.stringify(payload),code);
 
-    const pdfName=makePdfName();
+    const pdfName=interim?interimPdfName():makePdfName();
 
     // PDF: formatierter Text (Aufgaben fett) + roter Moodle-Hinweis; im Escape-Room zusätzlich die Übersichts-Seiten;
     // Tracking-Daten stecken (verschlüsselt) als %TRACKDATA drin
@@ -2087,11 +2288,13 @@ $("export-btn").addEventListener("click",async()=>{
     // PDF direkt im Klick-Kontext herunterladen
     dlPdf.click();
 
-    btn.textContent="PDF erstellt ✓";
+    btn.textContent=interim?"Zwischenstand gespeichert ✓":"PDF erstellt ✓";
     setTimeout(()=>{ btn.textContent=old; }, 2200);
   }catch(err){ alert("Fehler beim Erzeugen der PDF: "+err.message); btn.textContent=old; }
   finally{ btn.disabled=false; }
-});
+}
+$("export-btn").addEventListener("click",()=>exportPdf(false));
+$("save-btn").addEventListener("click",()=>exportPdf(true));
 
 /* Lehrkraft: PDF laden + Code (Einzelansicht) bzw. mehrere PDFs (Tabellenansicht) */
 let teacherBundle=null;
@@ -2134,7 +2337,7 @@ async function readPdfFile(file){
 /* Code automatisch ermitteln: alle plausiblen Buchstabenzahlen des Vornamens durchprobieren
    (AES-GCM schlägt bei falschem Code sauber fehl) */
 async function autoDecrypt(bundle){
-  for(let n=1;n<=40;n++){
+  for(let n=0;n<=60;n++){
     const code=_kfN(n);
     try{ const json=await aesDecrypt(bundle,code); return {payload:JSON.parse(json),code}; }catch(e){}
   }
