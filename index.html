@@ -1482,7 +1482,7 @@ function renderAnalysis(payload){
       '<span><i class="sw" style="background:#23201b"></i>vorgegebener Aufgabentext (nicht gewertet)</span>'+
     '</div>';
   const stat=`<p class="stat">Zeichen gesamt: ${s.total} · rot: ${s.red} (${s.redPct} %) · orange: ${s.orange} (${s.orangePct} %) · grün: ${s.green} (${s.greenPct} %)</p>`;
-  const head=`<div class="nmeta">Verfasser:in — ${esc(payload.n||"")}</div>`;
+  const head=`<div class="nmeta">Verfasser:in — ${esc(payload.n||"")}${payload.z===1?" · Zwischenstand":""}</div>`;
   return head+badge+legend+stat+`<div class="analysis">${html}</div>`;
 }
 
@@ -1574,8 +1574,11 @@ function syncTracking(src){
 
 /* Hintergrunddaten für die PDF: Text (t), Marken je Zeichen (m: Quelle + Abstand), Format-Bits (f),
    Blockstruktur (k: je Block [Art 0=Zeile/1=Aufgabe, Zeichenzahl, Labellänge]) und Escape-Infos (e).
+   Alle Längen und Indizes zählen UTF-16-Einheiten wie t (v:2; ältere Dateien zählten k in Unicode-Zeichen).
+   z = versteckte Kennung: 1 = Zwischenstand, 0 = fertige Abgabe. Sie steckt wie alles andere verschlüsselt
+   (AES-GCM) in %TRACKDATA und lässt sich ohne Entschlüsseln nicht verändern.
    Aus diesen Daten kann ein Zwischenstand vollständig wiederhergestellt werden. */
-function buildPayload(name,ser,vn,nn){
+function buildPayload(name,ser,vn,nn,interim){
   const text=ser.text, fmt=ser.fmt||[];
   if(recs.length!==text.length){ // letzte Absicherung: Tipp-Info verloren -> Abstand unbekannt (nie fälschlich rot)
     recs=text.split("").map(()=>({src:"t",t:-1}));
@@ -1593,7 +1596,7 @@ function buildPayload(name,ser,vn,nn){
     f.push(bits);
   }
   const r=computeStats(text,m).redPct; // Rot-Anteil in Prozent, wie ihn die Lehrkraft-Ansicht zeigt
-  const p={n:name,t:text,m,f,vn:vn||"",nn:nn||"",r,k:ser.blocks||[]};
+  const p={n:name,t:text,m,f,vn:vn||"",nn:nn||"",r,k:ser.blocks||[],v:2,z:interim?1:0};
   if(escapeMode) p.e={esc:true,red:escapeRed};
   return p;
 }
@@ -1732,7 +1735,7 @@ function serializeEditor(){
     const kids=node.childNodes||[];
     for(let k=0;k<kids.length;k++){
       const child=kids[k];
-      if(child.nodeType===3){ const s=child.nodeValue||""; for(const ch of s) pushCh(ch,st); }
+      if(child.nodeType===3){ const s=child.nodeValue||""; for(let q=0;q<s.length;q++) pushCh(s[q],st); }   // je UTF-16-Einheit wie t, recs und fmt (ein Emoji = 2 Einheiten)
       else if(child.nodeType===1){
         if(child.hasAttribute("data-noser")) continue;
         if(child.tagName==="BR"){ if(!placeholderBr(child)) pushCh("\n",st); continue; }
@@ -1760,7 +1763,7 @@ function serializeEditor(){
     } else if(node.nodeType===3||node.nodeType===1){
       // lose Text-/Inline-Knoten auf oberster Ebene (kommen nach normalizeBlocks nicht vor): als Zeile zusammenfassen
       if(!cur) beginBlock(0,false);
-      if(node.nodeType===3){ for(const ch of (node.nodeValue||"")) pushCh(ch,BASE); }
+      if(node.nodeType===3){ const s=node.nodeValue||""; for(let q=0;q<s.length;q++) pushCh(s[q],BASE); }
       else if(node.tagName==="BR"){ if(!placeholderBr(node)) pushCh("\n",BASE); }
       else walk(node, styleOf(node,BASE));
     }
@@ -1818,6 +1821,20 @@ function buildInline(parent,text,fmts){
   }
   if(lastBr||!parent.firstChild) parent.appendChild(document.createElement("br"));   // Platzhalter-<br>, damit der Umbruch erhalten bleibt
 }
+/* Blockstruktur k in UTF-16-Einheiten wie t. Dateien bis 29.09.2026 zählten k in Unicode-Zeichen (Codepunkten);
+   nach einem Emoji passte k dann nicht mehr zu t – solche Längen werden hier umgerechnet. */
+function kInUnits(t,k){
+  let sum=0; k.forEach((rec,bi)=>{ sum+=(bi>0?1:0)+Math.max(0,rec[1]|0); });
+  if(sum===t.length) return k;
+  const out=[]; let i=0;
+  const adv=(n)=>{ let j=i; while(n-->0&&j<t.length){ const c=t.charCodeAt(j); j+=(c>=0xD800&&c<=0xDBFF&&j+1<t.length&&(t.charCodeAt(j+1)&0xFC00)===0xDC00)?2:1; } return j; };
+  for(let bi=0;bi<k.length;bi++){
+    const rec=k[bi]; if(bi>0) i++;
+    const e=adv(Math.max(0,rec[1]|0)), le=adv(Math.max(0,rec[2]|0));
+    out.push([rec[0]|0,e-i,le-i]); i=e;
+  }
+  return i===t.length?out:k;
+}
 /* Editor aus t (Text), f (Format-Bits) und k (Blockstruktur) neu aufbauen */
 function rebuildEditorFromPayload(p){
   const t=p.t||"", f=p.f||[], k=Array.isArray(p.k)?p.k:null;
@@ -1834,9 +1851,10 @@ function rebuildEditorFromPayload(p){
     const text=labelLen?content.slice(labelLen+1):content;
     root.appendChild(makeTaskBlock(label,text));
   }
-  if(k&&k.length){
+  const ku=(k&&k.length)?kInUnits(t,k):null;
+  if(ku&&ku.length){
     let idx=0;
-    k.forEach((rec,bi)=>{
+    ku.forEach((rec,bi)=>{
       if(bi>0) idx++;                                            // Trenner "\n"
       const kind=rec[0]|0, n=Math.max(0,rec[1]|0), ll=Math.max(0,rec[2]|0);
       const content=t.slice(idx,idx+n); const fmts=[]; for(let i=idx;i<idx+n;i++) fmts.push(fm(i));
@@ -2295,7 +2313,7 @@ async function exportPdf(interim){
   const name=(studentVorname+" "+studentNachname).trim();
   const old=btn.textContent; btn.disabled=true; btn.textContent="Erzeuge PDF…";
   try{
-    const payload=buildPayload(name,ser,studentVorname,studentNachname);
+    const payload=buildPayload(name,ser,studentVorname,studentNachname,!!interim);
     const code=_kf(studentVorname);
     const bundle=await aesEncrypt(JSON.stringify(payload),code);
 
@@ -2395,7 +2413,7 @@ async function readBatch(files){
       if(!mm) throw new Error("keine Tracking-Daten gefunden");
       const {payload}=await autoDecrypt(mm[1]);
       const nm=splitName(payload);
-      rows.push({file:f.name,vn:nm.vn,nn:nm.nn,r:redPercent(payload),bundle:mm[1]});
+      rows.push({file:f.name,vn:nm.vn,nn:nm.nn,r:redPercent(payload),bundle:mm[1],z:payload.z===1});
     }catch(err){ rows.push({file:f.name,error:err.message||"Fehler"}); }
   }
   batchRows=rows;
@@ -2415,7 +2433,7 @@ function renderBatchTable(){
   rows.forEach(r=>{
     if(r.error){ html+=`<tr class="errrow"><td colspan="3">${esc(r.file)} – ${esc(r.error)}</td></tr>`; return; }
     const hi=r.r>RED_LIMIT;
-    html+=`<tr class="clickable" data-idx="${batchRows.indexOf(r)}" title="Einzelansicht öffnen (Code erforderlich)"><td>${esc(r.vn)}</td><td>${esc(r.nn)}</td><td class="pct${hi?" high":""}">${r.r}&nbsp;%</td></tr>`;
+    html+=`<tr class="clickable" data-idx="${batchRows.indexOf(r)}" title="Einzelansicht öffnen (Code erforderlich)"><td>${esc(r.vn)}</td><td>${esc(r.nn)}${r.z?" (Zwischenstand)":""}</td><td class="pct${hi?" high":""}">${r.r}&nbsp;%</td></tr>`;
   });
   html+='</tbody></table></div>';
   html+='<p class="batchhint">Rot-Anteil = Anteil der rot markierten Zeichen (eingefügt oder ≤ 0,015 s getippt). Klick auf eine Zeile öffnet die Einzelansicht nach Eingabe des Codes.</p>';
