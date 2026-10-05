@@ -433,8 +433,6 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 .video-wrap { position: relative; width: 100%; padding-top: 56.25%; border-radius: var(--radius); overflow: hidden; background: var(--c-bg-soft); border: 1px solid var(--c-border-soft); margin: 8px 0 12px; }
 .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .intro-video { max-width: 720px; margin: 4px 0 22px; }
-.final-video { max-width: 720px; margin: 0 0 22px; }
-.final-video .video-wrap { margin-top: 0; }
 .btn.btn-small { padding: 7px 12px; font-size: 13px; }
 .intro-video .video-wrap { margin-top: 0; }
 .fallback-line { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font-size: 13.5px; color: var(--c-text-mute); margin-bottom: 26px; }
@@ -505,26 +503,38 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 @media (prefers-reduced-motion: reduce) { .reveal-letter { animation: none; } }
 
 /* ============================================================
-   FINAL SCREEN
+   ZWISCHENSTAND-SEITE (nach dem letzten Rätselraum, vor dem Finale)
    ============================================================ */
 
-.final-hero { text-align: center; padding: 20px 0 36px; }
-.final-code { font-family: var(--font-display); font-size: clamp(48px, 9vw, 96px); font-weight: 800; letter-spacing: 0.18em; color: var(--c-blue-deep); line-height: 1; margin: 10px 0 6px; }
-.final-suffix { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-text-dim); }
+.mid-hero { text-align: center; margin-bottom: 18px; }
+.mid-hero .section-title { font-size: clamp(26px, 3.6vw, 34px); margin-bottom: 2px; }
+.mid-hero .lede { font-size: 18px; }
+.mid-steps { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin: 12px 0 0; }
+.mid-step { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--c-border); background: var(--c-bg-card); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: var(--c-text-mute); }
+.mid-step.done { border-color: var(--c-success); background: var(--c-success-bg); color: var(--c-success); }
+.mid-step.next { border-color: var(--c-blue); background: var(--c-bg-tint); color: var(--c-blue-dark); }
+.code-badge { display: inline-flex; align-items: baseline; gap: 10px; padding: 5px 14px; border-radius: 12px; background: var(--c-bg-card); border: 1.5px solid var(--c-border); box-shadow: var(--shadow-soft); font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: 0.14em; color: var(--c-blue-dark); }
+.code-badge small { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-text-mute); font-weight: 700; }
+.pause-card { margin-top: 18px; padding: 20px 22px; border: 2px dashed var(--c-border); border-radius: 14px; background: var(--c-bg-soft); }
+.pause-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--c-bg-card); color: var(--c-blue-dark); border: 2px solid var(--c-blue); border-radius: 12px; padding: 13px 20px; font-family: var(--font-body); font-size: 15px; font-weight: 700; text-align: left; cursor: pointer; transition: all .2s ease; }
+.pause-btn:hover { background: var(--c-bg-tint); transform: translateY(-1px); }
+.pause-btn svg { width: 20px; height: 20px; flex: none; }
+.readmore { display: flex; align-items: center; gap: 14px; margin: 40px 0 16px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--c-text-mute); }
+.readmore::before, .readmore::after { content: ''; flex: 1; height: 1px; background: var(--c-border); }
 .code-box { display: inline-block; margin-top: 18px; padding: 16px 26px; background: var(--c-bg-tint); border: 1px solid var(--c-blue-soft); border-radius: var(--radius); }
 .code-box .code-label { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-blue-deep); }
 .code-box .code-value { font-family: var(--font-mono); font-size: 30px; font-weight: 700; color: var(--c-blue-dark); letter-spacing: 0.06em; margin-top: 4px; }
-/* ---- Download-Button (Übersichts-PDF) ---- */
-.btn-download { display: inline-flex; align-items: center; gap: 10px; background: var(--c-blue-deep); color: #fff; border: none; border-radius: 10px; padding: 14px 22px; font-family: var(--font-body); font-size: 15.5px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px rgba(29,123,191,.35); transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
-.btn-download:hover { background: var(--c-blue-dark); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(29,123,191,.45); }
-.btn-download:active { transform: translateY(0); }
-.btn-download svg { width: 20px; height: 20px; flex: none; }
 
 /* ---- Arena: das große Finale gegen den Feiditor (dunkel, dramatisch – bewusst unabhängig vom hellen Farbschema) ---- */
-.arena{ background:radial-gradient(120% 90% at 50% 0%, #17223a 0%, #0b1220 55%, #070c16 100%); color:#e9eef7; border-radius:14px; padding:34px 28px 30px; margin-top:22px; box-shadow:0 18px 50px rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.06); }
+.arena{ background:radial-gradient(120% 90% at 50% 0%, #17223a 0%, #0b1220 55%, #070c16 100%); color:#e9eef7; border-radius:14px; padding:26px 28px 26px; margin-top:22px; box-shadow:0 18px 50px rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.06); }
 .arena-kicker{ font-family:var(--font-mono); font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#d6b25e; font-weight:600; text-align:center; }
-.arena h2{ font-family:var(--font-display); font-size:30px; font-weight:700; color:#fff; text-align:center; margin:8px 0 10px; letter-spacing:.01em; }
+.arena h2{ font-family:var(--font-display); font-size:26px; font-weight:700; color:#fff; text-align:center; margin:6px 0 14px; letter-spacing:.01em; }
 .arena p{ max-width:620px; margin:0 auto 22px; text-align:center; font-size:15px; line-height:1.6; color:#b9c4d8; }
+/* Video und YouTube-Link in der Arena: hell auf dunklem Grund */
+.arena .video-wrap{ max-width:760px; margin:0 auto 10px; background:#05080f; border-color:rgba(255,255,255,.1); }
+.arena .fallback-line{ justify-content:center; max-width:760px; margin:0 auto 22px; color:#7f8cab; }
+.arena .fallback-line .btn-ghost{ background:transparent; color:#f0cf78; border-color:rgba(240,207,120,.5); }
+.arena .fallback-line .btn-ghost:hover{ background:rgba(240,207,120,.12); color:#f6dc96; border-color:#f0cf78; }
 .arena-gate{ display:block; width:100%; max-width:760px; margin:0 auto; padding:0; border:0; background:transparent; cursor:pointer; position:relative; border-radius:12px; overflow:hidden; outline:none; }
 .arena-gate svg{ display:block; width:100%; height:auto; }
 .arena-gate .gate-glow{ opacity:0; transition:opacity .4s ease; }
@@ -532,10 +542,11 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 .arena-gate .gate-field{ transition:filter .3s ease; }
 .arena-gate:hover .gate-field{ filter:brightness(1.2); }
 .arena-gate:focus-visible{ box-shadow:0 0 0 3px #d6b25e; }
-.arena-cta{ position:absolute; left:50%; bottom:18px; transform:translateX(-50%); background:rgba(214,178,94,.95); color:#1a1305; font-family:var(--font-mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; font-weight:700; padding:9px 16px; border-radius:999px; box-shadow:0 6px 18px rgba(0,0,0,.5); white-space:nowrap; transition:transform .2s ease, background .2s ease; pointer-events:none; }
-.arena-gate:hover .arena-cta{ transform:translateX(-50%) translateY(-2px); background:#f0cf78; }
+/* Button im Gang: sitzt unten über dem Bild, der ganze Gang ist klickbar */
+.arena-enter{ position:absolute; left:50%; bottom:22px; transform:translateX(-50%); display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,#f0cf78,#d6b25e); color:#1a1305; font-family:var(--font-body); font-size:15.5px; font-weight:800; padding:14px 26px; border-radius:999px; box-shadow:0 8px 24px rgba(0,0,0,.55); white-space:nowrap; pointer-events:none; transition:transform .2s ease, box-shadow .2s ease; }
+.arena-gate:hover .arena-enter, .arena-gate:focus-visible .arena-enter{ transform:translateX(-50%) translateY(-3px); box-shadow:0 12px 30px rgba(0,0,0,.6); }
 .arena-foot{ text-align:center; font-size:12.5px; color:#7f8cab; margin-top:16px; }
-@media (max-width:600px){ .arena{ padding:26px 16px 22px; } .arena h2{ font-size:24px; } .arena-cta{ font-size:10px; padding:8px 12px; } }
+@media (max-width:600px){ .arena{ padding:26px 16px 22px; } .arena h2{ font-size:24px; } .arena-enter{ white-space:normal; text-align:center; max-width:92%; font-size:13px; line-height:1.25; padding:10px 16px; bottom:12px; gap:6px; } }
 
 .gutachten { font-family: var(--font-serif); font-size: 16.5px; line-height: 1.7; background: var(--c-bg-soft); border: 1px solid var(--c-border-soft); border-radius: var(--radius); padding: 26px 30px; }
 .gutachten .gutachten-head { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-blue-deep); margin-bottom: 10px; }
@@ -1157,6 +1168,24 @@ function fmtDateTime(d){
   return date+', '+time+' Uhr';
 }
 
+/* Überblicksseiten einer hochgeladenen PDF: alle Seiten der Überblick-PDF aus dem Escape-Room bzw. die mit OVERVIEW_MARK
+   markierten Seiten einer Feiditor-PDF. Beide Dateien stammen aus den eigenen PDF-Writern (unkomprimierte Streams, nur
+   /F1 und /F2), die Content-Streams lassen sich daher unverändert in die fertige PDF übernehmen. */
+const OVERVIEW_MARK="%ESCAPE-OVERVIEW";
+function overviewStreamsFrom(str){
+  const all=/%ESCAPEDATA /.test(str)&&!/%TRACKDATA /.test(str);   // reine Überblick-PDF: jede Seite ist eine Überblicksseite
+  // Feiditor-PDFs vor dem 04.10.2026 tragen keine Markierung: dort zählt eine Seite, deren erster Text ein Überblick-Titel ist
+  const TITLE=/\((?:\xDCberblick deiner Antworten & Erl\xE4uterungen|L\xF6sungserl\xE4uterungen)\) Tj/;
+  const out=[]; const re=/<<\s*\/Length (\d+)\s*>>\s*stream\r?\n/g; let m;
+  while((m=re.exec(str))){
+    const start=m.index+m[0].length, n=parseInt(m[1],10); if(!(n>0)) continue;
+    const body=str.substr(start,n); re.lastIndex=start+n;
+    if(body.startsWith(OVERVIEW_MARK+"\n")) out.push(body.slice(OVERVIEW_MARK.length+1).replace(/\n+$/,""));
+    else if(all||TITLE.test(body.slice(0,400))) out.push(body.replace(/\n+$/,""));
+  }
+  return out;
+}
+
 /* ============================================================
    ESCAPE-ROOM-ÜBERSICHTS-SEITEN
    Jeder Escape-Room ergänzt an dieser Stelle seine eigene Funktion
@@ -1212,7 +1241,8 @@ function buildOverviewPages(ov){
   doc.rect(M,y-blockH,CW,blockH,[244,248,252]);
   doc.rect(M,y-blockH,3,blockH,ACCENT);
   doc.text('SCHÜLERIN / SCHÜLER',M+14,y-16,8.5,true,ACCENT);
-  doc.text(((ov.firstName||'')+' '+(ov.lastName||'')).trim(),M+14,y-31,13,true,PRIMARY);
+  const nameStr=((ov.firstName||'')+' '+(ov.lastName||'')).trim();
+  doc.text(nameStr,M+14,y-31,pdfStringWidth(nameStr,13,true)>270?10:13,true,PRIMARY);   // lange Namen kleiner, damit sie nicht in die Code-Spalte laufen
   doc.text('GEBURTSDATUM',M+14,y-50,8.5,true,ACCENT);
   doc.text(ov.birthDate||'',M+14,y-64,11,false,TEXT);
   doc.text('BESTÄTIGUNGSCODE',M+300,y-16,8.5,true,ACCENT);
@@ -1342,8 +1372,10 @@ function buildPdf(opts){
     pages.push({lines:pageLines});
   }
   const nPages=pages.length;
-  // Übersichts-Seiten (aus dem Escape-Room) werden hinter die Aufgaben-Seiten gehängt
-  const ovStreams=(opts.overview&&typeof buildOverviewPages==="function")?buildOverviewPages(opts.overview):[];
+  // Übersichts-Seiten (aus dem Escape-Room) werden hinter die Aufgaben-Seiten gehängt: im eingebetteten Feiditor neu
+  // erzeugt, im eigenständigen Feiditor aus der hochgeladenen Überblick- bzw. Zwischenstand-PDF übernommen
+  const ovStreams=(opts.overview&&typeof buildOverviewPages==="function")?buildOverviewPages(opts.overview)
+    :(Array.isArray(opts.overviewStreams)?opts.overviewStreams:[]);
   const nAll=nPages+ovStreams.length;
 
   const noteText="Bitte diese PDF-Datei herunterladen und bei Moodle hochladen.";
@@ -1404,7 +1436,7 @@ function buildPdf(opts){
   for(let k=0;k<ovStreams.length;k++){
     const i=nPages+k;
     objects[pageObjNum(i)]=`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW.toFixed(2)} ${PH.toFixed(2)}] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents ${contObjNum(i)} 0 R >>`;
-    objects[contObjNum(i)]={stream:ovStreams[k]+"\n"};
+    objects[contObjNum(i)]={stream:OVERVIEW_MARK+"\n"+ovStreams[k]+"\n"};   // markiert: so findet der eigenständige Feiditor die Seiten beim Fortsetzen
   }
 
   let pdf="%PDF-1.7\n%\u00E2\u00E3\u00CF\u00D3\n";
@@ -1634,6 +1666,7 @@ function setLink(el,blob,filename){
 let studentVorname="", studentNachname="";
 let escapeRed=[];     // Texte der roten Felder im Escape-Room-Modus
 let escapeCtx=null;   // Steckbrief des Escape-Rooms (Fach, Jahrgangsstufe, Thema, erarbeitete Inhalte) für die KI-Bewertung
+let escapeOverviewStreams=[];   // Überblicksseiten (Content-Streams) aus einer hochgeladenen Überblick- oder Zwischenstand-PDF
 let escapeMode=false; // true: aus einem Escape-Room gestartet (Autostart oder Überblick-PDF)
 let prefilled=false;  // true: Aufgaben wurden vorbefüllt (Escape-Room, Lerntagebuch)
 
@@ -1648,7 +1681,7 @@ function renderMoodleHints(){
 function hideDlPanel(){ const dp=$("dl-panel"); if(dp) dp.classList.add("hidden"); }
 function makePdfName(){
   if(typeof CFG.pdfName==="function") return CFG.pdfName(studentVorname,studentNachname);
-  if(escapeMode) return fileSafe("Escape Room Daten von "+studentVorname+" "+studentNachname)+".pdf";
+  if(escapeMode) return fileSafe("Abgeschlossener Escape-Room von "+studentVorname+" "+studentNachname)+".pdf";
   return fileSafe("Text von "+studentVorname)+".pdf";
 }
 /* Zwischenstand: „Zwischenstand vom TT.MM.JJJJ um hh.mm von Vorname Nachname.pdf" (Doppelpunkt ist in Dateinamen nicht erlaubt) */
@@ -2140,7 +2173,7 @@ $("start-btn").addEventListener("click",()=>{
   if(!v||!n){$("start-err").textContent="Bitte Vor- und Nachnamen eintragen.";return;}
   studentVorname=v; studentNachname=n;
   $("who-name").textContent=v+" "+n;
-  escapeMode=false; escapeRed=[]; escapeCtx=null; renderMoodleHints();          // normaler Modus: keine roten Felder
+  escapeMode=false; escapeRed=[]; escapeCtx=null; escapeOverviewStreams=[]; renderMoodleHints();          // normaler Modus: keine roten Felder
   const tasks=Array.isArray(CFG.prefill)?CFG.prefill:[];
   prefilled=tasks.length>0;
   fillEditor(tasks, CFG.prefillLabels?(i=>"Aufgabe "+(i+1)):null);
@@ -2185,6 +2218,7 @@ async function readResumePdf(file){
     const mm=str.match(TRACK_RE);
     if(!mm){ $("resume-err").textContent="In dieser PDF wurden keine Feiditor-Daten gefunden. Bitte lade eine Zwischenstand-PDF aus dem Feiditor hoch."; return; }
     const {payload}=await autoDecrypt(mm[1]);
+    escapeOverviewStreams=(payload&&payload.e&&payload.e.esc)?overviewStreamsFrom(str):[];
     resumeFromPayload(payload);
   }catch(err){ $("resume-err").textContent="Der Zwischenstand konnte nicht gelesen werden: "+(err.message||"unbekannter Fehler"); }
 }
@@ -2227,6 +2261,7 @@ function readEscapePdf(file){
     let d;
     try{ d=JSON.parse(decodeURIComponent(escape(atob(mm[1])))); }
     catch(e){ $("esc-err").textContent="Die Escape-Room-Daten konnten nicht gelesen werden."; return; }
+    escapeOverviewStreams=overviewStreamsFrom(str);   // Überblicksseiten für die fertige PDF
     startEscapeMode(d.v,d.n,d.t,d.r,d.c);
   };
   fr.onerror=()=>{$("esc-err").textContent="Datei konnte nicht gelesen werden.";};
@@ -2332,7 +2367,7 @@ async function exportPdf(interim){
     // PDF: formatierter Text (Aufgaben fett) + roter Moodle-Hinweis; im Escape-Room zusätzlich die Übersichts-Seiten;
     // Tracking-Daten stecken (verschlüsselt) als %TRACKDATA drin
     const overview=(window.__ESCAPE_DATA__&&window.__ESCAPE_DATA__.overview)||null;
-    const pdfStr=buildPdf({name,text,fmt,trackB64:bundle,overview});
+    const pdfStr=buildPdf({name,text,fmt,trackB64:bundle,overview,overviewStreams:escapeOverviewStreams});
     const u8=new Uint8Array(pdfStr.length);
     for(let i=0;i<pdfStr.length;i++)u8[i]=pdfStr.charCodeAt(i)&0xFF;
     // octet-stream im Escape-Room-Modus: erzwingt Speichern statt Anzeigen
@@ -2969,7 +3004,7 @@ class PdfDoc {
     }
     return curY;
   }
-  build() {
+  build(headComment) {
     const objects = [null, null,  // catalog, pages
       '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
       '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>',
@@ -2984,7 +3019,9 @@ class PdfDoc {
     objects[1] = `<< /Type /Pages /Kids [${pageIds.map(i => i + ' 0 R').join(' ')}] /Count ${pageIds.length} >>`;
     objects[0] = '<< /Type /Catalog /Pages 2 0 R >>';
 
-    let pdf = '%PDF-1.4\n%\xC4\xC5\xC6\xC7\n';
+    // Kennung (%ESCAPEDATA) als Kommentarzeile direkt nach dem Kopf (wie %TRACKDATA im Feiditor), nicht hinter %%EOF:
+    // so bleibt startxref in den letzten Bytes der Datei und PDF-Werkzeuge müssen nichts reparieren.
+    let pdf = '%PDF-1.4\n%\xC4\xC5\xC6\xC7\n' + (headComment ? headComment.replace(/^\n+|\n+$/g, '') + '\n' : '');
     const offsets = [0];
     for (let i = 0; i < objects.length; i++) {
       offsets.push(pdf.length);
@@ -2996,11 +3033,7 @@ class PdfDoc {
     pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`;
     return pdf;
   }
-  toBase64(trailerComment) {
-    let pdf = this.build();
-    if (trailerComment) pdf += trailerComment;   // unsichtbar nach %%EOF (von PDF-Viewern ignoriert)
-    return btoa(pdf);
-  }
+  toBase64(headComment) { return btoa(this.build(headComment)); }
 }
 
 
@@ -3060,21 +3093,24 @@ function generateMistakesPdf() {
 
   let y = newPage();
 
-  doc.rect(M, y - 78, CONTENT_W, 78, [230, 242, 251]);
-  doc.rect(M, y - 78, 3, 78, ACCENT);
-  let yTop = doc.paragraph(
-    'Diese Datei musst du bei Moodle in der dafür vorgesehenen Abgabe hochladen, um deinem Lehrer nachzuweisen, dass du den Escape-Room erfolgreich absolviert hast.',
-    M + 12, y - 16, CONTENT_W - 24, 10.5, true, PRIMARY, 13.5);
-  doc.paragraph(
-    'Notfall-Tipp: Falls du den Link zum digitalen Arbeitsblatt (Feiditor) nicht mehr hast, kannst du diese PDF-Datei auf https://feiditor.janrickmer.de/ hochladen, um den Feiditor mit deinen Aufgaben erneut zu öffnen.',
-    M + 12, yTop - 4, CONTENT_W - 24, 9, false, TEXT_MUTE, 12);
-  y -= 78 + 14;
+  // Hinweis (fett) + Fortsetzen-Tipp (ganz oben). Diese Seiten gibt es allein (Pause) und angehängt an die fertige
+  // Abgabe aus dem eigenständigen Feiditor – der Text gilt für beides. Kastenhöhe nach Zeilenzahl.
+  const NOTE1 = 'Diese Seiten gehören zu deiner Abgabe bei Moodle – als Teil der fertigen Datei „Abgeschlossener Escape-Room von …“, die am Ende des Finales im Feiditor entsteht.';
+  const NOTE2 = 'Hinweis: Mit dieser Überblick-PDF kannst du das Finale jederzeit auf https://feiditor.janrickmer.de/ fortsetzen (Auswahl „Ich komme aus einem Escape-Room …“).';
+  const lineCount = (str, size, bold, width) => { let line = '', n = 0; for (const w of String(str).split(/\s+/).filter(Boolean)) { const t = line ? line + ' ' + w : w; if (pdfStringWidth(t, size, bold) <= width) line = t; else { n++; line = w; } } return line ? n + 1 : n; };
+  const boxH = 16 + lineCount(NOTE1, 10.5, true, CONTENT_W - 24) * 13.5 + 4 + lineCount(NOTE2, 9, false, CONTENT_W - 24) * 12 + 6;
+  doc.rect(M, y - boxH, CONTENT_W, boxH, [230, 242, 251]);
+  doc.rect(M, y - boxH, 3, boxH, ACCENT);
+  const yTop = doc.paragraph(NOTE1, M + 12, y - 16, CONTENT_W - 24, 10.5, true, PRIMARY, 13.5);
+  doc.paragraph(NOTE2, M + 12, yTop - 4, CONTENT_W - 24, 9, false, TEXT_MUTE, 12);
+  y -= boxH + 14;
 
   const blockH = 80;
   doc.rect(M, y - blockH, CONTENT_W, blockH, [244, 248, 252]);
   doc.rect(M, y - blockH, 3, blockH, ACCENT);
   doc.text('SCHÜLERIN / SCHÜLER', M + 14, y - 16, 8.5, true, ACCENT);
-  doc.text(state.firstName + ' ' + state.lastName, M + 14, y - 31, 13, true, PRIMARY);
+  const nameStr = state.firstName + ' ' + state.lastName;
+  doc.text(nameStr, M + 14, y - 31, pdfStringWidth(nameStr, 13, true) > 270 ? 10 : 13, true, PRIMARY);   // lange Namen kleiner, damit sie nicht in die Code-Spalte laufen
   doc.text('GEBURTSDATUM', M + 14, y - 50, 8.5, true, ACCENT);
   doc.text(state.birthDate, M + 14, y - 64, 11, false, TEXT);
   doc.text('BESTÄTIGUNGSCODE', M + 300, y - 16, 8.5, true, ACCENT);
@@ -3086,7 +3122,7 @@ function generateMistakesPdf() {
   y = doc.paragraph(
     'Dieses Dokument fasst zusammen, welche Antworten du in jedem Rätselraum beim ersten Versuch gegeben hast. ' +
     'Du hast jeden Raum am Ende erfolgreich gelöst – diese Übersicht zeigt nur, wo es anfangs noch hakte. ' +
-    'Auf der zweiten Seite findest du ausführliche Lösungserläuterungen zum Nacharbeiten.',
+    'Auf den folgenden Seiten findest du ausführliche Lösungserläuterungen zum Nacharbeiten.',
     M, y, CONTENT_W, 10.5, false, TEXT, 14
   );
   y -= 10;
@@ -3201,12 +3237,11 @@ function generateMistakesPdf() {
   doc.text('Copyright Jan-Rickmer Feindt', M, y2, 8.5, false, TEXT_MUTE);
   doc.endPage();
 
-  // Versteckte Rekonstruktionsdaten für den Standalone-Feiditor (nach %%EOF, von Viewern ignoriert).
+  // Versteckte Rekonstruktionsdaten für den Standalone-Feiditor: Kommentarzeile direkt nach dem PDF-Kopf (von Viewern ignoriert).
   const escData = { v: state.firstName, n: state.lastName, t: REFLECT_TASKS.slice(0, 6), r: RED_FIELDS, c: ROOM_CONTEXT };
   let escB64 = '';
   try { escB64 = btoa(unescape(encodeURIComponent(JSON.stringify(escData)))); } catch (e) { escB64 = ''; }
-  const trailer = escB64 ? ('\n%ESCAPEDATA ' + escB64 + '\n') : '';
-  return doc.toBase64(trailer);
+  return doc.toBase64(escB64 ? ('%ESCAPEDATA ' + escB64) : '');
 }
 
 function fmtDateTime(d) {
@@ -3271,7 +3306,7 @@ function renderNameInput() {
     <div class="card card-accent" style="max-width: 640px;">
       <h3 style="font-size: 22px; margin-bottom: 14px;">Zutrittsprotokoll</h3>
       <p style="margin-bottom: 22px; color: var(--c-text-mute); font-size: 15px;">
-        Trage deinen vollen Namen und dein Geburtsdatum ein. Beide Angaben erscheinen später auf deinen Dateien für Moodle.
+        Trage deinen vollen Namen und dein Geburtsdatum ein. Beide Angaben erscheinen später auf deiner PDF-Datei für Moodle.
       </p>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
@@ -3400,7 +3435,7 @@ function renderIntro() {
           <dt>Was du brauchst</dt>
           <dd>Stift und Papier für Notizen aus den Bibliotheksräumen.</dd>
           <dt>Am Ende</dt>
-          <dd>Du lädst in Moodle zwei PDF-Dateien hoch: deinen persönlichen Überblick (mit Bestätigungscode) und dein digitales Arbeitsblatt aus dem Feiditor.</dd>
+          <dd>Du lädst in Moodle eine PDF-Datei hoch: dein digitales Arbeitsblatt aus dem Feiditor, das auch deinen persönlichen Überblick (mit Bestätigungscode) enthält.</dd>
         </dl>
       </aside>
     </div>
@@ -3419,7 +3454,7 @@ function renderIntro() {
           <li>Falsche Eingaben werden farblich markiert und kurz erklärt. Du kannst es erneut probieren – aber jeder Fehler im ersten Versuch wird in deinem Protokoll vermerkt.</li>
           <li>Kommst du nicht weiter, hilft der <strong>Hinweis</strong> unter jedem Rätsel: Er wird mit jedem Fehlversuch konkreter – nach dem dritten Fehlversuch zeigt er die Lösung. Wie viele Versuche und Hinweise du gebraucht hast, steht später in deinem Protokoll.</li>
           <li>Wenn ein Raum gelöst ist, erscheint ein Buchstabe. Sammle alle sechs – sie öffnen den Tresor.</li>
-          <li>Am Ende lädst du in Moodle zwei PDF-Dateien hoch: deinen persönlichen Überblick und dein digitales Arbeitsblatt aus dem Feiditor.</li>
+          <li>Am Ende lädst du in Moodle eine PDF-Datei hoch: dein digitales Arbeitsblatt aus dem Feiditor, das auch deinen persönlichen Überblick enthält.</li>
         </ul>
       </div>
     </div>
@@ -4759,7 +4794,7 @@ function triggerReveal(roomIdx) {
 }
 
 /* ============================================================
-   FINAL SCREEN — Der Tresor öffnet sich
+   ZWISCHENSTAND-SEITE — Der Tresor ist offen, das Finale wartet
    ============================================================ */
 
 function renderFinal() {
@@ -4775,63 +4810,28 @@ function renderFinal() {
     : `Du hast ${perfectRooms} von 6 Ordnern im ersten Versuch fehlerfrei gelöst (${totalErrors} Fehler im ersten Versuch) – kein Problem, das gehört zum Lernen. Im „Überblick deiner Antworten & Erläuterungen" findest du sie alle mit Erklärung.`;
 
   root.innerHTML = `
-    <div class="final-hero">
-      <div class="kicker" style="justify-content:center;">Abschluss · Der Tresor ist offen</div>
-      <div class="final-code" id="finalCode">${CODE_WORD}</div>
-      <div class="final-suffix">— Codewort des Tresors —</div>
-      <p class="lede" style="margin: 24px auto 0; max-width: 58ch;">
-        Geschafft, ${state.firstName}. Sechs Buchstaben, sechs Prüfvermerke – der Name des Theologen, dessen Übersicht das ganze Gutachten trägt.
-        Der Tresor schwingt auf. Darin: das Gutachten der Professorin.
-      </p>
-      <p class="text-mute" style="margin-top: 18px; max-width: 56ch; margin-left: auto; margin-right: auto; font-size: 14px;">
-        ${errorSummary}
-      </p>
-    </div>
-
-    <div class="gutachten" style="margin-bottom:22px;">
-      <div class="gutachten-head">Gutachten · Prof. Dr. Marlene Hagedorn · Streitfall Kirche des Fliegenden Spaghettimonsters Deutschland e. V.</div>
-      <p style="margin-bottom:10px;">
-        <strong>1. Religionsbegriff.</strong> Geprüft wurde funktional anhand der sechs Funktionen von Religion nach Dieter Stoodt;
-        ergänzend wurden die substanziellen Kriterien der Gerichte (Gottesbezug, gemeinsame Weltanschauung, Ernsthaftigkeit) berücksichtigt.
-      </p>
-      <p style="margin-bottom:10px;">
-        <strong>2. Befund.</strong> Deutlich erfüllt: Gemeinschaftsbildung / soziale Integration, Weltdistanzierung / Emanzipation.
-        Vorhanden, aber fraglich: Weltdeutung / Sinnstiftung, Handlungsführung. Kaum erkennbar: Angstbewältigung, Kontingenzbewältigung.
-      </p>
-      <p style="margin-bottom:0;"><strong>3. Ergebnis.</strong></p>
-      <span class="empty-field">
-        [ Feld bewusst leer gelassen. ]<br>
-        Handschriftliche Notiz am Rand: „Die Prüfung ist abgeschlossen. Das Urteil überlasse ich dem Gericht – und dir, ${state.firstName}. – M. H."
-      </span>
-    </div>
-
-    <div class="card" style="padding: 28px 32px;">
-      <h2 style="font-size:22px; margin-bottom: 14px;">Zum Abschluss</h2>
-      <div class="final-video">
-        <div class="video-wrap">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/Sh0REtJ1o5w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-        <div class="fallback-line" style="margin-bottom:0;">
-          <a class="btn btn-ghost btn-small" href="https://youtu.be/Sh0REtJ1o5w" target="_blank" rel="noopener noreferrer">Video auf YouTube öffnen ↗</a>
-          <span>Falls das Video hier nicht abspielt, öffnet der Button es in einem neuen Tab.</span>
-        </div>
+    <div class="mid-hero">
+      <div class="kicker" style="justify-content:center;">Zwischenstand · Etappe 1 von 2 geschafft</div>
+      <h1 class="section-title">Der Tresor ist offen – jetzt kommt das Finale</h1>
+      <div class="mid-steps">
+        <span class="mid-step done">✓ Etappe 1 · Sechs Aktenordner</span>
+        <span class="code-badge"><small>Codewort</small>${CODE_WORD}</span>
+        <span class="mid-step next">Etappe 2 · Finale gegen den Feiditor</span>
       </div>
-    </div>
-
-    <div class="card" style="padding: 28px 32px;">
-      <h2 style="font-size:22px; margin-bottom:6px;">Deine Übersicht sichern</h2>
-      <p class="text-mute" style="font-size:13.5px; margin-bottom:16px;">Hier bekommst du eine PDF mit deinen Antworten, deinem Code und den Lösungserläuterungen. Die Datei landet in deinem Download-Ordner – dort kannst du sie jederzeit öffnen. Sie ist deine Sicherheitskopie: Falls du den Weg in die Arena einmal verlierst, kannst du diese Datei auf <strong>feiditor.janrickmer.de</strong> hochladen und dort weitermachen.</p>
-      <button class="btn-download" onclick="downloadOverviewPDF()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 19h16"/></svg>
-        Überblick als PDF herunterladen
-      </button>
+      <p class="lede" style="margin: 14px auto 0; max-width: 60ch;">Geschafft, ${state.firstName} – aber der Escape-Room ist noch nicht vorbei: In der Arena zeigst du jetzt schriftlich, was du vom Gutachten verstanden hast.</p>
     </div>
 
     <div class="arena">
-      <div class="arena-kicker">Das große Finale</div>
-      <h2>Betritt die Arena</h2>
-      <p>Alle sechs Ordner sind abgezeichnet, der Tresor ist offen. Jetzt wartet dein letzter Gegner: der <strong style="color:#f0cf78">Feiditor</strong>. In der Arena zeigst du schriftlich, was du wirklich verstanden hast. Klicke auf den Durchgang, um einzutreten – die Arena öffnet sich in einem neuen Tab.</p>
-      <button class="arena-gate" onclick="openFeiditor()" aria-label="Durchgang anklicken und die Arena betreten">
+      <div class="arena-kicker">Etappe 2 · Das Finale</div>
+      <h2>Erst das Video, dann durch den Gang</h2>
+      <div class="video-wrap">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/Sh0REtJ1o5w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="fallback-line">
+        <a class="btn btn-ghost btn-small" href="https://youtu.be/Sh0REtJ1o5w" target="_blank" rel="noopener noreferrer">Video auf YouTube öffnen ↗</a>
+        <span>Falls das Video hier nicht abspielt, öffnet der Button es in einem neuen Tab.</span>
+      </div>
+      <button class="arena-gate" onclick="openFeiditor()" aria-label="Finale gegen den Feiditor betreten">
         <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ein dunkler Gang führt auf das hell erleuchtete Spielfeld einer Arena">
           <defs>
             <linearGradient id="arWallL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#25324f"/></linearGradient>
@@ -4875,9 +4875,37 @@ function renderFinal() {
           <ellipse class="gate-glow" cx="400" cy="240" rx="230" ry="190" fill="url(#arGlow)"/>
           <rect x="300" y="140" width="200" height="200" fill="none" stroke="#d6b25e" stroke-width="2.5" opacity=".9"/>
         </svg>
-        <span class="arena-cta">Durchgang anklicken · Arena betreten</span>
+        <span class="arena-enter">Finale gegen den Feiditor betreten <span aria-hidden="true">→</span></span>
       </button>
-      <div class="arena-foot">In der Arena sind die Aufgaben schon eingetragen. Am Ende wandelst du deinen Text in eine PDF-Datei um und lädst sie bei Moodle hoch.</div>
+      <div class="arena-foot">Der Gang führt zum <strong style="color:#f0cf78">Feiditor</strong> (neuer Tab), deine Aufgaben sind dort schon eingetragen. Am Ende wandelst du deinen Text in eine PDF-Datei um – sie enthält auch deinen Überblick – und lädst sie bei Moodle hoch.</div>
+    </div>
+
+    <div class="pause-card">
+      <button class="pause-btn" onclick="downloadOverviewPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 19h16"/></svg>
+        Erstmal eine Pause machen und den Zwischenstand herunterladen
+      </button>
+      <p class="text-mute" style="font-size:13.5px; margin:12px 0 0;">Du bekommst deine Überblick-PDF mit deinen Antworten, deinem Code und den Lösungserläuterungen. Wenn du weitermachen willst, lade sie auf <strong>feiditor.janrickmer.de</strong> hoch (Auswahl „Ich komme aus einem Escape-Room …“) – dann öffnet sich das Finale mit deinen Aufgaben. Bei Moodle lädst du erst die fertige Datei „Abgeschlossener Escape-Room von …“ hoch.</p>
+    </div>
+
+    <div class="readmore"><span>Zum Nachlesen</span></div>
+    <p class="text-mute" style="text-align:center; font-size:13.5px; margin:-4px 0 14px;">${errorSummary}</p>
+
+    <div class="gutachten" style="margin-bottom:22px;">
+      <div class="gutachten-head">Gutachten · Prof. Dr. Marlene Hagedorn · Streitfall Kirche des Fliegenden Spaghettimonsters Deutschland e. V.</div>
+      <p style="margin-bottom:10px;">
+        <strong>1. Religionsbegriff.</strong> Geprüft wurde funktional anhand der sechs Funktionen von Religion nach Dieter Stoodt;
+        ergänzend wurden die substanziellen Kriterien der Gerichte (Gottesbezug, gemeinsame Weltanschauung, Ernsthaftigkeit) berücksichtigt.
+      </p>
+      <p style="margin-bottom:10px;">
+        <strong>2. Befund.</strong> Deutlich erfüllt: Gemeinschaftsbildung / soziale Integration, Weltdistanzierung / Emanzipation.
+        Vorhanden, aber fraglich: Weltdeutung / Sinnstiftung, Handlungsführung. Kaum erkennbar: Angstbewältigung, Kontingenzbewältigung.
+      </p>
+      <p style="margin-bottom:0;"><strong>3. Ergebnis.</strong></p>
+      <span class="empty-field">
+        [ Feld bewusst leer gelassen. ]<br>
+        Handschriftliche Notiz am Rand: „Die Prüfung ist abgeschlossen. Das Urteil überlasse ich dem Gericht – und dir, ${state.firstName}. – M. H."
+      </span>
     </div>
 
     <div class="card" style="padding: 28px 32px; margin-top:22px;">
