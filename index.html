@@ -2210,17 +2210,30 @@ $("back-start").addEventListener("click",e=>{
   if(screenBeforeTeacher==="screen-editor") setTimeout(positionTaskBtn,30);
 });
 
-/* Zwischenstand hochladen und weiterarbeiten */
+/* Zwischenstand hochladen und weiterarbeiten. Landet eine PDF im falschen Feld, wird sie so geöffnet, wie sie gemeint ist:
+   Eine Überblick-PDF aus dem Escape-Room (nur %ESCAPEDATA) startet hier das Finale, eine Feiditor-PDF (%TRACKDATA) im
+   Escape-Room-Feld wird mit den gespeicherten Antworten fortgesetzt. Ohne Escape-Room-Weg (z. B. Lerntagebuch) gibt es
+   stattdessen einen Hinweis, wo die Überblick-PDF hingehört. */
 async function readResumePdf(file){
   $("resume-err").textContent="";
+  let str;
+  try{ str=await readAsBinaryStr(file); }
+  catch(err){ $("resume-err").textContent="Der Zwischenstand konnte nicht gelesen werden: "+(err.message||"unbekannter Fehler"); return; }
+  if(!TRACK_RE.test(str)&&/%ESCAPEDATA /.test(str)){
+    if(CFG.showEscapeUpload) startEscapeFromPdfStr(str,"resume-err");
+    else $("resume-err").textContent="Das ist die Überblick-PDF aus einem Escape-Room. Lade sie bitte auf https://feiditor.janrickmer.de/ hoch (Auswahl „Ich komme aus einem Escape-Room …“).";
+    return;
+  }
+  await resumeFromPdfStr(str,"resume-err");
+}
+async function resumeFromPdfStr(str,errId){
+  const mm=str.match(TRACK_RE);
+  if(!mm){ $(errId).textContent="In dieser PDF wurden keine Feiditor-Daten gefunden. Bitte lade eine Zwischenstand-PDF aus dem Feiditor hoch."; return; }
   try{
-    const str=await readAsBinaryStr(file);
-    const mm=str.match(TRACK_RE);
-    if(!mm){ $("resume-err").textContent="In dieser PDF wurden keine Feiditor-Daten gefunden. Bitte lade eine Zwischenstand-PDF aus dem Feiditor hoch."; return; }
     const {payload}=await autoDecrypt(mm[1]);
     escapeOverviewStreams=(payload&&payload.e&&payload.e.esc)?overviewStreamsFrom(str):[];
     resumeFromPayload(payload);
-  }catch(err){ $("resume-err").textContent="Der Zwischenstand konnte nicht gelesen werden: "+(err.message||"unbekannter Fehler"); }
+  }catch(err){ $(errId).textContent="Der Zwischenstand konnte nicht gelesen werden: "+(err.message||"unbekannter Fehler"); }
 }
 $("resume-input").addEventListener("change",e=>{const f=e.target.files[0];if(f)readResumePdf(f); e.target.value="";});
 const resumeDrop=$("resume-drop");
@@ -2250,22 +2263,22 @@ function startEscapeMode(v,n,tasks,red,ctx){
   show("screen-editor");
   setTimeout(()=>{ focusFirstAnswer(); positionTaskBtn(); },50);
 }
-function readEscapePdf(file){
+function startEscapeFromPdfStr(str,errId){
+  const mm=str.match(/%ESCAPEDATA (\S+)/);
+  if(!mm){$(errId).textContent="In dieser PDF wurden keine Escape-Room-Daten gefunden. Bitte lade die Überblick-PDF aus dem Escape-Room hoch.";return;}
+  let d;
+  try{ d=JSON.parse(decodeURIComponent(escape(atob(mm[1])))); }
+  catch(e){ $(errId).textContent="Die Escape-Room-Daten konnten nicht gelesen werden."; return; }
+  escapeOverviewStreams=overviewStreamsFrom(str);   // Überblicksseiten für die fertige PDF
+  startEscapeMode(d.v,d.n,d.t,d.r,d.c);
+}
+async function readEscapePdf(file){
   $("esc-err").textContent="";
-  const fr=new FileReader();
-  fr.onload=()=>{
-    const bytes=new Uint8Array(fr.result);
-    let str=""; for(let i=0;i<bytes.length;i++) str+=String.fromCharCode(bytes[i]);
-    const mm=str.match(/%ESCAPEDATA (\S+)/);
-    if(!mm){$("esc-err").textContent="In dieser PDF wurden keine Escape-Room-Daten gefunden. Bitte lade die Überblick-PDF aus dem Escape-Room hoch.";return;}
-    let d;
-    try{ d=JSON.parse(decodeURIComponent(escape(atob(mm[1])))); }
-    catch(e){ $("esc-err").textContent="Die Escape-Room-Daten konnten nicht gelesen werden."; return; }
-    escapeOverviewStreams=overviewStreamsFrom(str);   // Überblicksseiten für die fertige PDF
-    startEscapeMode(d.v,d.n,d.t,d.r,d.c);
-  };
-  fr.onerror=()=>{$("esc-err").textContent="Datei konnte nicht gelesen werden.";};
-  fr.readAsArrayBuffer(file);
+  let str;
+  try{ str=await readAsBinaryStr(file); }
+  catch(e){ $("esc-err").textContent="Datei konnte nicht gelesen werden."; return; }
+  if(TRACK_RE.test(str)){ await resumeFromPdfStr(str,"esc-err"); return; }   // Feiditor-PDF im Escape-Room-Feld: mit den Antworten weiterarbeiten statt leer neu beginnen
+  startEscapeFromPdfStr(str,"esc-err");
 }
 $("esc-input").addEventListener("change",e=>{const f=e.target.files[0];if(f)readEscapePdf(f);});
 const escDrop=$("esc-drop");
