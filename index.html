@@ -1173,7 +1173,7 @@ function fmtDateTime(d){
    /F1 und /F2), die Content-Streams lassen sich daher unverändert in die fertige PDF übernehmen. */
 const OVERVIEW_MARK="%ESCAPE-OVERVIEW";
 function overviewStreamsFrom(str){
-  const all=/%ESCAPEDATA /.test(str)&&!/%TRACKDATA /.test(str);   // reine Überblick-PDF: jede Seite ist eine Überblicksseite
+  const all=!!pdfMarker(str,"ESCAPEDATA")&&!pdfMarker(str,"TRACKDATA");   // reine Überblick-PDF: jede Seite ist eine Überblicksseite
   // Feiditor-PDFs vor dem 04.10.2026 tragen keine Markierung: dort zählt eine Seite, deren erster Text ein Überblick-Titel ist
   const TITLE=/\((?:\xDCberblick deiner Antworten & Erl\xE4uterungen|L\xF6sungserl\xE4uterungen)\) Tj/;
   const out=[]; const re=/<<\s*\/Length (\d+)\s*>>\s*stream\r?\n/g; let m;
@@ -2214,12 +2214,21 @@ $("back-start").addEventListener("click",e=>{
    Eine Überblick-PDF aus dem Escape-Room (nur %ESCAPEDATA) startet hier das Finale, eine Feiditor-PDF (%TRACKDATA) im
    Escape-Room-Feld wird mit den gespeicherten Antworten fortgesetzt. Ohne Escape-Room-Weg (z. B. Lerntagebuch) gibt es
    stattdessen einen Hinweis, wo die Überblick-PDF hingehört. */
+/* Kennzeile einer PDF: %TRACKDATA steht im Kopf (vor dem ersten Objekt), %ESCAPEDATA im Kopf oder – bei älteren Überblick-PDFs –
+   hinter dem letzten %%EOF. Nur dort wird gesucht (wie im Check), damit Text in der PDF keine Kennzeile vortäuschen kann. */
+function pdfMarker(str,name){
+  const re=new RegExp("%"+name+" (\\S+)");
+  const end=str.search(/\n\d+ 0 obj\b/);
+  let m=(end>0?str.slice(0,end+1):"").match(re);
+  if(!m&&name==="ESCAPEDATA"){ const k=str.lastIndexOf("%%EOF"); if(k>=0) m=str.slice(k).match(re); }
+  return m;
+}
 async function readResumePdf(file){
   $("resume-err").textContent="";
   let str;
   try{ str=await readAsBinaryStr(file); }
   catch(err){ $("resume-err").textContent="Der Zwischenstand konnte nicht gelesen werden: "+(err.message||"unbekannter Fehler"); return; }
-  if(!TRACK_RE.test(str)&&/%ESCAPEDATA /.test(str)){
+  if(!pdfMarker(str,"TRACKDATA")&&pdfMarker(str,"ESCAPEDATA")){
     if(CFG.showEscapeUpload) startEscapeFromPdfStr(str,"resume-err");
     else $("resume-err").textContent="Das ist die Überblick-PDF aus einem Escape-Room. Lade sie bitte auf https://feiditor.janrickmer.de/ hoch (Auswahl „Ich komme aus einem Escape-Room …“).";
     return;
@@ -2227,13 +2236,16 @@ async function readResumePdf(file){
   await resumeFromPdfStr(str,"resume-err");
 }
 async function resumeFromPdfStr(str,errId){
-  const mm=str.match(TRACK_RE);
+  const mm=pdfMarker(str,"TRACKDATA");
   if(!mm){ $(errId).textContent="In dieser PDF wurden keine Feiditor-Daten gefunden. Bitte lade eine Zwischenstand-PDF aus dem Feiditor hoch."; return; }
   try{
     const {payload}=await autoDecrypt(mm[1]);
     escapeOverviewStreams=(payload&&payload.e&&payload.e.esc)?overviewStreamsFrom(str):[];
     resumeFromPayload(payload);
-  }catch(err){ $(errId).textContent="Der Zwischenstand konnte nicht gelesen werden: "+(err.message||"unbekannter Fehler"); }
+  }catch(err){
+    console.warn("Feiditor-PDF nicht lesbar:",err);
+    $(errId).textContent="Diese Feiditor-PDF konnte nicht gelesen werden. Lade bitte die unveränderte Datei hoch, die der Feiditor gespeichert hat.";
+  }
 }
 $("resume-input").addEventListener("change",e=>{const f=e.target.files[0];if(f)readResumePdf(f); e.target.value="";});
 const resumeDrop=$("resume-drop");
@@ -2264,10 +2276,10 @@ function startEscapeMode(v,n,tasks,red,ctx){
   setTimeout(()=>{ focusFirstAnswer(); positionTaskBtn(); },50);
 }
 function startEscapeFromPdfStr(str,errId){
-  const mm=str.match(/%ESCAPEDATA (\S+)/);
+  const mm=pdfMarker(str,"ESCAPEDATA");
   if(!mm){$(errId).textContent="In dieser PDF wurden keine Escape-Room-Daten gefunden. Bitte lade die Überblick-PDF aus dem Escape-Room hoch.";return;}
   let d;
-  try{ d=JSON.parse(decodeURIComponent(escape(atob(mm[1])))); }
+  try{ d=JSON.parse(decodeURIComponent(escape(atob(mm[1])))); if(!d||typeof d!=="object") throw new Error("Format"); }
   catch(e){ $(errId).textContent="Die Escape-Room-Daten konnten nicht gelesen werden."; return; }
   escapeOverviewStreams=overviewStreamsFrom(str);   // Überblicksseiten für die fertige PDF
   startEscapeMode(d.v,d.n,d.t,d.r,d.c);
@@ -2277,7 +2289,7 @@ async function readEscapePdf(file){
   let str;
   try{ str=await readAsBinaryStr(file); }
   catch(e){ $("esc-err").textContent="Datei konnte nicht gelesen werden."; return; }
-  if(TRACK_RE.test(str)){ await resumeFromPdfStr(str,"esc-err"); return; }   // Feiditor-PDF im Escape-Room-Feld: mit den Antworten weiterarbeiten statt leer neu beginnen
+  if(pdfMarker(str,"TRACKDATA")){ await resumeFromPdfStr(str,"esc-err"); return; }   // Feiditor-PDF im Escape-Room-Feld: mit den Antworten weiterarbeiten statt leer neu beginnen
   startEscapeFromPdfStr(str,"esc-err");
 }
 $("esc-input").addEventListener("change",e=>{const f=e.target.files[0];if(f)readEscapePdf(f);});
