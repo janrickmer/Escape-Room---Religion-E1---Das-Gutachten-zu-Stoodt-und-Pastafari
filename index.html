@@ -2215,12 +2215,13 @@ $("back-start").addEventListener("click",e=>{
    Escape-Room-Feld wird mit den gespeicherten Antworten fortgesetzt. Ohne Escape-Room-Weg (z. B. Lerntagebuch) gibt es
    stattdessen einen Hinweis, wo die Überblick-PDF hingehört. */
 /* Kennzeile einer PDF: %TRACKDATA steht im Kopf (vor dem ersten Objekt), %ESCAPEDATA im Kopf oder – bei älteren Überblick-PDFs –
-   hinter dem letzten %%EOF. Nur dort wird gesucht (wie im Check), damit Text in der PDF keine Kennzeile vortäuschen kann. */
+   als eigene Zeile hinter dem ersten %%EOF (auch wenn ein PDF-Programm später einen Nachtrag angehängt hat). Nur dort wird
+   gesucht (wie im Check), damit Text in der PDF keine Kennzeile vortäuschen kann: Text steht nie am Zeilenanfang. */
 function pdfMarker(str,name){
   const re=new RegExp("%"+name+" (\\S+)");
   const end=str.search(/\n\d+ 0 obj\b/);
   let m=(end>0?str.slice(0,end+1):"").match(re);
-  if(!m&&name==="ESCAPEDATA"){ const k=str.lastIndexOf("%%EOF"); if(k>=0) m=str.slice(k).match(re); }
+  if(!m&&name==="ESCAPEDATA"){ const k=str.indexOf("%%EOF"); if(k>=0) m=str.slice(k).match(/\n%ESCAPEDATA ([A-Za-z0-9+\/=]+)(?=\r?\n|$)/); }
   return m;
 }
 async function readResumePdf(file){
