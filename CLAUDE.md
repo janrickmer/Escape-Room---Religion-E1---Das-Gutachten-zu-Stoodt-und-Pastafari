@@ -12,8 +12,8 @@ dort in `CLAUDE.md`). Die Vorgaben gelten für diesen und für jeden neuen Escap
    speichert ihn verschlüsselt in der PDF. Die Überblick-PDF trägt ihn in `%ESCAPEDATA` (Feld `c`). So erhält
    die KI im Check Jahrgangsstufe und Erwartungshorizont.
 3. **Eingebetteter Feiditor** (`<script type="text/template" id="feiditor-src">`): die gemeinsame
-   Feiditor-Engine unverändert, byte-identisch mit janrickmer/feiditor. Engine-Änderungen immer in alle elf
-   Feiditoren einspielen (normaler Feiditor, Lerntagebuch, neun Escape-Rooms).
+   Feiditor-Engine unverändert, byte-identisch mit janrickmer/feiditor. Engine-Änderungen immer in alle
+   dreizehn Feiditoren einspielen (normaler Feiditor, Lerntagebuch, elf Escape-Rooms).
 4. **Neuer Escape-Room:** im Check zusätzlich Einträge in `ESCAPE_ROOMS`, `KNOWN_MAGIC` und `ROOM_MAGIC`;
    Überblick-PDF mit denselben Seitentiteln und Labels wie hier.
 5. **Live für Schüler:innen** (Branch `main`): vor jedem Push mit echten, aus diesem Escape-Room erzeugten
