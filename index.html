@@ -1116,35 +1116,31 @@ function encodeWinAnsi(str){
 }
 
 // Helvetica width table (1000 units = 1em). Approximate from AFM.
-const HELV_W = (() => {
-  const w = new Array(256).fill(500);
-  const widths = {
-    ' ':278,'!':278,'"':355,'#':556,'$':556,'%':889,'&':667,"'":191,'(':333,')':333,
-    '*':389,'+':584,',':278,'-':333,'.':278,'/':278,'0':556,'1':556,'2':556,'3':556,
-    '4':556,'5':556,'6':556,'7':556,'8':556,'9':556,':':278,';':278,'<':584,'=':584,
-    '>':584,'?':556,'@':1015,'A':667,'B':667,'C':722,'D':722,'E':667,'F':611,'G':778,
-    'H':722,'I':278,'J':500,'K':667,'L':556,'M':833,'N':722,'O':778,'P':667,'Q':778,
-    'R':722,'S':667,'T':611,'U':722,'V':667,'W':944,'X':667,'Y':667,'Z':611,'[':278,
-    '\\':278,']':278,'^':469,'_':556,'`':333,'a':556,'b':556,'c':500,'d':556,'e':556,
-    'f':278,'g':556,'h':556,'i':222,'j':222,'k':500,'l':222,'m':833,'n':556,'o':556,
-    'p':556,'q':556,'r':333,'s':500,'t':278,'u':556,'v':500,'w':722,'x':500,'y':500,
-    'z':500,'{':334,'|':260,'}':334,'~':584,
-    'ä':556,'ö':556,'ü':556,'Ä':667,'Ö':778,'Ü':722,'ß':611,
-    '€':556,'–':556,'—':1000,'«':556,'»':556,'·':278,'°':400,'•':350,
-  };
-  for (const k in widths) {
-    const code = WIN_ANSI_MAP[k] !== undefined ? WIN_ANSI_MAP[k] : k.charCodeAt(0);
-    if (code < 256) w[code] = widths[k];
-  }
+const HELV_W=(()=>{
+  const w=new Array(256).fill(500);
+  const widths={' ':278,'!':278,'"':355,'#':556,'$':556,'%':889,'&':667,"'":191,'(':333,')':333,'*':389,'+':584,',':278,'-':333,'.':278,'/':278,'0':556,'1':556,'2':556,'3':556,'4':556,'5':556,'6':556,'7':556,'8':556,'9':556,':':278,';':278,'<':584,'=':584,'>':584,'?':556,'@':1015,'A':667,'B':667,'C':722,'D':722,'E':667,'F':611,'G':778,'H':722,'I':278,'J':500,'K':667,'L':556,'M':833,'N':722,'O':778,'P':667,'Q':778,'R':722,'S':667,'T':611,'U':722,'V':667,'W':944,'X':667,'Y':667,'Z':611,'[':278,'\\':278,']':278,'^':469,'_':556,'`':333,'a':556,'b':556,'c':500,'d':556,'e':556,'f':278,'g':556,'h':556,'i':222,'j':222,'k':500,'l':222,'m':833,'n':556,'o':556,'p':556,'q':556,'r':333,'s':500,'t':278,'u':556,'v':500,'w':722,'x':500,'y':500,'z':500,'{':334,'|':260,'}':334,'~':584,'ä':556,'ö':556,'ü':556,'Ä':667,'Ö':778,'Ü':722,'ß':611,'€':556,'–':556,'—':1000,'«':556,'»':556,'·':278,'°':400,'•':350,
+    '„':333,'“':333,'”':333,'‚':222,'‘':222,'’':222,'…':1000,'×':584,'²':333,'³':333,'½':834,'¼':834,'¾':834,
+    'Œ':1000,'œ':944,'Š':667,'š':500,'Ž':611,'ž':500,'Ÿ':667,'é':556,'è':556,'ê':556,'á':556,'à':556,'â':556,'ó':556,'ò':556,'ô':556,'í':278,'ì':278,'î':278,'ú':556,'ù':556,'û':556,'ç':500,'ñ':556,'É':667,'È':667,'Á':667,'Ç':722,'Ñ':722};
+  for(const k in widths){ const code=WIN_ANSI_MAP[k]!==undefined?WIN_ANSI_MAP[k]:k.charCodeAt(0); if(code<256) w[code]=widths[k]; }
   return w;
 })();
-function pdfStringWidth(str, fontSize, isBold) {
-  const bytes = encodeWinAnsi(str);
-  let total = 0;
-  for (const b of bytes) total += (HELV_W[b] || 500) * (isBold ? 1.04 : 1);
-  return total * fontSize / 1000;
+// Helvetica-Bold: Breiten aus den Adobe-Metriken (AFM); vorher geschätzt als „normal × 1,04“ – zu schmal (Text ragte über den Rand)
+const HELV_BW=(()=>{
+  const w=new Array(256).fill(556);
+  const widths={' ':278,'!':333,'"':474,'#':556,'$':556,'%':889,'&':722,"'":238,'(':333,')':333,'*':389,'+':584,',':278,'-':333,'.':278,'/':278,'0':556,'1':556,'2':556,'3':556,'4':556,'5':556,'6':556,'7':556,'8':556,'9':556,':':333,';':333,'<':584,'=':584,'>':584,'?':611,'@':975,'A':722,'B':722,'C':722,'D':722,'E':667,'F':611,'G':778,'H':722,'I':278,'J':556,'K':722,'L':611,'M':833,'N':722,'O':778,'P':667,'Q':778,'R':722,'S':667,'T':611,'U':722,'V':667,'W':944,'X':667,'Y':667,'Z':611,'[':333,'\\':278,']':333,'^':584,'_':556,'`':333,'a':556,'b':611,'c':556,'d':611,'e':556,'f':333,'g':611,'h':611,'i':278,'j':278,'k':556,'l':278,'m':889,'n':611,'o':611,'p':611,'q':611,'r':389,'s':556,'t':333,'u':611,'v':556,'w':778,'x':556,'y':556,'z':500,'{':389,'|':280,'}':389,'~':584,'ß':611,'€':556,'–':556,'—':1000,'«':556,'»':556,'·':278,'°':400,'•':350,
+    '„':500,'“':500,'”':500,'‚':278,'‘':278,'’':278,'…':1000,'×':584,'²':333,'³':333,'½':834,'¼':834,'¾':834,'‰':1000,'†':556,'‡':556,'™':1000,'‹':333,'›':333,'¡':333,'¿':611,
+    'Œ':1000,'œ':944,'Æ':1000,'æ':889,'Ø':778,'ø':611,'Ð':722,'ð':611,'Þ':667,'þ':611};
+  for(const k in widths){ const code=WIN_ANSI_MAP[k]!==undefined?WIN_ANSI_MAP[k]:k.charCodeAt(0); if(code<256) w[code]=widths[k]; }
+  return w;
+})();
+// Akzentbuchstaben (À … ÿ) so breit wie ihr Grundbuchstabe, sofern nicht eigens angegeben
+[HELV_W,HELV_BW].forEach(w=>{ for(let c=0xC0;c<=0xFF;c++){ const ch=String.fromCharCode(c), base=ch.normalize('NFD').charAt(0);
+  if(base!==ch && base.charCodeAt(0)<128 && !'ßÆæØøÐðÞþ×÷'.includes(ch)) w[c]=w[base.charCodeAt(0)]; } });
+function pdfStringWidth(str,fontSize,isBold){
+  const bytes=encodeWinAnsi(str), tab=isBold?HELV_BW:HELV_W; let total=0;
+  for(const b of bytes) total += tab[b]||556;
+  return total*fontSize/1000;
 }
-
 const pdfNum = n => String(Math.round(n * 100) / 100);
 class PdfDoc {
   constructor() {
@@ -1228,6 +1224,13 @@ class PdfDoc {
       this.text(line, x, curY, fontSize, isBold, color);
       curY -= leading;
     }
+    return curY;
+  }
+  // wie paragraph, bricht aber auch mitten im Absatz auf eine neue Seite um (ensureFn liefert die neue y-Position)
+  paragraphFlow(str, x, y, width, fontSize, isBold, color, leading, ensureFn) {
+    if (!leading) leading = fontSize * 1.4;
+    let curY = y;
+    for (const ln of this.wrapLines(str, width, fontSize, isBold)) { curY = ensureFn(curY, leading); this.text(ln, x, curY, fontSize, isBold, color); curY -= leading; }
     return curY;
   }
   // opts: { embed: Uint8Array (Datensatz), link: {rect:[x1,y1,x2,y2], page:0, uri}, title }
@@ -1420,28 +1423,28 @@ function generateMistakesPdf() {
                       M, y, CONTENT_W, 10.5, false, TEXT_MUTE, 14);
     y -= 6;
 
+    // Jede Zeile eines Fehlerblocks prüft den Platz bis zur Fußzeile (paragraphFlow mit ensure) – lange Blöcke brechen
+    // so auf die nächste Seite um, statt in die Fußzeile zu laufen (wie in „Konfliktanalyse im Härtetest“).
+    const flow = (str, size, bold, color) => { y = doc.paragraphFlow(str, M + 14, y, CONTENT_W - 14, size, bold, color, 13, ensure); };
     for (const err of m.errors) {
       y = ensure(y, 60);
       doc.text('•', M, y, 11, true, RED);
       if (err.kind === 'falsch_einsortiert') {
-        y = doc.paragraph('„' + err.item + '“', M + 14, y, CONTENT_W - 14, 10.5, true, TEXT, 13);
-        y = doc.paragraph('Du hast einsortiert in: ' + err.wrongAnswer + '   ·   Richtig: ' + err.correctAnswer,
-                          M + 14, y, CONTENT_W - 14, 10, false, TEXT_MUTE, 13);
-        if (err.explanation) y = doc.paragraph('→ ' + err.explanation, M + 14, y, CONTENT_W - 14, 10, false, TEXT_MUTE, 13);
+        flow('„' + err.item + '“', 10.5, true, TEXT);
+        flow('Du hast einsortiert in: ' + err.wrongAnswer + '   ·   Richtig: ' + err.correctAnswer, 10, false, TEXT_MUTE);
+        if (err.explanation) flow('→ ' + err.explanation, 10, false, TEXT_MUTE);
       } else if (err.kind === 'falsche_eingabe') {
-        y = doc.paragraph(err.item, M + 14, y, CONTENT_W - 14, 10.5, true, TEXT, 13);
-        y = doc.paragraph('Deine Eingabe: „' + err.wrongAnswer + '“   ·   Richtig: ' + err.correctAnswer,
-                          M + 14, y, CONTENT_W - 14, 10, false, TEXT_MUTE, 13);
+        flow(err.item, 10.5, true, TEXT);
+        flow('Deine Eingabe: „' + err.wrongAnswer + '“   ·   Richtig: ' + err.correctAnswer, 10, false, TEXT_MUTE);
       } else if (err.kind === 'falsche_wahl') {
-        y = doc.paragraph(err.item, M + 14, y, CONTENT_W - 14, 10.5, true, TEXT, 13);
-        y = doc.paragraph('Du hast gewählt: ' + err.wrongAnswer, M + 14, y, CONTENT_W - 14, 10, false, RED, 13);
-        y = doc.paragraph('Richtig wäre: ' + err.correctAnswer, M + 14, y, CONTENT_W - 14, 10, true, GREEN, 13);
-        if (err.explanation) y = doc.paragraph('→ ' + err.explanation, M + 14, y, CONTENT_W - 14, 10, false, TEXT_MUTE, 13);
+        flow(err.item, 10.5, true, TEXT);
+        flow('Du hast gewählt: ' + err.wrongAnswer, 10, false, RED);
+        flow('Richtig wäre: ' + err.correctAnswer, 10, true, GREEN);
+        if (err.explanation) flow('→ ' + err.explanation, 10, false, TEXT_MUTE);
       } else if (err.kind === 'falsche_zuweisung') {
-        y = doc.paragraph(err.item, M + 14, y, CONTENT_W - 14, 10.5, true, TEXT, 13);
-        y = doc.paragraph('Du hast zugewiesen: ' + err.wrongAnswer + '   ·   Richtig: ' + err.correctAnswer,
-                          M + 14, y, CONTENT_W - 14, 10, false, TEXT_MUTE, 13);
-        if (err.explanation) y = doc.paragraph('→ ' + err.explanation, M + 14, y, CONTENT_W - 14, 10, false, TEXT_MUTE, 13);
+        flow(err.item, 10.5, true, TEXT);
+        flow('Du hast zugewiesen: ' + err.wrongAnswer + '   ·   Richtig: ' + err.correctAnswer, 10, false, TEXT_MUTE);
+        if (err.explanation) flow('→ ' + err.explanation, 10, false, TEXT_MUTE);
       }
       y -= 5;
     }
@@ -1476,7 +1479,7 @@ function generateMistakesPdf() {
     doc.text(note.room, M, y2, 12.5, true, PRIMARY);
     doc.line(M, y2 - 4, M + CONTENT_W, y2 - 4, ACCENT, 0.8);
     y2 -= 18;
-    y2 = doc.paragraph(note.text, M, y2, CONTENT_W, 10.5, false, TEXT, 14.5);
+    y2 = doc.paragraphFlow(note.text, M, y2, CONTENT_W, 10.5, false, TEXT, 14.5, ensure2);   // lange Erläuterungen umbrechen
     y2 -= 14;
   }
 
@@ -1485,7 +1488,7 @@ function generateMistakesPdf() {
   doc.text('Verwendung von Zwischenstand-Dateien', M, y2, 12.5, true, PRIMARY);
   doc.line(M, y2 - 4, M + CONTENT_W, y2 - 4, ACCENT, 0.8);
   y2 -= 18;
-  for (const line of saveLogPdfLines()) { y2 = ensure2(y2, 20); y2 = doc.paragraph(line, M, y2, CONTENT_W, 10.5, false, TEXT, 14.5); y2 -= 2; }
+  for (const line of saveLogPdfLines()) { y2 = doc.paragraphFlow(line, M, y2, CONTENT_W, 10.5, false, TEXT, 14.5, ensure2); y2 -= 2; }
   doc.endPage();
 
   const embed = new TextEncoder().encode(JSON.stringify(buildEscapeRecord()));
