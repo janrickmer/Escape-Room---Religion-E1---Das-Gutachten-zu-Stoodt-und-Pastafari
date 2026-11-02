@@ -571,6 +571,12 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 .code-badge { display: inline-flex; align-items: baseline; gap: 10px; padding: 5px 14px; border-radius: 12px; background: var(--c-bg-card); border: 1.5px solid var(--c-border); box-shadow: var(--shadow-soft); font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: 0.14em; color: var(--c-blue-dark); }
 .code-badge small { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-text-mute); font-weight: 700; }
 .pause-card { margin-top: 18px; padding: 20px 22px; border: 2px dashed var(--c-border); border-radius: 14px; background: var(--c-bg-soft); }
+.pause-card h3 { font-size: 18px; margin-bottom: 8px; }
+.pause-card p { font-size: 14px; color: var(--c-text-mute); line-height: 1.55; margin: 0 0 14px; }
+.pause-card .msg { margin: 10px 0 0; color: #17603a; }
+.pause-card .msg.is-err { color: #8f2f22; }
+.save-lead { margin: 22px 0 0; font-size: 13.5px; color: var(--c-text-mute); }
+[data-save-slot] .save-bar { margin-top: 8px; padding-top: 0; border-top: 0; }
 .pause-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--c-bg-card); color: var(--c-blue-dark); border: 2px solid var(--c-blue); border-radius: 12px; padding: 13px 20px; font-family: var(--font-body); font-size: 15px; font-weight: 700; text-align: left; cursor: pointer; transition: all .2s ease; }
 .pause-btn:hover { background: var(--c-bg-tint); transform: translateY(-1px); }
 .pause-btn svg { width: 20px; height: 20px; flex: none; }
@@ -580,7 +586,7 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 .code-box .code-label { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-blue-deep); }
 .code-box .code-value { font-family: var(--font-mono); font-size: 30px; font-weight: 700; color: var(--c-blue-dark); letter-spacing: 0.06em; margin-top: 4px; }
 
-/* ---- Arena: das große Finale gegen den Feiditor (dunkel, dramatisch – bewusst unabhängig vom hellen Farbschema) ---- */
+/* ---- Arena: das große Finale im Feiditor-Feibeitsblatt (dunkel, dramatisch – bewusst unabhängig vom hellen Farbschema) ---- */
 .arena{ background:radial-gradient(120% 90% at 50% 0%, #17223a 0%, #0b1220 55%, #070c16 100%); color:#e9eef7; border-radius:14px; padding:26px 28px 26px; margin-top:22px; box-shadow:0 18px 50px rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.06); }
 .arena-kicker{ font-family:var(--font-mono); font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#d6b25e; font-weight:600; text-align:center; }
 .arena h2{ font-family:var(--font-display); font-size:26px; font-weight:700; color:#fff; text-align:center; margin:6px 0 14px; letter-spacing:.01em; }
@@ -600,8 +606,38 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 /* Button im Gang: sitzt unten über dem Bild, der ganze Gang ist klickbar */
 .arena-enter{ position:absolute; left:50%; bottom:22px; transform:translateX(-50%); display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,#f0cf78,#d6b25e); color:#1a1305; font-family:var(--font-body); font-size:15.5px; font-weight:800; padding:14px 26px; border-radius:999px; box-shadow:0 8px 24px rgba(0,0,0,.55); white-space:nowrap; pointer-events:none; transition:transform .2s ease, box-shadow .2s ease; }
 .arena-gate:hover .arena-enter, .arena-gate:focus-visible .arena-enter{ transform:translateX(-50%) translateY(-3px); box-shadow:0 12px 30px rgba(0,0,0,.6); }
-.arena-foot{ text-align:center; font-size:12.5px; color:#7f8cab; margin-top:16px; }
-@media (max-width:600px){ .arena{ padding:26px 16px 22px; } .arena h2{ font-size:24px; } .arena-enter{ white-space:normal; text-align:center; max-width:92%; font-size:13px; line-height:1.25; padding:10px 16px; bottom:12px; gap:6px; } }
+.arena .gate-hint{ max-width:760px; margin:16px auto 0; text-align:center; font-size:12.5px; line-height:1.55; color:#7f8cab; }
+.arena-enter svg{ width:18px; height:18px; flex:none; }
+/* Gesperrtes Tor: grau, ohne Leuchten */
+.arena-gate[aria-disabled="true"]{ cursor:not-allowed; filter:grayscale(1); opacity:.65; }
+.arena-gate[aria-disabled="true"]:hover .gate-glow, .arena-gate[aria-disabled="true"]:focus-visible .gate-glow{ opacity:0; }
+.arena-gate[aria-disabled="true"]:hover .gate-field{ filter:none; }
+.arena-gate[aria-disabled="true"]:hover .arena-enter, .arena-gate[aria-disabled="true"]:focus-visible .arena-enter{ transform:translateX(-50%); box-shadow:0 8px 24px rgba(0,0,0,.55); }
+/* Vorbereitung vor dem Tor: helle Karte auf dunklem Grund */
+.arena .prep{ max-width:760px; margin:0 auto 22px; padding:20px 22px; background:var(--c-bg-card); color:var(--c-text); border-radius:var(--radius); text-align:left; }
+.arena .prep h3{ font-size:18px; margin-bottom:10px; color:var(--c-text); }
+.arena .prep ol{ padding-left:1.3em; display:grid; gap:14px; }
+.arena .prep li{ font-size:14.5px; line-height:1.55; color:var(--c-text); }
+.arena .prep li::marker{ font-weight:700; color:var(--c-blue-deep); }
+.arena .prep .btn-row{ margin-top:10px; }
+.arena .prep p{ max-width:none; margin:10px 0 0; text-align:left; font-size:14px; }
+/* Sperrhinweis und Speicher-Knopf im gesperrten Finale */
+.gate-locked{ display:grid; grid-template-columns:auto minmax(0,1fr); gap:12px; align-items:start; max-width:760px; margin:0 auto 12px; padding:14px 16px; background:var(--c-warn-bg); border:1px solid #f1d9a3; border-radius:var(--radius); color:#6b4a08; font-weight:600; font-size:14.5px; line-height:1.5; text-align:left; }
+.arena p.gate-locked{ color:#6b4a08; text-align:left; max-width:760px; margin:0 auto 12px; font-size:14.5px; line-height:1.5; }   /* schlägt .arena p */
+.gate-locked svg{ width:22px; height:22px; margin-top:1px; flex:none; }
+.gate-locked:focus{ outline:3px solid #d6b25e; outline-offset:3px; }
+.gate-save{ display:flex; justify-content:center; margin:0 auto 22px; }
+.arena .save-btn{ background:transparent; color:#f0cf78; border-color:rgba(240,207,120,.5); }
+.arena .save-btn:hover{ background:rgba(240,207,120,.12); color:#f6dc96; border-color:#f0cf78; }
+/* Meldungen unter den Knöpfen (PDF, Tunnel) */
+.msg{ margin-top:10px; font-size:14px; font-weight:600; line-height:1.45; color:#17603a; }
+.msg:empty{ display:none; }
+.msg.is-err{ padding:10px 14px; background:var(--c-error-bg); border-left:3px solid var(--c-error); border-radius:6px; color:#8f2f22; }
+.arena .msg{ max-width:760px; margin:12px auto 0; text-align:center; color:#f6dc96; }
+.arena .msg.is-err{ color:#8f2f22; }
+.arena .prep .msg{ margin:10px 0 0; text-align:left; color:#17603a; }
+.arena .prep .msg.is-err{ color:#8f2f22; }
+@media (max-width:600px){ .arena{ padding:26px 16px 22px; } .arena h2{ font-size:24px; } .arena-enter{ white-space:normal; text-align:center; width:max-content; max-width:92%; font-size:13px; line-height:1.25; padding:10px 16px; bottom:12px; gap:6px; } }
 
 .gutachten { font-family: var(--font-serif); font-size: 16.5px; line-height: 1.7; background: var(--c-bg-soft); border: 1px solid var(--c-border-soft); border-radius: var(--radius); padding: 26px 30px; }
 .gutachten .gutachten-head { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-blue-deep); margin-bottom: 10px; }
@@ -611,7 +647,12 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 .field-label { display: block; font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-blue-deep); margin-bottom: 6px; }
 .field-input { width: 100%; padding: 12px 14px; background: #fff; border: 1.5px solid var(--c-border); border-radius: 8px; color: var(--c-text); font-family: var(--font-body); font-size: 15px; }
 .field-input:focus { outline: none; border-color: var(--c-blue); box-shadow: 0 0 0 3px var(--c-blue-soft); }
-.field-error { display: none; margin-top: 14px; padding: 10px 14px; background: var(--c-error-bg); border-left: 3px solid var(--c-error); color: #8f2f22; font-size: 13.5px; border-radius: 6px; }
+.field-error { display: block; margin-top: 14px; padding: 10px 14px; background: var(--c-error-bg); border-left: 3px solid var(--c-error); color: #8f2f22; font-size: 13.5px; border-radius: 6px; }
+.field-error:empty { display: none; }
+.start-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.start-fields + .start-fields { margin-top: 16px; }
+@media (max-width: 520px) { .start-fields { grid-template-columns: 1fr; } }
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 /* ---------- Zwischenstand speichern / laden ---------- */
 .save-bar { display: flex; justify-content: flex-start; margin-top: 44px; padding-top: 18px; border-top: 1px dashed var(--c-border); }
@@ -629,6 +670,16 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
 .input-error { display: none; margin-top: 14px; padding: 10px 14px; background: var(--c-error-bg); border-left: 3px solid var(--c-error); color: #8f2f22; font-size: 13.5px; border-radius: 6px; }
 .save-toast { position: fixed; left: 50%; bottom: 22px; z-index: 2000; max-width: calc(100vw - 32px); width: max-content; padding: 12px 18px; background: var(--c-text); color: #fff; border-radius: var(--radius); box-shadow: var(--shadow-card); font-family: var(--font-body); font-size: 14px; font-weight: 600; line-height: 1.45; opacity: 0; transform: translate(-50%, 16px); transition: opacity 0.25s ease, transform 0.25s ease; pointer-events: none; }
 .save-toast.show { opacity: 1; transform: translate(-50%, 0); }
+.resume-pdf { margin-top: 16px; font-size: 13.5px; line-height: 1.55; color: var(--c-text-mute); }
+
+/* ---------- Rückfrage vor dem Tunnel ---------- */
+dialog { width: min(440px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); margin: auto; padding: 26px 28px; overflow: auto; border: 1px solid var(--c-border-soft); border-radius: 14px; background: var(--c-bg-card); color: var(--c-text); box-shadow: var(--shadow-card); }
+dialog::backdrop { background: rgba(27, 39, 51, 0.55); }
+dialog h2 { font-size: 20px; margin-bottom: 10px; }
+dialog p { font-size: 14.5px; line-height: 1.55; color: var(--c-text-mute); }
+.dlg-actions { display: grid; gap: 10px; margin-top: 20px; }
+.dlg-actions .btn { justify-content: center; }
+@media (max-width: 380px) { dialog { padding: 18px; } }
 
 </style>
 </head>
@@ -667,1969 +718,15 @@ p.body-lg { font-size: 17px; line-height: 1.7; }
   </div>
 </div>
 
-<!-- ==== Eingebetteter Feiditor (Digitales Arbeitsblatt) ==== -->
-<script type="text/template" id="feiditor-src">
-<!doctype html>
-<html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Feiditor</title>
-<style>
-  :root{
-    --paper:#f7f4ec; --paper2:#fffdf8; --ink:#221f1a; --muted:#6f675a;
-    --line:#ddd5c4; --accent:#6b4f2c; --accent2:#8a6a3c; --shadow:rgba(40,30,15,.10);
-    --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
-    --sans:"Avenir Next",Avenir,"Segoe UI","Helvetica Neue",system-ui,sans-serif;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
-    -webkit-font-smoothing:antialiased; line-height:1.5;
-  }
-  .screen{display:none; min-height:100vh}
-  .screen.active{display:block}
-
-  /* ---------- Start ---------- */
-  #screen-start{display:none; padding:0}
-  #screen-start.active{display:block}
-  .start-wrap{max-width:680px; margin:0 auto; padding:48px 20px 90px}
-  .card{
-    width:100%; max-width:440px; margin:0 auto; background:var(--paper2);
-    border:1px solid var(--line); border-radius:14px; padding:40px 36px;
-    box-shadow:0 18px 50px -28px var(--shadow);
-  }
-  .brand{font-family:var(--serif); font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin:0 0 6px}
-  .card h1{font-family:var(--serif); font-weight:600; font-size:30px; margin:0 0 4px; letter-spacing:.01em}
-  .card p.sub{color:var(--muted); margin:0 0 26px; font-size:14.5px}
-  label{display:block; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:0 0 6px}
-  .field{margin-bottom:18px}
-  input[type=text]{
-    width:100%; font-family:var(--serif); font-size:18px; color:var(--ink);
-    background:var(--paper); border:1px solid var(--line); border-radius:9px;
-    padding:11px 13px; outline:none; transition:border-color .15s, box-shadow .15s;
-  }
-  input[type=text]:focus{border-color:var(--accent2); box-shadow:0 0 0 3px rgba(138,106,60,.16)}
-  .btn{
-    font-family:var(--sans); font-size:15px; font-weight:600; letter-spacing:.01em;
-    color:var(--paper2); background:var(--ink); border:1px solid var(--ink);
-    border-radius:9px; padding:12px 18px; cursor:pointer; transition:transform .06s, background .15s;
-  }
-  .btn:hover{background:#332e25}
-  .btn:active{transform:translateY(1px)}
-  .btn.block{width:100%; margin-top:6px}
-  .btn.ghost{background:transparent; color:var(--ink); border-color:var(--line)}
-  .btn.ghost:hover{background:var(--paper)}
-  .err{color:#b3261e; font-size:13.5px; min-height:18px; margin:2px 0 0}
-  /* Startseite: Auswahl, was zutrifft (normal / Escape-Room / Zwischenstand) */
-  .choice-btn{white-space:normal; text-align:left; line-height:1.35; padding:13px 16px; margin-top:10px}
-  .choice-btn:first-of-type{margin-top:0}
-  #choice .sub{margin-bottom:16px}
-  .card .backlink{margin:18px 0 0}
-  /* Infokasten unter der Anmeldekarte (optional, z. B. Lerntagebuch-Feiditor) */
-  .infobox{
-    margin:28px auto 0; max-width:680px; background:#f4ecd9;
-    border:1px solid #e4d8bd; border-left:4px solid var(--accent); border-radius:12px;
-    padding:24px 28px; color:#3f372b; font-size:14px; line-height:1.62;
-  }
-  .ib-title{font-family:var(--serif); font-size:21px; color:var(--accent); margin:0 0 12px; font-weight:600}
-  .infobox p{margin:0 0 12px}
-  .ib-sub{font-family:var(--sans); font-size:13.5px; letter-spacing:.02em; color:var(--ink); margin:18px 0 8px; font-weight:700}
-  .infobox ul{margin:0 0 12px; padding-left:20px}
-  .infobox li{margin:0 0 5px}
-  .infobox li:last-child{margin-bottom:0}
-
-  /* ---------- Editor ---------- */
-  #screen-editor{display:none; flex-direction:column; height:100vh}
-  #screen-editor.active{display:flex}
-  .topbar{
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
-    padding:13px 22px; border-bottom:1px solid var(--line); background:var(--paper2);
-  }
-  .who{font-family:var(--serif); font-size:16px}
-  .who .lbl{font-family:var(--sans); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-right:8px}
-  .count{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums}
-  .topbar .right{display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:flex-end}
-  .btn.small{font-size:13px; padding:8px 12px; border-radius:8px}
-  .paperwrap{flex:1; overflow:auto; display:flex; flex-direction:column; align-items:center; padding:34px 20px 170px}
-  /* Roter Hinweis über dem Texteditor (nur ohne vorbefüllte Aufgaben) */
-  .taskhint{
-    width:100%; max-width:760px; margin:0 0 14px; color:#b3261e; font-family:var(--sans);
-    font-size:14.5px; font-weight:700; line-height:1.45; text-align:center;
-  }
-  .sheet{
-    position:relative; width:100%; max-width:760px; background:var(--paper2); border:1px solid var(--line);
-    border-radius:6px; box-shadow:0 24px 60px -40px var(--shadow); padding:56px 60px 110px;
-  }
-  #editor{
-    width:100%; min-height:60vh; border:0; outline:0; background:transparent;
-    font-family:var(--serif); font-size:18.5px; line-height:1.78; color:var(--ink);
-    white-space:pre-wrap; word-wrap:break-word; overflow-wrap:anywhere;
-  }
-  #editor:focus{outline:0}
-  #editor .heading{font-weight:700; font-size:2em; line-height:1.25; margin:.1em 0}
-  #editor.empty::before{content:attr(data-placeholder); color:#b9b0a0; pointer-events:none}
-
-  /* Aufgabenblöcke: fest (nicht editierbar), fett; ein Klick zeigt das rote „x" zum Entfernen.
-     Der obere Abstand lässt Platz für den Button „Neuen Aufgabentext eintragen" unter der Antwortzeile davor. */
-  #editor .task{
-    position:relative; font-weight:700; margin:44px 0 6px; padding:2px 34px 2px 0;
-    border-radius:4px; cursor:default;
-  }
-  #editor .task:first-child{margin-top:0}
-  #editor .task.selected{background:#fdecea; box-shadow:0 0 0 1px #f5b8b1}
-  #editor .task .task-label{
-    display:inline-block; font-family:var(--sans); font-size:12px; font-weight:700;
-    letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:2px;
-  }
-  #editor .task .task-x{
-    display:none; position:absolute; right:4px; top:4px; width:22px; height:22px; padding:0;
-    border:1.5px solid #b3261e; border-radius:50%; background:#fff; color:#b3261e;
-    font:700 15px/19px var(--sans); text-align:center; cursor:pointer;
-  }
-  #editor .task.selected .task-x{display:block}
-  #editor .task .task-x:hover{background:#b3261e; color:#fff}
-
-  /* Button „Neuen Aufgabentext eintragen" – schwebt immer eine Zeile unter der aktuellen Eingabezeile */
-  .taskbtn{
-    position:absolute; left:60px; top:56px; z-index:3; font-family:var(--sans); font-size:12.5px; font-weight:600;
-    letter-spacing:.01em; color:#b3261e; background:var(--paper2); border:1px dashed #d9a39c; border-radius:8px;
-    padding:5px 11px; cursor:pointer; white-space:nowrap; transition:background .12s;
-  }
-  .taskbtn:hover{background:#fdecea}
-  .taskbtn:active{transform:translateY(1px)}
-  .taskform{
-    position:absolute; left:60px; right:60px; top:56px; z-index:4; background:var(--paper2);
-    border:1.5px solid #b3261e; border-radius:10px; padding:14px 16px; box-shadow:0 18px 40px -22px var(--shadow);
-  }
-  .taskform label{color:#b3261e}
-  .taskform textarea{
-    display:block; width:100%; min-height:74px; resize:vertical; font-family:var(--serif); font-size:17px; line-height:1.5;
-    color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:9px; padding:9px 12px; outline:none;
-  }
-  .taskform textarea:focus{border-color:#b3261e; box-shadow:0 0 0 3px rgba(179,38,30,.14)}
-  .taskform .row{display:flex; gap:10px; justify-content:flex-end; margin-top:10px}
-  .taskform .btn{padding:9px 14px; font-size:14px}
-
-  /* ---------- Formatierungsleiste (Word-artig) ---------- */
-  .formatbar{
-    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
-    padding:9px 22px; border-bottom:1px solid var(--line); background:var(--paper2);
-  }
-  .fbtn{
-    font-family:var(--sans); font-size:15px; min-width:38px; height:34px; padding:0 11px;
-    color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:8px;
-    cursor:pointer; display:inline-flex; align-items:center; justify-content:center;
-    transition:background .12s, border-color .12s, color .12s; user-select:none;
-  }
-  .fbtn:hover{background:#efe9dd}
-  .fbtn:active{transform:translateY(1px)}
-  .fbtn.active{background:var(--accent); color:var(--paper2); border-color:var(--accent)}
-  .fbtn.wide{font-size:13.5px; letter-spacing:.02em}
-  .fbtn .b{font-weight:800}
-  .fbtn .i{font-style:italic}
-  .fbtn .u{text-decoration:underline}
-  .fsep{width:1px; height:22px; background:var(--line); margin:0 3px}
-  .actionbar{
-    position:fixed; left:0; right:0; bottom:0; display:flex; flex-direction:column; align-items:center; gap:12px;
-    padding:16px 16px 46px; background:linear-gradient(to top, var(--paper) 60%, rgba(247,244,236,0));
-  }
-  .dl-panel{display:flex; flex-direction:column; align-items:center; gap:9px}
-  .dl-hint{font-size:12.5px; color:var(--muted); text-align:center}
-  .dl-row{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
-  .dl-link{text-decoration:none; font-size:13.5px; padding:9px 14px}
-  .copyright{
-    position:fixed; left:0; right:0; bottom:13px; text-align:center;
-    font-size:11px; letter-spacing:.05em; color:var(--muted); pointer-events:none; z-index:6;
-  }
-  .copyright a{pointer-events:auto; color:var(--muted); text-decoration:underline; text-underline-offset:2px}
-  .copyright a:hover{color:var(--accent)}
-
-  /* ---------- Lehrkraft ---------- */
-  #screen-teacher{display:none; place-items:start center; padding:40px 20px 80px}
-  #screen-teacher.active{display:grid}
-  .panel{width:100%; max-width:920px}
-  .panel h1{font-family:var(--serif); font-weight:600; font-size:26px; margin:0 0 4px}
-  .panel .sub{color:var(--muted); margin:0 0 22px; font-size:14.5px}
-  .drop{
-    background:var(--paper2); border:1.5px dashed var(--line); border-radius:12px;
-    padding:26px; text-align:center; color:var(--muted); font-size:14.5px;
-  }
-  .drop strong{color:var(--ink)}
-  .row{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:14px}
-  input[type=password]{
-    font-family:var(--serif); font-size:18px; letter-spacing:.12em; width:180px;
-    background:var(--paper); border:1px solid var(--line); border-radius:9px; padding:10px 12px; outline:none;
-  }
-  input[type=password]:focus{border-color:var(--accent2); box-shadow:0 0 0 3px rgba(138,106,60,.16)}
-  .hidden{display:none !important}
-  .backlink{display:inline-block; margin-bottom:18px; color:var(--muted); font-size:13px; text-decoration:none}
-  .backlink:hover{color:var(--accent)}
-
-  /* analysis */
-  .legend{display:flex; gap:18px; flex-wrap:wrap; margin:20px 0 14px; font-size:13.5px; color:var(--muted)}
-  .legend span{display:inline-flex; align-items:center; gap:7px}
-  .sw{width:13px; height:13px; border-radius:3px; display:inline-block}
-  .stat{font-size:13px; color:var(--muted); margin:0 0 16px; font-variant-numeric:tabular-nums}
-  .analysis{
-    background:var(--paper2); border:1px solid var(--line); border-radius:10px;
-    padding:30px 34px; font-family:var(--serif); font-size:17.5px; line-height:1.85;
-    white-space:pre-wrap; word-wrap:break-word; overflow-wrap:anywhere;
-  }
-  .nmeta{font-family:var(--sans); font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:14px}
-  .redbadge{
-    display:inline-block; font-family:var(--sans); font-size:14px; font-weight:600; letter-spacing:.02em;
-    background:var(--paper2); border:1px solid var(--line); border-radius:9px; padding:8px 14px;
-    margin:0 0 6px; font-variant-numeric:tabular-nums;
-  }
-  .redbadge.high{color:#b3261e; border-color:#b3261e; font-weight:800}
-  .codefor{font-size:13.5px; color:var(--muted); margin:14px 0 0}
-
-  /* Tabellenansicht (Mehrfach-Upload) */
-  .batchsum{font-size:13px; color:var(--muted); margin:18px 0 10px; font-variant-numeric:tabular-nums}
-  .tablewrap{border:1px solid var(--line); border-radius:10px; overflow:auto; background:var(--paper2)}
-  table.batch{width:100%; border-collapse:collapse; font-size:15px}
-  table.batch th{
-    font-family:var(--sans); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);
-    font-weight:600; text-align:left; padding:10px 14px; border-bottom:1px solid var(--line); background:var(--paper);
-  }
-  table.batch td{padding:10px 14px; border-bottom:1px solid var(--line); font-family:var(--serif); font-variant-numeric:tabular-nums}
-  table.batch tr:last-child td{border-bottom:0}
-  table.batch tr.clickable{cursor:pointer}
-  table.batch tr.clickable:hover td, table.batch tr.selected td{background:#efe9dd}
-  table.batch th.pct, table.batch td.pct{text-align:right; white-space:nowrap}
-  table.batch td.pct.high{color:#b3261e; font-weight:800}
-  table.batch tr.errrow td{color:var(--muted); font-style:italic; font-family:var(--sans); font-size:13.5px}
-  .batchhint{font-size:12.5px; color:var(--muted); margin:10px 0 0}
-
-  /* Rote Felder (Escape-Room-Modus, identisch zum eingebetteten Feiditor) */
-  .moodle-hints{max-width:760px; margin:0 auto}
-  .moodle-hint{
-    max-width:760px; margin:14px auto 0; padding:14px 20px;
-    background:#fdecea; border:1.5px solid #f5b8b1; border-radius:8px;
-    color:#a72020; font-family:var(--sans); font-size:14.5px; font-weight:600;
-    text-align:center; line-height:1.5;
-    user-select:none;
-  }
-  /* Upload-Bereiche auf der Startseite (Überblick-PDF, Zwischenstand-PDF) */
-  .startsec .drop{padding:18px}
-</style>
-</head>
-<body>
-
-<!-- ============ START ============ -->
-<section id="screen-start" class="screen active">
-  <div class="start-wrap">
-    <div class="card">
-      <p class="brand">Feiditor</p>
-      <h1>Bevor du beginnst</h1>
-
-      <!-- Schritt 1: Auswahl, was zutrifft -->
-      <div id="choice">
-        <p class="sub">Bitte klicke an, was auf dich zutrifft.</p>
-        <button type="button" class="btn block choice-btn" id="choose-normal">Ich möchte den normalen Feiditor öffnen</button>
-        <button type="button" class="btn block ghost choice-btn" id="choose-escape">Ich komme aus einem Escape-Room und möchte mithilfe meiner Überblicks-PDF nun die Feiditor-PDF-Aufgaben laden</button>
-        <button type="button" class="btn block ghost choice-btn" id="choose-resume">Ich möchte meinen Feiditor-Zwischenstand hochladen und weiterarbeiten</button>
-      </div>
-
-      <!-- Schritt 2a: normaler Start mit Namen -->
-      <div id="sec-normal" class="startsec hidden">
-        <p class="sub">Bitte trage deinen Namen ein. Danach öffnet sich der Schreibbereich.</p>
-        <div class="field">
-          <label for="vorname">Vorname</label>
-          <input type="text" id="vorname" autocomplete="off" spellcheck="false">
-        </div>
-        <div class="field">
-          <label for="nachname">Nachname</label>
-          <input type="text" id="nachname" autocomplete="off" spellcheck="false">
-        </div>
-        <p class="err" id="start-err"></p>
-        <button class="btn block" id="start-btn">Schreibbereich öffnen</button>
-      </div>
-
-      <!-- Schritt 2b: Escape-Room – Name und Aufgaben aus der Überblick-PDF laden -->
-      <div id="sec-escape" class="startsec hidden">
-        <p class="sub">Lade hier deine <strong>Überblick-PDF</strong> aus dem Escape-Room hoch – der Feiditor öffnet sich dann mit deinem Namen und deinen Aufgaben.</p>
-        <div class="drop" id="esc-drop">
-          <p style="margin:0 0 10px"><strong>Überblick-PDF auswählen</strong> oder hierher ziehen</p>
-          <input type="file" id="esc-input" accept="application/pdf,.pdf">
-        </div>
-        <p class="err" id="esc-err"></p>
-      </div>
-
-      <!-- Schritt 2c: Zwischenstand hochladen und weiterarbeiten -->
-      <div id="sec-resume" class="startsec hidden">
-        <p class="sub">Lade hier deine <strong>Zwischenstand-PDF</strong> hoch (Datei „Zwischenstand vom … von …“). Text, Aufgaben und die gespeicherten Zeitwerte werden übernommen, und du arbeitest direkt weiter.</p>
-        <div class="drop" id="resume-drop">
-          <p style="margin:0 0 10px"><strong>Zwischenstand-PDF auswählen</strong> oder hierher ziehen</p>
-          <input type="file" id="resume-input" accept="application/pdf,.pdf">
-        </div>
-        <p class="err" id="resume-err"></p>
-      </div>
-
-      <a href="#" class="backlink hidden" id="back-choice">← zurück zur Auswahl</a>
-    </div>
-    <!-- Infokasten (optional; im Lerntagebuch-Feiditor steht hier die Erläuterung zum Lerntagebuch) -->
+<dialog id="tunnelDialog" aria-labelledby="tunnelTitle">
+  <h2 id="tunnelTitle">Ohne Überblick-PDF weiter?</h2>
+  <p>Du hast deine Überblick-PDF noch nicht heruntergeladen. Mit ihr kannst du das Finale später fortsetzen, und im Finale verweist die KI auf ihre Lösungserläuterungen.</p>
+  <div class="dlg-actions">
+    <button type="button" class="btn btn-primary" id="tunnelPdf">Erst die PDF herunterladen</button>
+    <button type="button" class="btn btn-ghost" id="tunnelGo">Trotzdem durch den Tunnel</button>
   </div>
-</section>
+</dialog>
 
-<!-- ============ EDITOR ============ -->
-<section id="screen-editor" class="screen">
-  <div class="topbar">
-    <div class="who"><span class="lbl">Verfasser:in</span><span id="who-name"></span></div>
-    <div class="right">
-      <div class="count"><span id="charcount">0</span> Zeichen</div>
-      <button type="button" class="btn ghost small" id="save-btn" title="Lädt dieselbe PDF wie „Text in PDF-Datei umwandeln“ herunter – als Zwischenstand, mit dem du später weiterarbeiten kannst">Zwischenstand herunterladen und speichern</button>
-    </div>
-  </div>
-  <div class="formatbar" id="formatbar">
-    <button type="button" class="fbtn" id="fb-bold" title="Fett (Strg+B)" aria-label="Fett"><span class="b">F</span></button>
-    <button type="button" class="fbtn" id="fb-italic" title="Kursiv (Strg+I)" aria-label="Kursiv"><span class="i">K</span></button>
-    <button type="button" class="fbtn" id="fb-underline" title="Unterstrichen (Strg+U)" aria-label="Unterstrichen"><span class="u">U</span></button>
-    <span class="fsep"></span>
-    <button type="button" class="fbtn wide" id="fb-heading" title="Überschrift (fett, doppelte Größe)">Überschrift</button>
-  </div>
-  <div class="paperwrap">
-    <p class="taskhint" id="taskhint">Bitte trage zuerst die Aufgabenstellung ein (Button „Neuen Aufgabentext eintragen“ unter der Eingabezeile), bevor du deine Antwort verfasst.</p>
-    <div class="sheet" id="sheet">
-      <div id="editor" contenteditable="true" spellcheck="true" data-placeholder="Hier schreiben…"></div>
-      <button type="button" class="taskbtn" id="taskbtn">Neuen Aufgabentext eintragen</button>
-      <div class="taskform hidden" id="taskform">
-        <label for="taskinput">Aufgabentext</label>
-        <textarea id="taskinput" rows="3" spellcheck="true" placeholder="Aufgabenstellung hier eintragen …"></textarea>
-        <div class="row">
-          <button type="button" class="btn ghost" id="task-cancel">Abbrechen</button>
-          <button type="button" class="btn" id="task-ok">Aufgabentext einfügen</button>
-        </div>
-      </div>
-    </div>
-    <div class="moodle-hints" id="moodle-hints"></div>
-  </div>
-  <div class="actionbar">
-    <div id="dl-panel" class="dl-panel hidden">
-      <span class="dl-hint">Datei erstellt. Falls der Download nicht automatisch startet, hier herunterladen:</span>
-      <div class="dl-row">
-        <a id="dl-pdf" class="btn ghost dl-link" download>Textdatei (PDF)</a>
-      </div>
-    </div>
-    <button class="btn" id="export-btn">Text in PDF-Datei umwandeln</button>
-  </div>
-</section>
-
-<!-- ============ LEHRKRAFT ============ -->
-<section id="screen-teacher" class="screen">
-  <div class="panel">
-    <a href="#" class="backlink" id="back-start">← zurück</a>
-    <h1>Auswertung für die Lehrkraft</h1>
-    <p class="sub">Laden Sie die PDF-Datei einer Schülerin bzw. eines Schülers und geben Sie den Code ein, um die Schreib-Auswertung anzuzeigen – oder wählen Sie mehrere PDFs auf einmal aus, um eine Übersichtstabelle der Rot-Anteile zu erhalten.</p>
-
-    <div class="drop" id="teacher-drop">
-      <p style="margin:0 0 10px"><strong>PDF-Datei(en) auswählen</strong> oder hierher ziehen</p>
-      <input type="file" id="pdf-input" accept="application/pdf,.pdf" multiple>
-    </div>
-    <p class="err" id="teacher-err"></p>
-
-    <div id="code-area" class="hidden">
-      <p class="codefor hidden" id="code-for"></p>
-      <div class="row">
-        <input type="password" id="code-input" inputmode="numeric" placeholder="Code">
-        <button class="btn" id="code-btn">Auswertung anzeigen</button>
-      </div>
-    </div>
-
-    <div id="result"></div>
-  </div>
-</section>
-
-<div id="pagefoot" class="copyright">Copyright Jan-Rickmer Feindt · <a href="#" id="foot-teacher">Zugang für die Lehrkraft</a> · <a href="impressum.html" target="_blank" rel="noopener">Impressum &amp; Datenschutz</a></div>
-
-<!-- Optionale Konfiguration (z. B. Lerntagebuch-Feiditor): ein eigenes Skript vor der Engine kann window.FEIDITOR_CONFIG={prefill:[…],prefillLabels:false,showEscapeUpload:false,openLabel:"…",pdfName:function(vorname,nachname){…}} setzen -->
-<script>
-/* ====================================================================== *
- *  Selbst gebauter, vollständig offline laufender Editor mit Tracking.   *
- *  Keine externen Bibliotheken, keine Netzwerkaufrufe.                   *
- *                                                                        *
- *  EINE Engine für alle Feiditoren (Standalone, Lerntagebuch, Escape-    *
- *  Rooms). Unterschiede entstehen nur über window.FEIDITOR_CONFIG        *
- *  (vorbefüllte Aufgaben usw.) bzw. window.__ESCAPE_DATA__ (Escape-Room).*
- * ====================================================================== */
-
-/* ---------------------------- Konfiguration ---------------------------- */
-const CFG=Object.assign({
-  prefill:[],             // vorbefüllte Aufgaben (Strings) – z. B. die Fragen des Lerntagebuchs
-  prefillLabels:false,    // true: „Aufgabe 1", „Aufgabe 2", … über jeder vorbefüllten Aufgabe
-  showEscapeUpload:true,  // Option „aus einem Escape-Room“ (Überblick-PDF laden) auf der Startseite anbieten
-  openLabel:null,         // Beschriftung der ersten Auswahl-Schaltfläche; null = „Ich möchte den normalen Feiditor öffnen"
-  pdfName:null            // function(vorname,nachname) -> Dateiname der fertigen PDF; null = Standard
-}, window.FEIDITOR_CONFIG||{});
-
-/* ---------- Helvetica-Glyphbreiten (AFM, Einheiten/1000), nach Byte ---------- */
-const HELV={32:278,33:278,34:355,35:556,36:556,37:889,38:667,39:191,40:333,41:333,42:389,43:584,44:278,45:333,46:278,47:278,48:556,49:556,50:556,51:556,52:556,53:556,54:556,55:556,56:556,57:556,58:278,59:278,60:584,61:584,62:584,63:556,64:1015,65:667,66:667,67:722,68:722,69:667,70:611,71:778,72:722,73:278,74:500,75:667,76:556,77:833,78:722,79:778,80:667,81:778,82:722,83:667,84:611,85:722,86:667,87:944,88:667,89:667,90:611,91:278,92:278,93:278,94:469,95:556,96:333,97:556,98:556,99:500,100:556,101:556,102:278,103:556,104:556,105:222,106:222,107:500,108:222,109:833,110:556,111:556,112:556,113:556,114:333,115:500,116:278,117:556,118:500,119:722,120:500,121:500,122:500,123:334,124:260,125:334,126:584,133:1000,145:222,146:222,147:333,148:333,149:350,150:556,151:1000,160:278,161:333,162:556,163:556,164:556,165:556,166:260,167:556,168:333,169:737,170:370,171:556,172:584,173:333,174:737,175:333,176:400,177:584,178:333,179:333,180:333,181:556,182:537,183:278,184:333,185:333,186:365,187:556,188:834,189:834,190:834,191:611,192:667,193:667,194:667,195:667,196:667,197:667,198:1000,199:722,200:667,201:667,202:667,203:667,204:278,205:278,206:278,207:278,208:722,209:722,210:778,211:778,212:778,213:778,214:778,215:584,216:778,217:722,218:722,219:722,220:722,221:667,222:667,223:611,224:556,225:556,226:556,227:556,228:556,229:556,230:889,231:500,232:556,233:556,234:556,235:556,236:278,237:278,238:278,239:278,240:556,241:556,242:556,243:556,244:556,245:556,246:556,247:584,248:611,249:556,250:556,251:556,252:556,253:500,254:556,255:500};
-function afm(b){return HELV[b]!==undefined?HELV[b]:556;}
-/* ---------- Helvetica-Bold-Glyphbreiten (AFM). ASCII exakt; Latin-1-Akzente von Basisbuchstaben ---------- */
-const HELVB={32:278,33:333,34:474,35:556,36:556,37:889,38:722,39:238,40:333,41:333,42:389,43:584,44:278,45:333,46:278,47:278,48:556,49:556,50:556,51:556,52:556,53:556,54:556,55:556,56:556,57:556,58:333,59:333,60:584,61:584,62:584,63:611,64:975,65:722,66:722,67:722,68:722,69:667,70:611,71:778,72:722,73:278,74:556,75:722,76:611,77:833,78:722,79:778,80:667,81:778,82:722,83:667,84:611,85:722,86:667,87:944,88:667,89:667,90:611,91:333,92:278,93:333,94:584,95:556,96:333,97:556,98:611,99:556,100:611,101:556,102:333,103:611,104:611,105:278,106:278,107:556,108:278,109:889,110:611,111:611,112:611,113:611,114:389,115:556,116:333,117:611,118:556,119:778,120:556,121:556,122:500,123:389,124:280,125:389,126:584,192:722,193:722,194:722,195:722,196:722,197:722,198:1000,199:722,200:667,201:667,202:667,203:667,204:278,205:278,206:278,207:278,208:722,209:722,210:778,211:778,212:778,213:778,214:778,215:584,216:778,217:722,218:722,219:722,220:722,221:667,222:667,223:611,224:556,225:556,226:556,227:556,228:556,229:556,230:889,231:556,232:556,233:556,234:556,235:556,236:278,237:278,238:278,239:278,240:611,241:611,242:611,243:611,244:611,245:611,246:611,247:584,248:611,249:611,250:611,251:611,252:611,253:556,254:611,255:556};
-function afmW(b,bold){const T=bold?HELVB:HELV;return T[b]!==undefined?T[b]:(HELV[b]!==undefined?HELV[b]:556);}
-function chW(ch,bold,s){return afmW(charByte(ch),bold)/1000*s;}
-function runWidth(str,bold,s){let w=0;for(const ch of str)w+=chW(ch,bold,s);return w;}
-function fontFor(b,i){if(b&&i)return"F4";if(b)return"F2";if(i)return"F3";return"F1";}
-const CP1252={0x20AC:128,0x201A:130,0x0192:131,0x201E:132,0x2026:133,0x2020:134,0x2021:135,0x02C6:136,0x2030:137,0x0160:138,0x2039:139,0x0152:140,0x017D:142,0x2018:145,0x2019:146,0x201C:147,0x201D:148,0x2022:149,0x2013:150,0x2014:151,0x02DC:152,0x2122:153,0x0161:154,0x203A:155,0x0153:156,0x017E:158,0x0178:159};
-function charByte(ch){const cp=ch.codePointAt(0);if(cp<=0xFF)return cp;if(CP1252[cp]!==undefined)return CP1252[cp];return 0x3F;}
-function charWidth(ch,s){return afm(charByte(ch))/1000*s;}
-function textWidth(str,s){let w=0;for(const ch of str)w+=charWidth(ch,s);return w;}
-function encStr(str){let o="";for(const ch of str){const b=charByte(ch);if(b===0x28)o+="\\(";else if(b===0x29)o+="\\)";else if(b===0x5C)o+="\\\\";else o+=String.fromCharCode(b);}return o;}
-
-/* Absatz (Array {ch,b,i,u,h}, einheitliche Größe) -> Anzeigezeilen (jede = Array von {ch,b,i,u}) */
-function wrapPara(chars,size,maxW){
-  const lines=[]; let cur=[]; let curW=0; let lastSpace=-1;
-  for(const c of chars){
-    const w=chW(c.ch,c.b,size);
-    if(curW+w>maxW && cur.length>0){
-      if(lastSpace>=0){
-        const head=cur.slice(0,lastSpace);
-        const tail=cur.slice(lastSpace+1);
-        lines.push(head);
-        cur=tail; curW=0; for(const x of cur)curW+=chW(x.ch,x.b,size);
-        lastSpace=-1; for(let k=cur.length-1;k>=0;k--){if(cur[k].ch===" "){lastSpace=k;break;}}
-      } else { lines.push(cur); cur=[]; curW=0; lastSpace=-1; }
-    }
-    cur.push(c); curW+=w;
-    if(c.ch===" ") lastSpace=cur.length-1;
-  }
-  lines.push(cur);
-  return lines.length?lines:[[]];
-}
-function lineToRuns(lineChars){
-  const runs=[];
-  for(const c of lineChars){
-    const last=runs[runs.length-1];
-    if(last && last.b===c.b && last.i===c.i && last.u===c.u) last.text+=c.ch;
-    else runs.push({text:c.ch,b:c.b,i:c.i,u:c.u});
-  }
-  return runs;
-}
-
-/* ============================================================
-   HILFSKLASSEN FÜR DIE ÜBERSICHTS-SEITEN DER ESCAPE-ROOMS
-   (in allen Feiditoren identisch; genutzt nur, wenn ein Escape-Room
-   eine Funktion buildOverviewPages(ov) ergänzt – siehe unten)
-   ============================================================ */
-const WIN_ANSI_MAP = {
-  'ä':0xE4,'ö':0xF6,'ü':0xFC,'Ä':0xC4,'Ö':0xD6,'Ü':0xDC,'ß':0xDF,
-  '€':0x80,'‚':0x82,'„':0x84,'…':0x85,'†':0x86,'‡':0x87,
-  '‰':0x89,'‹':0x8B,"\u2018":0x91,"\u2019":0x92,"\u201C":0x93,"\u201D":0x94,
-  '•':0x95,'–':0x96,'—':0x97,'™':0x99,'›':0x9B,
-  '¡':0xA1,'«':0xAB,'»':0xBB,'·':0xB7,'×':0xD7,'°':0xB0,
-  '²':0xB2,'³':0xB3,'½':0xBD,'¼':0xBC,'¾':0xBE,'¿':0xBF,
-};
-const FALLBACK_MAP = {
-  '→':'->','←':'<-','↑':'^','↓':'v','✓':'v','✗':'x','✕':'x','★':'*','☆':'*',
-  '\u00A0':' ','\u2009':' ','\u200B':'',
-};
-function encodeWinAnsi(str){
-  const bytes=[];
-  for(const ch of str){
-    const code=ch.charCodeAt(0);
-    if(code<128) bytes.push(code);
-    else if(WIN_ANSI_MAP[ch]!==undefined) bytes.push(WIN_ANSI_MAP[ch]);
-    else if(FALLBACK_MAP[ch]!==undefined){ for(const sub of FALLBACK_MAP[ch]) bytes.push(sub.charCodeAt(0)&0xFF); }
-    else if(code<=255) bytes.push(code);
-    else bytes.push(0x3F);
-  }
-  return bytes;
-}
-const HELV_W=(()=>{
-  const w=new Array(256).fill(500);
-  const widths={' ':278,'!':278,'"':355,'#':556,'$':556,'%':889,'&':667,"'":191,'(':333,')':333,'*':389,'+':584,',':278,'-':333,'.':278,'/':278,'0':556,'1':556,'2':556,'3':556,'4':556,'5':556,'6':556,'7':556,'8':556,'9':556,':':278,';':278,'<':584,'=':584,'>':584,'?':556,'@':1015,'A':667,'B':667,'C':722,'D':722,'E':667,'F':611,'G':778,'H':722,'I':278,'J':500,'K':667,'L':556,'M':833,'N':722,'O':778,'P':667,'Q':778,'R':722,'S':667,'T':611,'U':722,'V':667,'W':944,'X':667,'Y':667,'Z':611,'[':278,'\\':278,']':278,'^':469,'_':556,'`':333,'a':556,'b':556,'c':500,'d':556,'e':556,'f':278,'g':556,'h':556,'i':222,'j':222,'k':500,'l':222,'m':833,'n':556,'o':556,'p':556,'q':556,'r':333,'s':500,'t':278,'u':556,'v':500,'w':722,'x':500,'y':500,'z':500,'{':334,'|':260,'}':334,'~':584,'ä':556,'ö':556,'ü':556,'Ä':667,'Ö':778,'Ü':722,'ß':611,'€':556,'–':556,'—':1000,'«':556,'»':556,'·':278,'°':400,'•':350};
-  for(const k in widths){ const code=WIN_ANSI_MAP[k]!==undefined?WIN_ANSI_MAP[k]:k.charCodeAt(0); if(code<256) w[code]=widths[k]; }
-  return w;
-})();
-function pdfStringWidth(str,fontSize,isBold){
-  const bytes=encodeWinAnsi(str); let total=0;
-  for(const b of bytes) total += (HELV_W[b]||500)*(isBold?1.04:1);
-  return total*fontSize/1000;
-}
-class PdfDoc{
-  constructor(){ this.pages=[]; this.pageW=595; this.pageH=842; this.margin=56; this.cursorY=0; this.currentContent=[]; }
-  startPage(){ this.cursorY=this.pageH-this.margin; this.currentContent=[]; }
-  endPage(){ this.pages.push({content:this.currentContent.join('\n')}); }
-  _escapedString(str){
-    const bytes=encodeWinAnsi(str); let s='(';
-    for(const b of bytes){ if(b===0x28||b===0x29||b===0x5C) s+='\\'; s+=String.fromCharCode(b); }
-    return s+')';
-  }
-  text(str,x,y,fontSize,isBold,color){
-    const fontKey=isBold?'F2':'F1'; const c=color||[0,0,0]; const pdfStr=this._escapedString(str);
-    this.currentContent.push(`${c[0]/255} ${c[1]/255} ${c[2]/255} rg\nBT\n/${fontKey} ${fontSize} Tf\n${x} ${y} Td\n${pdfStr} Tj\nET`);
-  }
-  rect(x,y,w,h,fill,stroke){
-    let cmd='';
-    if(fill) cmd+=`${fill[0]/255} ${fill[1]/255} ${fill[2]/255} rg\n`;
-    if(stroke) cmd+=`${stroke[0]/255} ${stroke[1]/255} ${stroke[2]/255} RG\n`;
-    cmd+=`${x} ${y} ${w} ${h} re\n`;
-    if(fill&&stroke) cmd+='B'; else if(fill) cmd+='f'; else if(stroke) cmd+='S';
-    this.currentContent.push(cmd);
-  }
-  line(x1,y1,x2,y2,color,width){
-    const c=color||[0,0,0];
-    this.currentContent.push(`${c[0]/255} ${c[1]/255} ${c[2]/255} RG\n${width||0.5} w\n${x1} ${y1} m ${x2} ${y2} l S`);
-  }
-  paragraph(str,x,y,width,fontSize,isBold,color,leading){
-    if(!leading) leading=fontSize*1.4;
-    const words=String(str).split(/\s+/); let line=''; let curY=y;
-    for(const word of words){
-      if(!word) continue;
-      const test=line?line+' '+word:word;
-      if(pdfStringWidth(test,fontSize,isBold)<=width){ line=test; }
-      else{
-        if(line){ this.text(line,x,curY,fontSize,isBold,color); curY-=leading; line=word; }
-        else{ this.text(word,x,curY,fontSize,isBold,color); curY-=leading; }
-      }
-    }
-    if(line){ this.text(line,x,curY,fontSize,isBold,color); curY-=leading; }
-    return curY;
-  }
-  build(){
-    const objects=[null,null,
-      '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
-      '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>'];
-    const pageIds=[];
-    for(const page of this.pages){
-      objects.push(`<< /Length ${page.content.length} >>\nstream\n${page.content}\nendstream`);
-      const contentId=objects.length;
-      objects.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${this.pageW} ${this.pageH}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${contentId} 0 R >>`);
-      pageIds.push(objects.length);
-    }
-    objects[1]=`<< /Type /Pages /Kids [${pageIds.map(i=>i+' 0 R').join(' ')}] /Count ${pageIds.length} >>`;
-    objects[0]='<< /Type /Catalog /Pages 2 0 R >>';
-    let pdf='%PDF-1.4\n%\xC4\xC5\xC6\xC7\n'; const offsets=[0];
-    for(let i=0;i<objects.length;i++){ offsets.push(pdf.length); pdf+=`${i+1} 0 obj\n${objects[i]}\nendobj\n`; }
-    const xrefOffset=pdf.length;
-    pdf+=`xref\n0 ${objects.length+1}\n0000000000 65535 f \n`;
-    for(let i=1;i<=objects.length;i++) pdf+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';
-    pdf+=`trailer\n<< /Size ${objects.length+1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`;
-    return pdf;
-  }
-  toBase64(trailerComment){
-    let pdf=this.build();
-    if(trailerComment) pdf+=trailerComment;   // unsichtbar nach %%EOF (von PDF-Viewern ignoriert)
-    return btoa(pdf);
-  }
-}
-function fmtDateTime(d){
-  if(!d) d=new Date();
-  const date=d.toLocaleDateString('de-DE');
-  const time=d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
-  return date+', '+time+' Uhr';
-}
-
-/* Überblicksseiten einer hochgeladenen PDF: alle Seiten der Überblick-PDF aus dem Escape-Room bzw. die mit OVERVIEW_MARK
-   markierten Seiten einer Feiditor-PDF. Beide Dateien stammen aus den eigenen PDF-Writern (unkomprimierte Streams, nur
-   /F1 und /F2), die Content-Streams lassen sich daher unverändert in die fertige PDF übernehmen. */
-const OVERVIEW_MARK="%ESCAPE-OVERVIEW";
-function overviewStreamsFrom(str){
-  const all=!!pdfMarker(str,"ESCAPEDATA")&&!pdfMarker(str,"TRACKDATA");   // reine Überblick-PDF: jede Seite ist eine Überblicksseite
-  // Feiditor-PDFs vor dem 04.10.2026 tragen keine Markierung: dort zählt eine Seite, deren erster Text ein Überblick-Titel ist
-  const TITLE=/\((?:\xDCberblick deiner Antworten & Erl\xE4uterungen|L\xF6sungserl\xE4uterungen)\) Tj/;
-  const out=[]; const re=/<<\s*\/Length (\d+)\s*>>\s*stream\r?\n/g; let m;
-  while((m=re.exec(str))){
-    const start=m.index+m[0].length, n=parseInt(m[1],10); if(!(n>0)) continue;
-    const body=str.substr(start,n); re.lastIndex=start+n;
-    if(body.startsWith(OVERVIEW_MARK+"\n")) out.push(body.slice(OVERVIEW_MARK.length+1).replace(/\n+$/,""));
-    else if(all||TITLE.test(body.slice(0,400))) out.push(body.replace(/\n+$/,""));
-  }
-  return out;
-}
-
-/* ============================================================
-   ESCAPE-ROOM-ÜBERSICHTS-SEITEN
-   Jeder Escape-Room ergänzt an dieser Stelle seine eigene Funktion
-   buildOverviewPages(ov) (liefert die Content-Streams seiner Übersichts-
-   Seiten). Fehlt sie – wie im Standalone- und Lerntagebuch-Feiditor –,
-   hat die PDF keine Übersichts-Seiten.
-   ============================================================ */
-function buildOverviewPages(ov){
-  // Portiert aus generateMistakesPdf() des Escape-Rooms „Das Gutachten" (Ev. Religion, E-Phase):
-  // gleiche Farben, gleicher Aufbau, gleiche Fehlerarten (falsch_einsortiert, falsche_eingabe,
-  // falsche_wahl, falsche_zuweisung) und die Vermerke zur Hinweisnutzung je Ordner.
-  const doc=new PdfDoc();
-  const W=doc.pageW,H=doc.pageH,M=doc.margin; const CW=W-2*M;
-  const PRIMARY=[21,95,148], ACCENT=[59,157,221], RED=[155,61,61], GREEN=[47,125,65], MUTE=[85,85,85], TEXT=[25,25,25];
-  const attempts=Array.isArray(ov.attempts)?ov.attempts:[];
-  const mistakes=Array.isArray(ov.mistakes)?ov.mistakes:[];
-  const hintMax=Array.isArray(ov.hintMax)?ov.hintMax:[];
-  const roomLabels=Array.isArray(ov.roomLabels)?ov.roomLabels:[];
-  const notes=Array.isArray(ov.solutionNotes)?ov.solutionNotes:[];
-  const subtitle=ov.subtitle||'';
-
-  function header(title){
-    doc.startPage();
-    doc.rect(0,H-80,W,80,PRIMARY);
-    doc.text(title,M,H-40,17,true,[255,255,255]);
-    if(subtitle) doc.text(subtitle,M,H-60,10,false,[207,230,247]);
-    return H-80-24;
-  }
-  function ensure(y,need){ if(y-need<60){ doc.endPage(); return header('Überblick deiner Antworten & Erläuterungen'); } return y; }
-  // Vermerk für die Lehrkraft: Wurde eine Zwischenstand-Datei geladen – und wo ging es weiter?
-  // Steht ganz am Ende: nach den Lösungserläuterungen bzw. (ohne diese) nach den Räumen.
-  const resumeNotes=Array.isArray(ov.resumeNotes)?ov.resumeNotes:[];
-  function resumeSection(yy,ens){
-    yy=ens(yy,60);
-    doc.text('Verwendung von Zwischenstand-Dateien',M,yy,12.5,true,PRIMARY);
-    doc.line(M,yy-4,M+CW,yy-4,ACCENT,0.8);
-    yy-=18;
-    for(const line of resumeNotes){ yy=ens(yy,20); yy=doc.paragraph(String(line),M,yy,CW,10.5,false,TEXT,14.5); yy-=2; }
-    return yy-12;
-  }
-
-  let y=header('Überblick deiner Antworten & Erläuterungen');
-
-  // Pflichthinweis (fett, ganz oben) – kein Notfall-Tipp: diese kombinierte PDF trägt keine %ESCAPEDATA
-  doc.rect(M,y-46,CW,46,[230,242,251]);
-  doc.rect(M,y-46,3,46,ACCENT);
-  doc.paragraph('Diese Datei musst du bei Moodle in der dafür vorgesehenen Abgabe hochladen, um deinem Lehrer nachzuweisen, dass du den Escape-Room erfolgreich absolviert hast.',
-    M+12,y-16,CW-24,10.5,true,PRIMARY,13.5);
-  y-=46+14;
-
-  // Identifikationsblock
-  const blockH=80;
-  doc.rect(M,y-blockH,CW,blockH,[244,248,252]);
-  doc.rect(M,y-blockH,3,blockH,ACCENT);
-  doc.text('SCHÜLERIN / SCHÜLER',M+14,y-16,8.5,true,ACCENT);
-  const nameStr=((ov.firstName||'')+' '+(ov.lastName||'')).trim();
-  doc.text(nameStr,M+14,y-31,pdfStringWidth(nameStr,13,true)>270?10:13,true,PRIMARY);   // lange Namen kleiner, damit sie nicht in die Code-Spalte laufen
-  doc.text('GEBURTSDATUM',M+14,y-50,8.5,true,ACCENT);
-  doc.text(ov.birthDate||'',M+14,y-64,11,false,TEXT);
-  doc.text('BESTÄTIGUNGSCODE',M+300,y-16,8.5,true,ACCENT);
-  doc.text(String(ov.code||''),M+300,y-31,13,true,PRIMARY);
-  doc.text('ABGESCHLOSSEN AM',M+300,y-50,8.5,true,ACCENT);
-  doc.text(ov.completedAt||'',M+300,y-64,11,false,TEXT);
-  y-=blockH+16;
-
-  y=doc.paragraph('Diese Seiten fassen zusammen, welche Antworten du in jedem Rätselraum beim ersten Versuch gegeben hast. Du hast jeden Raum am Ende erfolgreich gelöst – diese Übersicht zeigt nur, wo es anfangs noch hakte. Danach findest du ausführliche Lösungserläuterungen zum Nacharbeiten.',
-    M,y,CW,10.5,false,TEXT,14);
-  y-=10;
-
-  const totalErrors=mistakes.reduce((a,m)=>a+(m&&m.errors?m.errors.length:0),0);
-  const perfectRooms=attempts.filter((a,i)=>a>=1 && (!mistakes[i]||!mistakes[i].errors||mistakes[i].errors.length===0)).length;
-  doc.rect(M,y-36,CW,36,[248,251,247]);
-  doc.rect(M,y-36,3,36,GREEN);
-  doc.text('ÜBERSICHT',M+14,y-14,8.5,true,GREEN);
-  doc.text(`Räume im ersten Versuch fehlerfrei: ${perfectRooms} von ${roomLabels.length||6}   ·   Fehler im ersten Versuch insgesamt: ${totalErrors}`,M+14,y-27,10.5,true,TEXT);
-  y-=50;
-
-  for(let i=0;i<roomLabels.length;i++){
-    y=ensure(y,60);
-    doc.text(roomLabels[i],M,y,12.5,true,PRIMARY);
-    doc.line(M,y-4,M+CW,y-4,ACCENT,0.8);
-    y-=18;
-    const att=attempts[i]; const m=mistakes[i];
-    const attemptsLabel=att===1?'1 Versuch':att+' Versuche';
-    const hm=(typeof hintMax[i]==='number')?hintMax[i]:-1;
-    const hintLabelPdf=hm<0?'Keine Hinweise genutzt.'
-      :(hm>=3?'Hinweise genutzt bis Stufe 4 (Lösung eingesehen).':'Hinweise genutzt bis Stufe '+(hm+1)+' von 4.');
-    if(!m||!m.errors||m.errors.length===0){
-      y=doc.paragraph('Fehlerfrei beim ersten Versuch gelöst. ('+attemptsLabel+')',M,y,CW,10.5,true,GREEN,14);
-      y=doc.paragraph(hintLabelPdf,M,y,CW,10,false,MUTE,13);
-      y-=8; continue;
-    }
-    y=doc.paragraph('Insgesamt benötigt: '+attemptsLabel+'. '+hintLabelPdf+' Beim ersten Versuch waren folgende Punkte falsch:',M,y,CW,10.5,false,MUTE,14);
-    y-=6;
-    for(const err of m.errors){
-      y=ensure(y,60);
-      doc.text('•',M,y,11,true,RED);
-      if(err.kind==='falsch_einsortiert'){
-        y=doc.paragraph('"'+err.item+'"',M+14,y,CW-14,10.5,true,TEXT,13);
-        y=doc.paragraph('Du hast einsortiert in: '+err.wrongAnswer+'   ·   Richtig: '+err.correctAnswer,M+14,y,CW-14,10,false,MUTE,13);
-        if(err.explanation) y=doc.paragraph('→ '+err.explanation,M+14,y,CW-14,10,false,MUTE,13);
-      } else if(err.kind==='falsche_eingabe'){
-        y=doc.paragraph(err.item,M+14,y,CW-14,10.5,true,TEXT,13);
-        y=doc.paragraph('Deine Eingabe: "'+err.wrongAnswer+'"   ·   Richtig: '+err.correctAnswer,M+14,y,CW-14,10,false,MUTE,13);
-      } else if(err.kind==='falsche_wahl'){
-        y=doc.paragraph(err.item,M+14,y,CW-14,10.5,true,TEXT,13);
-        y=doc.paragraph('Du hast gewählt: '+err.wrongAnswer,M+14,y,CW-14,10,false,RED,13);
-        y=doc.paragraph('Richtig wäre: '+err.correctAnswer,M+14,y,CW-14,10,true,GREEN,13);
-        if(err.explanation) y=doc.paragraph('→ '+err.explanation,M+14,y,CW-14,10,false,MUTE,13);
-      } else if(err.kind==='falsche_zuweisung'){
-        y=doc.paragraph(err.item,M+14,y,CW-14,10.5,true,TEXT,13);
-        y=doc.paragraph('Du hast zugewiesen: '+err.wrongAnswer+'   ·   Richtig: '+err.correctAnswer,M+14,y,CW-14,10,false,MUTE,13);
-        if(err.explanation) y=doc.paragraph('→ '+err.explanation,M+14,y,CW-14,10,false,MUTE,13);
-      } else {
-        y=doc.paragraph(String(err.item||''),M+14,y,CW-14,10.5,true,TEXT,13);
-        if(err.wrongAnswer!==undefined) y=doc.paragraph('Deine Antwort: '+err.wrongAnswer+(err.correctAnswer!==undefined?'   ·   Richtig: '+err.correctAnswer:''),M+14,y,CW-14,10,false,MUTE,13);
-        if(err.explanation) y=doc.paragraph('→ '+err.explanation,M+14,y,CW-14,10,false,MUTE,13);
-      }
-      y-=5;
-    }
-    y-=10;
-  }
-
-  if(resumeNotes.length&&!notes.length) y=resumeSection(y,ensure);
-  y=ensure(y,50);
-  doc.line(M,y,M+CW,y,[200,200,200],0.4); y-=14;
-  doc.text('Bestätigungscode für Moodle: '+String(ov.code||''),M,y,10,true,PRIMARY);
-  y-=22;
-  doc.text('Copyright Jan-Rickmer Feindt',M,y,8.5,false,MUTE);
-  doc.endPage();
-
-  /* ---- Lösungserläuterungen ---- */
-  if(notes.length){
-    let y2=header('Lösungserläuterungen');
-    y2=doc.paragraph('Hier werden die richtigen Lösungen der sechs Rätselräume noch einmal genauer erklärt. Nutze diese Seiten, um den Stoff der Sitzung zu vertiefen und nachzuarbeiten.',M,y2,CW,10.5,false,TEXT,14);
-    y2-=10;
-    function ensure2(yy,need){ if(yy-need<60){ doc.endPage(); return header('Lösungserläuterungen'); } return yy; }
-    for(const note of notes){
-      y2=ensure2(y2,96);
-      doc.text(note.room||'',M,y2,12.5,true,PRIMARY);
-      doc.line(M,y2-4,M+CW,y2-4,ACCENT,0.8);
-      y2-=18;
-      y2=doc.paragraph(note.text||'',M,y2,CW,10.5,false,TEXT,14.5);
-      y2-=14;
-    }
-    if(resumeNotes.length) y2=resumeSection(y2,ensure2);
-    y2=ensure2(y2,30);
-    doc.line(M,y2,M+CW,y2,[200,200,200],0.4); y2-=14;
-    doc.text('Copyright Jan-Rickmer Feindt',M,y2,8.5,false,MUTE);
-    doc.endPage();
-  }
-  return doc.pages.map(p=>p.content);
-}
-
-function buildPdf(opts){
-  const PW=595.28,PH=841.89, ML=56,MR=56,MT=56,MB=64;
-  const HEAD_SIZE=13, BODY_SIZE=11, HEAD2_SIZE=22, NOTE_SIZE=11;
-  const BODY_LEAD=15.5, HEAD_LEAD=28;
-  const usableW=PW-ML-MR;
-  const headerBaseline=PH-MT-HEAD_SIZE, ruleY=headerBaseline-6, bodyTop=ruleY-22, bodyBottom=MB+24;
-
-  const text=opts.text||""; const fmt=opts.fmt||[];
-  // in Absätze an '\n' teilen
-  const paras=[]; { let cur=[]; for(let i=0;i<text.length;i++){ const ch=text[i]; if(ch==="\n"){paras.push(cur);cur=[];} else { const ft=fmt[i]||{}; cur.push({ch,b:!!ft.b,i:!!ft.i,u:!!ft.u,h:!!ft.h}); } } paras.push(cur); }
-
-  // Anzeigezeilen mit Größe/Durchschuss
-  const dispLines=[];
-  for(const para of paras){
-    const heading=para.length?para[0].h:false;
-    const size=heading?HEAD2_SIZE:BODY_SIZE;
-    const lead=heading?HEAD_LEAD:BODY_LEAD;
-    if(para.length===0){ dispLines.push({runs:[],size:BODY_SIZE,lead:BODY_LEAD}); continue; }
-    const wrapped=wrapPara(para,size,usableW);
-    for(const wl of wrapped) dispLines.push({runs:lineToRuns(wl),size,lead});
-  }
-  if(dispLines.length===0) dispLines.push({runs:[],size:BODY_SIZE,lead:BODY_LEAD});
-
-  // Seiten füllen
-  const pages=[]; let idx=0;
-  while(idx<dispLines.length){
-    const pageLines=[]; let y=bodyTop;
-    while(idx<dispLines.length && y>=bodyBottom){ const dl=dispLines[idx]; pageLines.push({dl,y}); y-=dl.lead; idx++; }
-    if(pageLines.length===0){ pageLines.push({dl:dispLines[idx],y:bodyTop}); idx++; }
-    pages.push({lines:pageLines});
-  }
-  const nPages=pages.length;
-  // Übersichts-Seiten (aus dem Escape-Room) werden hinter die Aufgaben-Seiten gehängt: im eingebetteten Feiditor neu
-  // erzeugt, im eigenständigen Feiditor aus der hochgeladenen Überblick- bzw. Zwischenstand-PDF übernommen
-  const ovStreams=(opts.overview&&typeof buildOverviewPages==="function")?buildOverviewPages(opts.overview)
-    :(Array.isArray(opts.overviewStreams)?opts.overviewStreams:[]);
-  const nAll=nPages+ovStreams.length;
-
-  const noteText="Bitte diese PDF-Datei herunterladen und bei Moodle hochladen.";
-  const noteLines=[]; { // Hinweis ist immer normal/unformatiert
-    const arr=noteText.split("").map(ch=>({ch,b:false,i:false,u:false}));
-    for(const wl of wrapPara(arr,NOTE_SIZE,usableW)) noteLines.push(lineToRuns(wl));
-  }
-  const noteBottom=46;
-
-  const pageObjNum=(i)=>7+i*2, contObjNum=(i)=>8+i*2;
-  const objects={};
-  objects[1]="<< /Type /Catalog /Pages 2 0 R >>";
-  objects[2]=`<< /Type /Pages /Count ${nAll} /Kids [${Array.from({length:nAll},(_,i)=>`${pageObjNum(i)} 0 R`).join(" ")}] >>`;
-  objects[3]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>";
-  objects[4]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>";
-  objects[5]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding >>";
-  objects[6]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-BoldOblique /Encoding /WinAnsiEncoding >>";
-
-  for(let i=0;i<nPages;i++){
-    objects[pageObjNum(i)]=`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW.toFixed(2)} ${PH.toFixed(2)}] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents ${contObjNum(i)} 0 R >>`;
-    let s="0.5 w\n";
-    // Name + Linie
-    s+=`BT /F1 ${HEAD_SIZE} Tf 0 0 0 rg ${ML} ${headerBaseline.toFixed(2)} Td (${encStr(opts.name||"")}) Tj ET\n`;
-    s+=`${ML} ${ruleY.toFixed(2)} m ${(PW-MR).toFixed(2)} ${ruleY.toFixed(2)} l S\n`;
-    // Textzeilen
-    const underlines=[];
-    for(const pl of pages[i].lines){
-      const dl=pl.dl, y=pl.y;
-      if(dl.runs.length){
-        s+=`BT 1 0 0 1 ${ML.toFixed(2)} ${y.toFixed(2)} Tm 0 0 0 rg\n`;
-        let x=ML;
-        for(const run of dl.runs){
-          const fn=fontFor(run.b,run.i);
-          s+=`/${fn} ${dl.size} Tf (${encStr(run.text)}) Tj\n`;
-          const rw=runWidth(run.text,run.b,dl.size);
-          if(run.u){ underlines.push({x1:x,x2:x+rw,y:y-dl.size*0.12,lw:Math.max(0.5,dl.size*0.06)}); }
-          x+=rw;
-        }
-        s+="ET\n";
-      }
-    }
-    for(const ul of underlines){
-      s+=`${ul.lw.toFixed(2)} w 0 0 0 RG ${ul.x1.toFixed(2)} ${ul.y.toFixed(2)} m ${ul.x2.toFixed(2)} ${ul.y.toFixed(2)} l S\n`;
-    }
-    // roter Hinweis nur auf der letzten Seite
-    if(i===nPages-1){
-      let yy=noteBottom+(noteLines.length-1)*BODY_LEAD;
-      for(const runs of noteLines){
-        s+=`BT 1 0 0 1 ${ML.toFixed(2)} ${yy.toFixed(2)} Tm 0.78 0.05 0.05 rg\n`;
-        for(const run of runs){ s+=`/F1 ${NOTE_SIZE} Tf (${encStr(run.text)}) Tj\n`; }
-        s+="ET\n";
-        yy-=BODY_LEAD;
-      }
-    }
-    objects[contObjNum(i)]={stream:s};
-  }
-  // Übersichts-Seiten anhängen (Content-Streams nutzen /F1 und /F2, die oben definiert sind)
-  for(let k=0;k<ovStreams.length;k++){
-    const i=nPages+k;
-    objects[pageObjNum(i)]=`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW.toFixed(2)} ${PH.toFixed(2)}] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents ${contObjNum(i)} 0 R >>`;
-    objects[contObjNum(i)]={stream:OVERVIEW_MARK+"\n"+ovStreams[k]+"\n"};   // markiert: so findet der eigenständige Feiditor die Seiten beim Fortsetzen
-  }
-
-  let pdf="%PDF-1.7\n%\u00E2\u00E3\u00CF\u00D3\n";
-  if(opts.trackB64) pdf+=`%TRACKDATA ${opts.trackB64}\n`;
-  const offsets={}; const maxNum=6+nAll*2;
-  for(let n=1;n<=maxNum;n++){
-    offsets[n]=pdf.length; const o=objects[n];
-    if(o&&o.stream!==undefined){const st=o.stream;pdf+=`${n} 0 obj\n<< /Length ${st.length} >>\nstream\n${st}endstream\nendobj\n`;}
-    else pdf+=`${n} 0 obj\n${o}\nendobj\n`;
-  }
-  const xrefStart=pdf.length;
-  pdf+=`xref\n0 ${maxNum+1}\n0000000000 65535 f \n`;
-  for(let n=1;n<=maxNum;n++) pdf+=String(offsets[n]).padStart(10,"0")+" 00000 n \n";
-  pdf+=`trailer\n<< /Size ${maxNum+1} /Root 1 0 R >>\nstartxref\n${xrefStart}\n%%EOF`;
-  return pdf;
-}
-
-/* ---------------- gemeinsame Krypto- & Auswertungs-Funktionen ---------------- *
- * Diese werden per toString() in die Lehrkraft-Seite (data:-Link) eingebettet,  *
- * damit es nur EINE Quelle der Wahrheit gibt.                                   */
-function bytesToB64(bytes){let bin="";const CH=0x8000;for(let i=0;i<bytes.length;i+=CH)bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+CH));return btoa(bin);}
-function b64ToBytes(b64){const bin=atob(b64);const out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out;}
-async function _key(codeStr,usage){const mat=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(codeStr));return crypto.subtle.importKey("raw",mat,{name:"AES-GCM"},false,usage);}
-async function aesEncrypt(plain,codeStr){const iv=crypto.getRandomValues(new Uint8Array(12));const key=await _key(codeStr,["encrypt"]);const ct=await crypto.subtle.encrypt({name:"AES-GCM",iv},key,new TextEncoder().encode(plain));return bytesToB64(iv)+":"+bytesToB64(new Uint8Array(ct));}
-async function aesDecrypt(bundle,codeStr){const parts=bundle.split(":");const iv=b64ToBytes(parts[0]);const ct=b64ToBytes(parts[1]);const key=await _key(codeStr,["decrypt"]);const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv},key,ct);return new TextDecoder().decode(pt);}
-function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
-function classify(isVisible,src,gap){
-  const COL={plain:"#23201b",paste:"#b3261e",fast:"#c2710c",slow:"#1f7a34",system:"#23201b"};
-  if(src==="s"||src==="q") return COL.system; // vorgegebener Aufgabentext (bzw. Frage älterer Lerntagebuch-PDFs) -> schwarz, nie farbig
-  if(!isVisible) return COL.plain;
-  if(src==="p") return COL.paste;            // aus Zwischenablage -> rot
-  if(gap>=0&&gap<=15) return COL.paste;      // <= 0,015 s getippt -> rot
-  if(gap>15&&gap<=70) return COL.fast;       // 0,015-0,07 s -> orange
-  return COL.slow;                           // > 0,07 s / erstes Zeichen -> grün
-}
-const RED_LIMIT=50; // Rot-Anteil strikt ÜBER diesem Wert wird rot und fett hervorgehoben
-/* Zählt sichtbare, nicht vorgegebene Zeichen nach Farbe – EINE Formel für Einzelansicht, Export und Tabelle */
-function computeStats(t,m){
-  const WS=/\s/; let total=0,red=0,orange=0,green=0;
-  for(let i=0;i<t.length;i++){
-    const ch=t[i]; const isV=!WS.test(ch);
-    const mark=m[i]||["t",-1]; const col=classify(isV,mark[0],mark[1]);
-    if(isV && mark[0]!=="s" && mark[0]!=="q"){ total++;
-      if(col==="#b3261e") red++;
-      else if(col==="#c2710c") orange++;
-      else green++;
-    }
-  }
-  const pct=(x)=>total?Math.round(x/total*100):0;
-  return {total,red,orange,green,redPct:pct(red),orangePct:pct(orange),greenPct:pct(green)};
-}
-function renderAnalysis(payload){
-  const t=payload.t, m=payload.m||[], f=payload.f||[];
-  let html="";
-  const WS=/\s/;
-  for(let i=0;i<t.length;i++){
-    const ch=t[i]; const isV=!WS.test(ch);
-    const mark=m[i]||["t",-1]; const src=mark[0]; const gap=mark[1];
-    const col=classify(isV,src,gap);
-    const fl=f[i]||0; let st="color:"+col;
-    if(fl&8){ st+=";font-weight:700;font-size:1.6em"; } else if(fl&1){ st+=";font-weight:700"; }
-    if(fl&2) st+=";font-style:italic";
-    if(fl&4) st+=";text-decoration:underline";
-    html+=`<span style="${st}">${esc(ch)}</span>`;
-  }
-  const s=computeStats(t,m);
-  // gespeicherter Rot-Anteil aus der PDF; ältere PDFs ohne Wert: aus den Tracking-Daten berechnet
-  const rp=(typeof payload.r==="number"&&isFinite(payload.r))?payload.r:s.redPct;
-  const badge=`<div class="redbadge${rp>RED_LIMIT?" high":""}">Rot-Anteil: ${rp} %</div>`;
-  const legend=
-    '<div class="legend">'+
-      '<span><i class="sw" style="background:#b3261e"></i>eingefügt oder ≤ 0,015 s getippt</span>'+
-      '<span><i class="sw" style="background:#c2710c"></i>0,015–0,07 s nach vorherigem Zeichen getippt</span>'+
-      '<span><i class="sw" style="background:#1f7a34"></i>&gt; 0,07 s nach vorherigem Zeichen getippt</span>'+
-      '<span><i class="sw" style="background:#23201b"></i>vorgegebener Aufgabentext (nicht gewertet)</span>'+
-    '</div>';
-  const stat=`<p class="stat">Zeichen gesamt: ${s.total} · rot: ${s.red} (${s.redPct} %) · orange: ${s.orange} (${s.orangePct} %) · grün: ${s.green} (${s.greenPct} %)</p>`;
-  const head=`<div class="nmeta">Verfasser:in — ${esc(payload.n||"")}${payload.z===1?" · Zwischenstand":""}</div>`;
-  return head+badge+legend+stat+`<div class="analysis">${html}</div>`;
-}
-
-/* ---------------- Lehrkraft-Seite für den data:-Link bauen ---------------- */
-function buildTeacherHtml(bundle){
-  const shared="const RED_LIMIT="+RED_LIMIT+";\n"+[bytesToB64,b64ToBytes,_key,aesDecrypt,esc,classify,computeStats,renderAnalysis].map(f=>f.toString()).join("\n");
-  const css=
-    'body{margin:0;background:#f7f4ec;color:#221f1a;font-family:"Avenir Next",Avenir,"Segoe UI","Helvetica Neue",system-ui,sans-serif;line-height:1.5}'+
-    '.wrap{max-width:920px;margin:0 auto;padding:40px 22px 80px}'+
-    'h1{font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;font-weight:600;font-size:26px;margin:0 0 6px}'+
-    '.sub{color:#6f675a;margin:0 0 22px;font-size:14.5px}'+
-    'input{font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:18px;letter-spacing:.12em;width:180px;background:#fffdf8;border:1px solid #ddd5c4;border-radius:9px;padding:10px 12px;outline:none}'+
-    'input:focus{border-color:#8a6a3c;box-shadow:0 0 0 3px rgba(138,106,60,.16)}'+
-    'button{font-family:inherit;font-size:15px;font-weight:600;color:#fffdf8;background:#221f1a;border:1px solid #221f1a;border-radius:9px;padding:11px 18px;cursor:pointer;margin-left:10px}'+
-    '.err{color:#b3261e;font-size:13.5px;min-height:18px;margin:10px 0 0}'+
-    '.legend{display:flex;gap:18px;flex-wrap:wrap;margin:20px 0 14px;font-size:13.5px;color:#6f675a}'+
-    '.legend span{display:inline-flex;align-items:center;gap:7px}'+
-    '.sw{width:13px;height:13px;border-radius:3px;display:inline-block}'+
-    '.stat{font-size:13px;color:#6f675a;margin:0 0 16px}'+
-    '.nmeta,.nmeta{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#6f675a;margin-bottom:14px}'+
-    '.redbadge{display:inline-block;font-size:14px;font-weight:600;background:#fffdf8;border:1px solid #ddd5c4;border-radius:9px;padding:8px 14px;margin:0 0 6px}'+
-    '.redbadge.high{color:#b3261e;border-color:#b3261e;font-weight:800}'+
-    '.analysis{background:#fffdf8;border:1px solid #ddd5c4;border-radius:10px;padding:30px 34px;font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;font-size:17.5px;line-height:1.85;white-space:pre-wrap;word-wrap:break-word;overflow-wrap:anywhere}';
-  const boot=
-    'const BUNDLE='+JSON.stringify(bundle)+';'+
-    'const app=document.getElementById("app");'+
-    'async function go(){'+
-      'const code=document.getElementById("c").value.trim();'+
-      'const e=document.getElementById("e"); e.textContent="";'+
-      'try{const json=await aesDecrypt(BUNDLE,code);const p=JSON.parse(json);'+
-        'app.innerHTML=renderAnalysis(p);'+
-      '}catch(err){e.textContent="Falscher Code.";}'+
-    '}'+
-    'document.getElementById("b").addEventListener("click",go);'+
-    'document.getElementById("c").addEventListener("keydown",ev=>{if(ev.key==="Enter")go();});';
-  const body=
-    '<div class="wrap">'+
-      '<h1>Auswertung für die Lehrkraft</h1>'+
-      '<p class="sub">Bitte den Code eingeben, um die Schreib-Auswertung anzuzeigen.</p>'+
-      '<div><input id="c" type="password" inputmode="numeric" placeholder="Code" autofocus>'+
-      '<button id="b">Anzeigen</button></div>'+
-      '<p class="err" id="e"></p>'+
-      '<div id="app"></div>'+
-    '</div>';
-  return '<!doctype html><html lang="de"><head><meta charset="utf-8">'+
-    '<meta name="viewport" content="width=device-width, initial-scale=1">'+
-    '<title>Auswertung</title><style>'+css+'</style></head><body>'+body+
-    '<scr'+'ipt>'+shared+'\n'+boot+'<\/scr'+'ipt></body></html>';
-}
-
-/* ----------------------- geheime Code-Bildung (Lehrkraft) ----------------------- */
-function _kfN(n){return String(n*(0x230+0x220));}          // Code aus Buchstabenzahl
-function _kf(s){const n=(s.match(/\p{L}/gu)||[]).length;return _kfN(n);}
-
-/* ------------------------------ Tracking ------------------------------ */
-let prevValue="";
-let recs=[];          // pro Zeichen: {src:'t'|'p'|'s', t:ms} – 's' = vorgegebener Aufgabentext (t=-1: kein Tipp-Tempo)
-let justPasted=false; // wird durch paste/drop gesetzt, nach einem input-Event geleert
-
-function reconcile(newVal,src,now){
-  const a=prevValue,b=newVal; const minL=Math.min(a.length,b.length);
-  let p=0; while(p<minL&&a[p]===b[p])p++;
-  let s=0; while(s<minL-p&&a[a.length-1-s]===b[b.length-1-s])s++;
-  const removed=a.length-p-s;
-  const inserted=b.slice(p,b.length-s);
-  const ins=inserted.split("").map(()=>({src:src,t:(src==="s")?-1:now}));
-  recs.splice(p,removed,...ins);
-  if(recs.length!==b.length){ // Sicherheitsnetz gegen Desync: Tipp-Info unbekannt (t=-1), nie fälschlich rot
-    recs=b.split("").map(()=>({src:"t",t:-1}));
-  }
-  prevValue=newVal;
-}
-/* Aufgabenblöcke sind immer System-Text. Maßgeblich ist der Editor-Inhalt (fmt[i].s),
-   nicht der Tracking-Verlauf – so wird eine Aufgabenstellung nie farbig ausgewertet. */
-function applySystemFlags(fmt){
-  for(let i=0;i<recs.length;i++){
-    const sys=!!(fmt[i]&&fmt[i].s);
-    if(sys) recs[i]={src:"s",t:-1};
-    else if(recs[i].src==="s") recs[i]={src:"t",t:-1};
-  }
-}
-/* Editor-Inhalt lesen und die Tracking-Daten daran angleichen (src: 't' getippt, 'p' eingefügt, 's' vorgegeben) */
-function syncTracking(src){
-  const ser=serializeEditor();
-  reconcile(ser.text,src,Date.now());
-  applySystemFlags(ser.fmt);
-  return ser;
-}
-
-/* Hintergrunddaten für die PDF: Text (t), Marken je Zeichen (m: Quelle + Abstand), Format-Bits (f),
-   Blockstruktur (k: je Block [Art 0=Zeile/1=Aufgabe, Zeichenzahl, Labellänge]) und Escape-Infos (e).
-   Alle Längen und Indizes zählen UTF-16-Einheiten wie t (v:2; ältere Dateien zählten k in Unicode-Zeichen).
-   z = versteckte Kennung: 1 = Zwischenstand, 0 = fertige Abgabe. Sie steckt wie alles andere verschlüsselt
-   (AES-GCM) in %TRACKDATA und lässt sich ohne Entschlüsseln nicht verändern.
-   Aus diesen Daten kann ein Zwischenstand vollständig wiederhergestellt werden. */
-function buildPayload(name,ser,vn,nn,interim){
-  const text=ser.text, fmt=ser.fmt||[];
-  if(recs.length!==text.length){ // letzte Absicherung: Tipp-Info verloren -> Abstand unbekannt (nie fälschlich rot)
-    recs=text.split("").map(()=>({src:"t",t:-1}));
-  }
-  const m=[]; const f=[];
-  for(let i=0;i<text.length;i++){
-    const ft=fmt[i]||{}; const rc=recs[i];
-    const src=ft.s?"s":rc.src;
-    let gap;
-    if(src==="s"||i===0) gap=-1;
-    else if(typeof rc.g==="number") gap=rc.g;                      // aus einem Zwischenstand übernommener Zeitwert
-    else gap=(rc.t<0||recs[i-1].t<0)?-1:(rc.t-recs[i-1].t);
-    m.push([src,gap]);
-    let bits=0; if(ft.b)bits|=1; if(ft.i)bits|=2; if(ft.u)bits|=4; if(ft.h)bits|=8; if(ft.s)bits|=16;
-    f.push(bits);
-  }
-  const r=computeStats(text,m).redPct; // Rot-Anteil in Prozent, wie ihn die Lehrkraft-Ansicht zeigt
-  const p={n:name,t:text,m,f,vn:vn||"",nn:nn||"",r,k:ser.blocks||[],v:2,z:interim?1:0};
-  if(escapeMode){ p.e={esc:true,red:escapeRed}; if(escapeCtx) p.e.ctx=escapeCtx; }
-  return p;
-}
-
-/* ------------------------------ UI-Steuerung ------------------------------ */
-const $=(id)=>document.getElementById(id);
-let currentScreen="screen-start";
-function show(screen){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  $(screen).classList.add("active"); currentScreen=screen;
-  const pf=$("pagefoot"); if(pf) pf.style.display=(screen==="screen-teacher")?"none":"block";
-}
-function sanitize(s){return (s||"").replace(/[^\p{L}\p{N}_-]/gu,"_").slice(0,40)||"Datei";}
-function asciiName(s){
-  return (s||"")
-    .replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue")
-    .replace(/Ä/g,"Ae").replace(/Ö/g,"Oe").replace(/Ü/g,"Ue").replace(/ß/g,"ss")
-    .normalize("NFKD").replace(/[\u0300-\u036f]/g,"")
-    .replace(/[^A-Za-z0-9_-]/g,"_").replace(/_+/g,"_").replace(/^_|_$/g,"")
-    .slice(0,40) || "Datei";
-}
-function fileSafe(s){return (s||"").replace(/[\/\\:*?"<>|\u0000-\u001f]/g,"").replace(/\s+/g," ").trim().slice(0,90)||"Datei";}
-function downloadBlob(blob,filename){
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob); a.download=filename;
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(()=>URL.revokeObjectURL(a.href),5000);
-}
-function setLink(el,blob,filename){
-  if(el._url) URL.revokeObjectURL(el._url);
-  const url=URL.createObjectURL(blob);
-  el._url=url; el.href=url; el.download=filename;
-}
-
-let studentVorname="", studentNachname="";
-let escapeRed=[];     // Texte der roten Felder im Escape-Room-Modus
-let escapeCtx=null;   // Steckbrief des Escape-Rooms (Fach, Jahrgangsstufe, Thema, erarbeitete Inhalte) für die KI-Bewertung
-let escapeOverviewStreams=[];   // Überblicksseiten (Content-Streams) aus einer hochgeladenen Überblick- oder Zwischenstand-PDF
-let escapeMode=false; // true: aus einem Escape-Room gestartet (Autostart oder Überblick-PDF)
-let prefilled=false;  // true: Aufgaben wurden vorbefüllt (Escape-Room, Lerntagebuch)
-
-function updateCharcount(){
-  let n=0; for(const r of recs){ if(r.src!=="s") n++; }
-  $("charcount").textContent=String(n);
-}
-function renderMoodleHints(){
-  const box=$("moodle-hints"); if(!box) return;
-  box.innerHTML=escapeRed.map(t=>`<div class="moodle-hint">${esc(t)}</div>`).join("");
-}
-function hideDlPanel(){ const dp=$("dl-panel"); if(dp) dp.classList.add("hidden"); }
-function makePdfName(){
-  if(typeof CFG.pdfName==="function") return CFG.pdfName(studentVorname,studentNachname);
-  if(escapeMode) return fileSafe("Abgeschlossener Escape-Room von "+studentVorname+" "+studentNachname)+".pdf";
-  return fileSafe("Text von "+studentVorname)+".pdf";
-}
-/* Zwischenstand: „Zwischenstand vom TT.MM.JJJJ um hh.mm von Vorname Nachname.pdf" (Doppelpunkt ist in Dateinamen nicht erlaubt) */
-function interimPdfName(){
-  const d=new Date(); const p2=n=>String(n).padStart(2,"0");
-  const datum=p2(d.getDate())+"."+p2(d.getMonth()+1)+"."+d.getFullYear();
-  const zeit=p2(d.getHours())+"."+p2(d.getMinutes());
-  return fileSafe("Zwischenstand vom "+datum+" um "+zeit+" von "+(studentVorname+" "+studentNachname).trim())+".pdf";
-}
-
-/* ---------- Rich-Text-Editor: Blöcke, Aufgabenblöcke, Serialisierung ---------- */
-const ed=$("editor");
-function isBlockEl(node){ return !!(node&&node.nodeType===1&&/^(DIV|P|H[1-6]|LI|BLOCKQUOTE|PRE)$/.test(node.tagName)); }
-function isTask(el){ return !!(el&&el.nodeType===1&&el.classList&&el.classList.contains("task")); }
-function editorBlocks(){ return Array.prototype.filter.call(ed.childNodes,n=>n.nodeType===1); }
-function emptyBlock(){ const d=document.createElement("div"); d.appendChild(document.createElement("br")); return d; }
-function blockIsEmpty(b){ return !b || (b.textContent||"").replace(/\u200B/g,"")===""; }
-/* Aufgabenblock: nicht editierbar, fett; das „x" (data-noser) wird nie mit serialisiert */
-function makeTaskBlock(label,text){
-  const div=document.createElement("div");
-  div.className="task"; div.setAttribute("contenteditable","false"); div.setAttribute("draggable","false");
-  if(label){
-    const l=document.createElement("span"); l.className="task-label"; l.textContent=label;
-    div.appendChild(l); div.appendChild(document.createElement("br"));
-  }
-  const t=document.createElement("span"); t.className="task-text"; t.textContent=text; div.appendChild(t);
-  const x=document.createElement("button"); x.type="button"; x.className="task-x"; x.tabIndex=-1;
-  x.setAttribute("data-noser","1"); x.setAttribute("contenteditable","false");
-  x.title="Aufgabentext entfernen"; x.setAttribute("aria-label","Aufgabentext entfernen"); x.textContent="×";
-  div.appendChild(x);
-  return div;
-}
-/* Den Block (oberste DIV-Ebene im Editor), in dem ein Knoten liegt. */
-function blockOf(node){
-  if(!node||node===ed) return null;
-  let n=node;
-  while(n && n.parentNode!==ed) n=n.parentNode;
-  return (n && n.parentNode===ed && n.nodeType===1) ? n : null;
-}
-/* Block zu einer Selektionsgrenze (Container + Offset); liegt die Grenze direkt im Editor, zählt das Kind an dieser Stelle. */
-function blockAt(container,offset){
-  if(container===ed){
-    const kids=ed.childNodes; if(!kids.length) return null;
-    const n=kids[Math.min(offset,kids.length-1)]; return (n&&n.nodeType===1)?n:null;
-  }
-  return blockOf(container);
-}
-/* Aufgabenblock, in dem ein Knoten liegt (oder null). */
-function taskOf(node){ let n=node; while(n&&n!==ed){ if(isTask(n)) return n; n=n.parentNode; } return null; }
-
-/* Read-only: liest den contenteditable-Inhalt als {text, fmt, blocks} aus, OHNE das DOM
-   oder den Cursor zu verändern. Inline-Formatierung ändert den Text nicht, nur fmt –
-   dadurch bleiben die Tipp-Tempo-Daten (recs) über Formatierungen hinweg erhalten.
-   Jeder Block der obersten Ebene ist eine Zeile bzw. ein Aufgabenblock; Blöcke sind durch "\n" getrennt.
-   fmt[i].s = Zeichen gehört zu einem Aufgabenblock (inkl. der Trenner davor/danach).
-   blocks = je Block [Art (0 Zeile, 1 Aufgabe), Zeichenzahl, Labellänge] – damit lässt sich der
-   Editor aus den Hintergrunddaten einer PDF exakt wiederherstellen (Zwischenstand). */
-function serializeEditor(){
-  const chars=[]; const fmt=[]; const blocks=[];
-  const BASE={b:false,i:false,u:false,h:false,s:false};
-  const SYS={b:false,i:false,u:false,h:false,s:true};
-  function pushCh(ch,st){ chars.push(ch); fmt.push({b:st.b,i:st.i,u:st.u,h:st.h,s:st.s}); }
-  function lastSerializable(p){
-    for(let k=p.childNodes.length-1;k>=0;k--){ const c=p.childNodes[k]; if(c.nodeType===1&&c.hasAttribute("data-noser")) continue; return c; }
-    return null;
-  }
-  function placeholderBr(node){ const p=node.parentNode; return !!p && (p===ed||isBlockEl(p)) && lastSerializable(p)===node; }
-  function styleOf(el,st){
-    const tag=el.tagName;
-    const ns={b:st.b,i:st.i,u:st.u,h:st.h,s:st.s};
-    if(tag==="B"||tag==="STRONG") ns.b=true;
-    if(tag==="I"||tag==="EM") ns.i=true;
-    if(tag==="U"||tag==="INS") ns.u=true;
-    const sty=el.style||{};
-    const fw=sty.fontWeight; if(fw==="bold"||fw==="bolder"||(fw&&parseInt(fw,10)>=600)) ns.b=true;
-    const fst=sty.fontStyle; if(fst&&String(fst).indexOf("italic")>=0) ns.i=true;
-    const td=(sty.textDecorationLine||sty.textDecoration||""); if(String(td).indexOf("underline")>=0) ns.u=true;
-    if(el.classList&&el.classList.contains("heading")){ ns.h=true; ns.b=true; }
-    if(/^H[1-6]$/.test(tag)){ ns.h=true; ns.b=true; }
-    try{ const cs=getComputedStyle(el); if(cs){ const w=cs.fontWeight; if(w==="bold"||w==="bolder"||(parseInt(w,10)>=600)) ns.b=true; if(String(cs.fontStyle||"").indexOf("italic")>=0) ns.i=true; } }catch(e){}
-    if(isTask(el)){ ns.s=true; ns.b=true; ns.h=false; }
-    return ns;
-  }
-  function walk(node,st){
-    const kids=node.childNodes||[];
-    for(let k=0;k<kids.length;k++){
-      const child=kids[k];
-      if(child.nodeType===3){ const s=child.nodeValue||""; for(let q=0;q<s.length;q++) pushCh(s[q],st); }   // je UTF-16-Einheit wie t, recs und fmt (ein Emoji = 2 Einheiten)
-      else if(child.nodeType===1){
-        if(child.hasAttribute("data-noser")) continue;
-        if(child.tagName==="BR"){ if(!placeholderBr(child)) pushCh("\n",st); continue; }
-        walk(child, styleOf(child,st));
-      }
-    }
-  }
-  let cur=null, prevTask=false;
-  function beginBlock(kind,taskFlag){
-    if(blocks.length>0) pushCh("\n",(taskFlag||prevTask)?SYS:BASE);   // Trenner zwischen Blöcken
-    cur={kind,start:chars.length,label:0};
-  }
-  function endBlock(){ if(cur){ blocks.push([cur.kind,chars.length-cur.start,cur.label]); prevTask=(cur.kind===1); cur=null; } }
-  const kids=ed.childNodes;
-  for(let k=0;k<kids.length;k++){
-    const node=kids[k];
-    if(node.nodeType===1&&node.hasAttribute("data-noser")) continue;
-    if(node.nodeType===1&&isBlockEl(node)){
-      endBlock();
-      const task=isTask(node);
-      beginBlock(task?1:0,task);
-      walk(node, styleOf(node,BASE));
-      if(task){ const lab=node.querySelector(":scope > .task-label"); cur.label=lab?(lab.textContent||"").length:0; }
-      endBlock();
-    } else if(node.nodeType===3||node.nodeType===1){
-      // lose Text-/Inline-Knoten auf oberster Ebene (kommen nach normalizeBlocks nicht vor): als Zeile zusammenfassen
-      if(!cur) beginBlock(0,false);
-      if(node.nodeType===3){ const s=node.nodeValue||""; for(let q=0;q<s.length;q++) pushCh(s[q],BASE); }
-      else if(node.tagName==="BR"){ if(!placeholderBr(node)) pushCh("\n",BASE); }
-      else walk(node, styleOf(node,BASE));
-    }
-  }
-  endBlock();
-  return { text: chars.join(""), fmt, blocks };
-}
-
-/* Baut den Editor-Inhalt aus reinem Text neu auf (jede Zeile = ein Block-DIV). */
-function setEditorText(plain){
-  const root=ed; root.innerHTML="";
-  const lines=String(plain||"").split("\n");
-  for(const line of lines){
-    const div=document.createElement("div");
-    if(line==="") div.appendChild(document.createElement("br"));
-    else div.appendChild(document.createTextNode(line));
-    root.appendChild(div);
-  }
-  if(root.childNodes.length===0) root.appendChild(emptyBlock());
-  updateEmpty();
-}
-/* Editor mit vorgegebenen Aufgaben füllen: je Aufgabe ein fester Aufgabenblock + eine leere Antwortzeile.
-   Der Ausgangszustand ist komplett System-Text (grau gezählt wird nichts, nichts ist farbig). */
-function fillEditor(tasks,labelFn){
-  const root=ed; root.innerHTML="";
-  (tasks||[]).forEach((task,i)=>{
-    root.appendChild(makeTaskBlock(labelFn?labelFn(i):"", String(task==null?"":task)));
-    root.appendChild(emptyBlock());
-  });
-  if(!root.firstChild) root.appendChild(emptyBlock());
-  const ser=serializeEditor();
-  prevValue=ser.text; recs=ser.text.split("").map(()=>({src:"s",t:-1}));
-  applySystemFlags(ser.fmt);
-  updateEmpty(); updateCharcount();
-}
-
-/* ---------- Wiederherstellung eines Zwischenstands aus den Hintergrunddaten einer PDF ---------- */
-function fmtFromBits(bits){ return {b:!!(bits&1),i:!!(bits&2),u:!!(bits&4),h:!!(bits&8),s:!!(bits&16)}; }
-/* Inline-Inhalt (Text mit Formatierung) in einen Zeilenblock schreiben; "\n" wird zu <br> */
-function buildInline(parent,text,fmts){
-  let run=null, lastBr=false;
-  for(let i=0;i<text.length;i++){
-    const ch=text[i]; const f=fmts[i]||{};
-    if(ch==="\n"){ parent.appendChild(document.createElement("br")); run=null; lastBr=true; continue; }
-    lastBr=false;
-    if(!run||run.b!==!!f.b||run.i!==!!f.i||run.u!==!!f.u){
-      run={b:!!f.b,i:!!f.i,u:!!f.u,node:document.createTextNode("")};
-      let el=parent;
-      if(run.b){ const x=document.createElement("b"); el.appendChild(x); el=x; }
-      if(run.i){ const x=document.createElement("i"); el.appendChild(x); el=x; }
-      if(run.u){ const x=document.createElement("u"); el.appendChild(x); el=x; }
-      el.appendChild(run.node);
-    }
-    run.node.nodeValue+=ch;
-  }
-  if(lastBr||!parent.firstChild) parent.appendChild(document.createElement("br"));   // Platzhalter-<br>, damit der Umbruch erhalten bleibt
-}
-/* Blockstruktur k in UTF-16-Einheiten wie t. Dateien bis 29.09.2026 zählten k in Unicode-Zeichen (Codepunkten);
-   nach einem Emoji passte k dann nicht mehr zu t – solche Längen werden hier umgerechnet. */
-function kInUnits(t,k){
-  let sum=0; k.forEach((rec,bi)=>{ sum+=(bi>0?1:0)+Math.max(0,rec[1]|0); });
-  if(sum===t.length) return k;
-  const out=[]; let i=0;
-  const adv=(n)=>{ let j=i; while(n-->0&&j<t.length){ const c=t.charCodeAt(j); j+=(c>=0xD800&&c<=0xDBFF&&j+1<t.length&&(t.charCodeAt(j+1)&0xFC00)===0xDC00)?2:1; } return j; };
-  for(let bi=0;bi<k.length;bi++){
-    const rec=k[bi]; if(bi>0) i++;
-    const e=adv(Math.max(0,rec[1]|0)), le=adv(Math.max(0,rec[2]|0));
-    out.push([rec[0]|0,e-i,le-i]); i=e;
-  }
-  return i===t.length?out:k;
-}
-/* Editor aus t (Text), f (Format-Bits) und k (Blockstruktur) neu aufbauen */
-function rebuildEditorFromPayload(p){
-  const t=p.t||"", f=p.f||[], k=Array.isArray(p.k)?p.k:null;
-  const fm=i=>fmtFromBits(f[i]||0);
-  const root=ed; root.innerHTML="";
-  function addLine(content,fmts){
-    const div=document.createElement("div");
-    const heading=content.length>0&&fmts.every(x=>x.h);
-    if(heading){ div.classList.add("heading"); fmts=fmts.map(x=>({b:false,i:x.i,u:x.u})); }
-    buildInline(div,content,fmts); root.appendChild(div);
-  }
-  function addTask(content,labelLen){
-    const label=labelLen?content.slice(0,labelLen):"";
-    const text=labelLen?content.slice(labelLen+1):content;
-    root.appendChild(makeTaskBlock(label,text));
-  }
-  const ku=(k&&k.length)?kInUnits(t,k):null;
-  if(ku&&ku.length){
-    let idx=0;
-    ku.forEach((rec,bi)=>{
-      if(bi>0) idx++;                                            // Trenner "\n"
-      const kind=rec[0]|0, n=Math.max(0,rec[1]|0), ll=Math.max(0,rec[2]|0);
-      const content=t.slice(idx,idx+n); const fmts=[]; for(let i=idx;i<idx+n;i++) fmts.push(fm(i));
-      if(kind===1) addTask(content,ll); else addLine(content,fmts);
-      idx+=n;
-    });
-  } else {
-    // ältere Dateien ohne Blockstruktur: Zeilen an "\n" trennen; zusammenhängende Zeilen aus vorgegebenem Text
-    // (Aufgaben-Bit bzw. Marke "s"/"q") bilden einen Aufgabenblock
-    const m=p.m||[]; const isSys=i=>fm(i).s||!!(m[i]&&(m[i][0]==="s"||m[i][0]==="q"));
-    const lines=[]; let start=0;
-    for(let i=0;i<=t.length;i++){ if(i===t.length||t[i]==="\n"){ lines.push([start,i]); start=i+1; } }
-    let taskBuf=null;
-    const flush=()=>{ if(taskBuf){ addTask(t.slice(taskBuf[0],taskBuf[1]),0); taskBuf=null; } };
-    for(const [a,b] of lines){
-      const isTaskLine=b>a; let allSys=isTaskLine; for(let i=a;i<b&&allSys;i++){ if(!isSys(i)) allSys=false; }
-      if(allSys){ if(taskBuf) taskBuf[1]=b; else taskBuf=[a,b]; continue; }
-      flush();
-      const fmts=[]; for(let i=a;i<b;i++) fmts.push(fm(i));
-      addLine(t.slice(a,b),fmts);
-    }
-    flush();
-  }
-  normalizeBlocks();
-}
-/* Zwischenstand fortsetzen: Name, Editor-Inhalt und die gespeicherten Zeitwerte je Zeichen übernehmen */
-function resumeFromPayload(p){
-  const nm=splitName(p); studentVorname=nm.vn; studentNachname=nm.nn;
-  $("who-name").textContent=(studentVorname+" "+studentNachname).trim();
-  const e=p.e||null; escapeMode=!!(e&&e.esc); escapeRed=(e&&Array.isArray(e.red))?e.red:[]; escapeCtx=escapeMode?cleanEscapeCtx(e.ctx):null;
-  rebuildEditorFromPayload(p);
-  const t=p.t||"", m=p.m||[];
-  const fromFile=[];
-  for(let i=0;i<t.length;i++){
-    const mk=(m[i]&&m[i].length)?m[i]:["t",-1]; const src=mk[0];
-    if(src==="s"||src==="q") fromFile.push({src:"s",t:-1});
-    else fromFile.push({src:(src==="p"?"p":"t"),t:-1,g:(typeof mk[1]==="number")?mk[1]:-1});
-  }
-  prevValue=t; recs=fromFile;
-  const ser=serializeEditor();
-  if(ser.text!==t) reconcile(ser.text,"t",-1);   // Struktur nicht exakt rekonstruierbar: Abweichungen ohne Tipp-Info übernehmen
-  applySystemFlags(ser.fmt);
-  prefilled=escapeMode||(Array.isArray(CFG.prefill)&&CFG.prefill.length>0);
-  $("taskhint").classList.toggle("hidden",prefilled);
-  renderMoodleHints(); hideDlPanel(); closeTaskForm(); selectTask(null);
-  updateEmpty(); updateCharcount();
-  show("screen-editor");
-  setTimeout(()=>{ focusLastAnswer(); positionTaskBtn(); },50);
-}
-
-/* Platzhalter ein-/ausblenden (CSS: #editor.empty::before) */
-function updateEmpty(){
-  ed.classList.toggle("empty", serializeEditor().text.length===0);
-}
-
-/* Struktur absichern: lose Text-/Inline-Knoten auf oberster Ebene werden zu Zeilenblöcken;
-   nach jedem Aufgabenblock (und am Ende) steht immer eine editierbare Zeile. */
-function normalizeBlocks(){
-  const root=ed; let changed=false;
-  const sel=window.getSelection(); let sc=null,so=0;
-  if(sel&&sel.rangeCount&&root.contains(sel.getRangeAt(0).startContainer)){ const r=sel.getRangeAt(0); sc=r.startContainer; so=r.startOffset; }
-  let n=root.firstChild;
-  while(n){
-    const next=n.nextSibling;
-    if(n.nodeType===3||(n.nodeType===1&&!isBlockEl(n))){
-      if(n.nodeType===3&&!n.nodeValue){ root.removeChild(n); changed=true; n=next; continue; }
-      const div=document.createElement("div"); root.insertBefore(div,n); div.appendChild(n);
-      let m=div.nextSibling;
-      while(m&&(m.nodeType===3||(m.nodeType===1&&!isBlockEl(m)))){ const mm=m.nextSibling; div.appendChild(m); m=mm; }
-      changed=true; n=div.nextSibling; continue;
-    }
-    n=next;
-  }
-  Array.prototype.slice.call(root.children).forEach((t)=>{
-    if(isTask(t)){ const nx=t.nextElementSibling; if(!nx||isTask(nx)){ root.insertBefore(emptyBlock(),t.nextSibling); changed=true; } }
-  });
-  if(!root.firstChild){ root.appendChild(emptyBlock()); changed=true; }
-  if(changed&&sc&&root.contains(sc)&&sc!==root){
-    try{
-      const r=document.createRange();
-      r.setStart(sc,Math.min(so,(sc.nodeType===3?sc.nodeValue.length:sc.childNodes.length))); r.collapse(true);
-      sel.removeAllRanges(); sel.addRange(r);
-    }catch(e){}
-  }
-  return changed;
-}
-
-/* Alle (editierbaren) Blöcke, die von der aktuellen Auswahl berührt werden. */
-function selectedBlocks(){
-  const root=ed; const sel=window.getSelection();
-  if(!sel||sel.rangeCount===0) return [];
-  const r=sel.getRangeAt(0);
-  let a=blockAt(r.startContainer,r.startOffset), b=blockAt(r.endContainer,r.endOffset);
-  const blocks=editorBlocks();
-  if(!a) a=blocks[0]; if(!b) b=blocks[blocks.length-1];
-  if(!a||!b) return [];
-  const ia=blocks.indexOf(a), ib=blocks.indexOf(b);
-  if(ia<0||ib<0) return [];
-  const lo=Math.min(ia,ib), hi=Math.max(ia,ib);
-  return blocks.slice(lo,hi+1).filter(x=>!isTask(x));
-}
-/* Überschrift für die ausgewählten Blöcke umschalten. */
-function toggleHeading(){
-  const blocks=selectedBlocks(); if(!blocks.length) return;
-  const allHead=blocks.every(b=>b.classList.contains("heading"));
-  blocks.forEach(b=>{ if(allHead) b.classList.remove("heading"); else b.classList.add("heading"); });
-  ed.focus();
-  updateFormatButtons();
-  positionTaskBtn();
-}
-/* Button-Zustände an die aktuelle Auswahl/Cursorposition anpassen. */
-function updateFormatButtons(){
-  const q=(c)=>{ try{ return document.queryCommandState(c); }catch(e){ return false; } };
-  $("fb-bold").classList.toggle("active", q("bold"));
-  $("fb-italic").classList.toggle("active", q("italic"));
-  $("fb-underline").classList.toggle("active", q("underline"));
-  const blocks=selectedBlocks();
-  const head = blocks.length>0 && blocks.every(b=>b.classList.contains("heading"));
-  $("fb-heading").classList.toggle("active", head);
-}
-/* Inline-Befehl (bold/italic/underline) ausführen; Auswahl bleibt erhalten. */
-function execInline(cmd){
-  ed.focus();
-  try{ document.execCommand(cmd,false,null); }catch(e){}
-  updateFormatButtons();
-  updateEmpty();
-}
-/* Cursor an den Anfang bzw. an das Ende eines Blocks setzen. */
-function placeCaretAtBlockStart(block){
-  if(!block) return;
-  const sel=window.getSelection(); const r=document.createRange();
-  r.setStart(block,0); r.collapse(true);
-  sel.removeAllRanges(); sel.addRange(r);
-}
-function placeCaretAtBlockEnd(block){
-  if(!block) return;
-  const sel=window.getSelection(); const r=document.createRange();
-  let n=block.lastChild; if(n&&n.nodeType===1&&n.tagName==="BR") n=n.previousSibling;
-  while(n&&n.nodeType===1&&n.tagName!=="BR"&&n.lastChild) n=n.lastChild;
-  if(n&&n.nodeType===3) r.setStart(n,n.nodeValue.length);
-  else if(n&&n.parentNode) r.setStartAfter(n);
-  else r.setStart(block,0);
-  r.collapse(true); sel.removeAllRanges(); sel.addRange(r);
-}
-/* Cursor in die erste Antwortzeile (erster editierbarer Block) bzw. ans Ende der letzten setzen. */
-function focusFirstAnswer(){
-  ed.focus();
-  const blocks=editorBlocks();
-  const first=blocks.find(b=>!isTask(b))||blocks[0];
-  placeCaretAtBlockStart(first);
-}
-function focusLastAnswer(){
-  ed.focus();
-  const blocks=editorBlocks(); let last=null;
-  for(const b of blocks){ if(!isTask(b)) last=b; }
-  placeCaretAtBlockEnd(last||blocks[blocks.length-1]);
-}
-
-/* ---------- Aufgabenblöcke schützen: nur über das rote „x" entfernbar, nie per Rücktaste/Entf ---------- */
-function rangeTouchesTask(r){
-  if(!r) return false;
-  if(taskOf(r.startContainer)||taskOf(r.endContainer)) return true;
-  let live;
-  try{ live=document.createRange(); live.setStart(r.startContainer,r.startOffset); live.setEnd(r.endContainer,r.endOffset); }
-  catch(e){ return false; }
-  if(live.collapsed) return false;
-  const tasks=ed.querySelectorAll(".task");
-  for(const t of tasks){ if(live.intersectsNode(t)) return true; }
-  return false;
-}
-function selectionTouchesTask(){
-  const sel=window.getSelection();
-  return !!(sel&&sel.rangeCount&&rangeTouchesTask(sel.getRangeAt(0)));
-}
-function caretAtBlockStart(r,blk){ const pre=document.createRange(); pre.setStart(blk,0); pre.setEnd(r.startContainer,r.startOffset); return pre.toString().length===0; }
-function caretAtBlockEnd(r,blk){ const post=document.createRange(); post.setStart(r.endContainer,r.endOffset); post.setEnd(blk,blk.childNodes.length); return post.toString().length===0; }
-
-ed.addEventListener("beforeinput",(e)=>{
-  let hit=false;
-  try{ const trs=(typeof e.getTargetRanges==="function")?e.getTargetRanges():[]; for(const tr of trs){ if(rangeTouchesTask(tr)){ hit=true; break; } } }catch(err){}
-  if(!hit && selectionTouchesTask()) hit=true;
-  if(hit) e.preventDefault();
-});
-ed.addEventListener("dragstart",(e)=>{ if(taskOf(e.target)) e.preventDefault(); });
-
-/* Klick auf einen Aufgabenblock zeigt das rote „x"; Klick auf das „x" entfernt den Block */
-function selectTask(t){
-  ed.querySelectorAll(".task.selected").forEach(x=>{ if(x!==t) x.classList.remove("selected"); });
-  if(t) t.classList.add("selected");
-}
-function removeTaskBlock(t){
-  if(!t||!ed.contains(t)) return;
-  const next=t.nextElementSibling, prev=t.previousElementSibling;
-  ed.removeChild(t);
-  normalizeBlocks();
-  const target=(next&&!isTask(next))?next:((prev&&!isTask(prev))?prev:editorBlocks().find(b=>!isTask(b)));
-  ed.focus(); placeCaretAtBlockStart(target); lastCaretBlock=target||null;
-  syncTracking("t"); updateCharcount(); updateEmpty(); positionTaskBtn();
-}
-ed.addEventListener("mousedown",(e)=>{
-  const x=(e.target.closest)?e.target.closest(".task-x"):null;
-  if(x) e.preventDefault();  // Fokus/Selektion nicht verändern
-});
-ed.addEventListener("click",(e)=>{
-  const x=(e.target.closest)?e.target.closest(".task-x"):null;
-  if(x){ e.preventDefault(); removeTaskBlock(x.closest(".task")); return; }
-  const t=(e.target.closest)?e.target.closest(".task"):null;
-  selectTask((t&&ed.contains(t))?t:null);
-});
-document.addEventListener("mousedown",(e)=>{ if(!ed.contains(e.target)) selectTask(null); });
-
-/* ---------- Button „Neuen Aufgabentext eintragen" (schwebt eine Zeile unter der aktuellen Eingabezeile) ---------- */
-const taskBtn=$("taskbtn"), taskForm=$("taskform"), taskInput=$("taskinput");
-let taskAnchor=null, taskFormOpen=false, lastCaretBlock=null;
-
-function currentBlock(){
-  const sel=window.getSelection(); let b=null;
-  if(sel&&sel.rangeCount){ const r=sel.getRangeAt(0); if(ed.contains(r.startContainer)) b=blockAt(r.startContainer,r.startOffset); }
-  if(!b && lastCaretBlock && ed.contains(lastCaretBlock)) b=lastCaretBlock;
-  if(!b){ const bl=editorBlocks(); b=bl[bl.length-1]||null; }
-  return b;
-}
-function positionTaskBtn(){
-  if(!taskBtn) return;
-  const blk=taskFormOpen?taskAnchor:currentBlock();
-  const top=blk?(blk.offsetTop+blk.offsetHeight+6):(ed.offsetTop+6);
-  taskBtn.style.top=top+"px"; taskForm.style.top=top+"px";
-}
-function autoGrow(ta){ ta.style.height="auto"; ta.style.height=Math.max(74,ta.scrollHeight+2)+"px"; }
-function openTaskForm(){
-  if(!taskAnchor||!ed.contains(taskAnchor)) taskAnchor=currentBlock();
-  taskFormOpen=true; positionTaskBtn();
-  taskBtn.classList.add("hidden"); taskForm.classList.remove("hidden");
-  taskInput.value=""; autoGrow(taskInput);
-  setTimeout(()=>{ taskInput.focus(); try{ taskForm.scrollIntoView({block:"nearest"}); }catch(e){} },0);
-}
-function closeTaskForm(){
-  taskFormOpen=false; taskForm.classList.add("hidden"); taskBtn.classList.remove("hidden");
-}
-function cancelTaskForm(){
-  const anchor=(taskAnchor&&ed.contains(taskAnchor))?taskAnchor:null;
-  closeTaskForm(); ed.focus();
-  if(anchor&&!isTask(anchor)) placeCaretAtBlockEnd(anchor);
-  positionTaskBtn();
-}
-/* Bestätigen: Aufgabentext als festen, fetten Block eine Zeile unter der letzten Eingabe einfügen;
-   der Cursor springt in die Antwortzeile darunter. */
-function confirmTaskForm(){
-  const text=taskInput.value.replace(/\r\n?/g,"\n").replace(/\n{3,}/g,"\n\n").trim();
-  if(!text){ taskInput.focus(); return; }
-  const anchor=(taskAnchor&&ed.contains(taskAnchor))?taskAnchor:currentBlock();
-  const block=makeTaskBlock("",text);
-  let caretBlock;
-  if(anchor && !isTask(anchor) && blockIsEmpty(anchor)){
-    ed.insertBefore(block,anchor); caretBlock=anchor;          // leere Eingabezeile wird zur Antwortzeile unter der Aufgabe
-  } else if(anchor){
-    caretBlock=emptyBlock(); ed.insertBefore(block,anchor.nextSibling); ed.insertBefore(caretBlock,block.nextSibling);
-  } else {
-    caretBlock=emptyBlock(); ed.appendChild(block); ed.appendChild(caretBlock);
-  }
-  normalizeBlocks();
-  closeTaskForm();
-  syncTracking("s"); updateCharcount(); updateEmpty();
-  ed.focus(); placeCaretAtBlockStart(caretBlock); lastCaretBlock=caretBlock;
-  selectTask(null); positionTaskBtn();
-  try{ caretBlock.scrollIntoView({block:"nearest"}); }catch(e){}
-}
-taskBtn.addEventListener("mousedown",(e)=>{ e.preventDefault(); taskAnchor=currentBlock(); });
-taskBtn.addEventListener("click",()=>openTaskForm());
-$("task-ok").addEventListener("click",confirmTaskForm);
-$("task-cancel").addEventListener("click",cancelTaskForm);
-taskInput.addEventListener("input",()=>autoGrow(taskInput));
-taskInput.addEventListener("keydown",(e)=>{
-  if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); confirmTaskForm(); }
-  else if(e.key==="Escape"){ e.preventDefault(); cancelTaskForm(); }
-});
-window.addEventListener("resize",positionTaskBtn);
-
-/* Start */
-$("start-btn").addEventListener("click",()=>{
-  const v=$("vorname").value.trim(), n=$("nachname").value.trim();
-  if(!v||!n){$("start-err").textContent="Bitte Vor- und Nachnamen eintragen.";return;}
-  studentVorname=v; studentNachname=n;
-  $("who-name").textContent=v+" "+n;
-  escapeMode=false; escapeRed=[]; escapeCtx=null; escapeOverviewStreams=[]; renderMoodleHints();          // normaler Modus: keine roten Felder
-  const tasks=Array.isArray(CFG.prefill)?CFG.prefill:[];
-  prefilled=tasks.length>0;
-  fillEditor(tasks, CFG.prefillLabels?(i=>"Aufgabe "+(i+1)):null);
-  $("taskhint").classList.toggle("hidden",prefilled);            // roter Hinweis nur ohne vorbefüllte Aufgaben
-  hideDlPanel(); closeTaskForm(); selectTask(null);
-  show("screen-editor");
-  setTimeout(()=>{ focusFirstAnswer(); positionTaskBtn(); },40);
-});
-$("vorname").addEventListener("keydown",e=>{if(e.key==="Enter")$("nachname").focus();});
-$("nachname").addEventListener("keydown",e=>{if(e.key==="Enter")$("start-btn").click();});
-
-/* Startseite: zuerst auswählen, was zutrifft */
-function showStartSection(id){
-  ["sec-normal","sec-escape","sec-resume"].forEach(sid=>$(sid).classList.toggle("hidden",sid!==id));
-  $("choice").classList.toggle("hidden",!!id);
-  $("back-choice").classList.toggle("hidden",!id);
-}
-$("choose-normal").addEventListener("click",()=>{ showStartSection("sec-normal"); setTimeout(()=>$("vorname").focus(),30); });
-$("choose-escape").addEventListener("click",()=>showStartSection("sec-escape"));
-$("choose-resume").addEventListener("click",()=>showStartSection("sec-resume"));
-$("back-choice").addEventListener("click",e=>{ e.preventDefault(); showStartSection(null); });
-if(CFG.openLabel) $("choose-normal").textContent=CFG.openLabel;
-if(!CFG.showEscapeUpload) $("choose-escape").classList.add("hidden");
-
-/* Zugang für die Lehrkraft (Fußzeile) – „zurück" führt dorthin, wo man herkam (Editor-Inhalt bleibt erhalten) */
-let screenBeforeTeacher="screen-start";
-$("foot-teacher").addEventListener("click",e=>{
-  e.preventDefault();
-  screenBeforeTeacher=(currentScreen==="screen-editor")?"screen-editor":"screen-start";
-  show("screen-teacher");
-});
-$("back-start").addEventListener("click",e=>{
-  e.preventDefault(); show(screenBeforeTeacher);
-  if(screenBeforeTeacher==="screen-editor") setTimeout(positionTaskBtn,30);
-});
-
-/* Zwischenstand hochladen und weiterarbeiten. Landet eine PDF im falschen Feld, wird sie so geöffnet, wie sie gemeint ist:
-   Eine Überblick-PDF aus dem Escape-Room (nur %ESCAPEDATA) startet hier das Finale, eine Feiditor-PDF (%TRACKDATA) im
-   Escape-Room-Feld wird mit den gespeicherten Antworten fortgesetzt. Ohne Escape-Room-Weg (z. B. Lerntagebuch) gibt es
-   stattdessen einen Hinweis, wo die Überblick-PDF hingehört. */
-/* Kennzeile einer PDF: %TRACKDATA steht im Kopf (vor dem ersten Objekt), %ESCAPEDATA im Kopf oder – bei älteren Überblick-PDFs –
-   als eigene Zeile hinter dem ersten %%EOF (auch wenn ein PDF-Programm später einen Nachtrag angehängt hat). Nur dort wird
-   gesucht (wie im Check), damit Text in der PDF keine Kennzeile vortäuschen kann: Text steht nie am Zeilenanfang. */
-function pdfMarker(str,name){
-  const re=new RegExp("%"+name+" (\\S+)");
-  const end=str.search(/\n\d+ 0 obj\b/);
-  let m=(end>0?str.slice(0,end+1):"").match(re);
-  if(!m&&name==="ESCAPEDATA"){ const k=str.indexOf("%%EOF"); if(k>=0) m=str.slice(k).match(/\n%ESCAPEDATA ([A-Za-z0-9+\/=]+)(?=\r?\n|$)/); }
-  return m;
-}
-async function readResumePdf(file){
-  $("resume-err").textContent="";
-  let str;
-  try{ str=await readAsBinaryStr(file); }
-  catch(err){ $("resume-err").textContent="Der Zwischenstand konnte nicht gelesen werden: "+(err.message||"unbekannter Fehler"); return; }
-  if(!pdfMarker(str,"TRACKDATA")&&pdfMarker(str,"ESCAPEDATA")){
-    if(CFG.showEscapeUpload) startEscapeFromPdfStr(str,"resume-err");
-    else $("resume-err").textContent="Das ist die Überblick-PDF aus einem Escape-Room. Lade sie bitte auf https://feiditor.janrickmer.de/ hoch (Auswahl „Ich komme aus einem Escape-Room …“).";
-    return;
-  }
-  await resumeFromPdfStr(str,"resume-err");
-}
-async function resumeFromPdfStr(str,errId){
-  const mm=pdfMarker(str,"TRACKDATA");
-  if(!mm){ $(errId).textContent="In dieser PDF wurden keine Feiditor-Daten gefunden. Bitte lade eine Zwischenstand-PDF aus dem Feiditor hoch."; return; }
-  try{
-    const {payload}=await autoDecrypt(mm[1]);
-    escapeOverviewStreams=(payload&&payload.e&&payload.e.esc)?overviewStreamsFrom(str):[];
-    resumeFromPayload(payload);
-  }catch(err){
-    console.warn("Feiditor-PDF nicht lesbar:",err);
-    $(errId).textContent="Diese Feiditor-PDF konnte nicht gelesen werden. Lade bitte die unveränderte Datei hoch, die der Feiditor gespeichert hat.";
-  }
-}
-$("resume-input").addEventListener("change",e=>{const f=e.target.files[0];if(f)readResumePdf(f); e.target.value="";});
-const resumeDrop=$("resume-drop");
-["dragover","dragenter"].forEach(ev=>resumeDrop.addEventListener(ev,e=>{e.preventDefault();resumeDrop.style.borderColor="#8a6a3c";}));
-["dragleave","drop"].forEach(ev=>resumeDrop.addEventListener(ev,e=>{e.preventDefault();resumeDrop.style.borderColor="";}));
-resumeDrop.addEventListener("drop",e=>{const f=e.dataTransfer.files[0];if(f)readResumePdf(f);});
-
-/* ---------- Escape-Room-Modus: Aufgaben vorbefüllt (Autostart aus dem Escape-Room oder aus der Überblick-PDF) ---------- */
-/* Steckbrief des Escape-Rooms für die KI-Bewertung im „Check des Feind(t)es“: Fach, Jahrgangsstufe, Thema, Name des
-   Escape-Rooms und die dort erarbeiteten Inhalte. Übernommen werden nur Texte mit begrenzter Länge. */
-function cleanEscapeCtx(c){
-  if(!c||typeof c!=="object") return null;
-  const s=(v,max)=>(typeof v==="string")?v.replace(/\s+/g," ").trim().slice(0,max):"";
-  const o={id:s(c.id,60),fach:s(c.fach,120),stufe:s(c.stufe,120),thema:s(c.thema,200),raum:s(c.raum,200),
-    inhalte:Array.isArray(c.inhalte)?c.inhalte.map(x=>s(x,400)).filter(Boolean).slice(0,12):[]};
-  return (o.fach||o.stufe||o.thema||o.raum||o.inhalte.length)?o:null;
-}
-function startEscapeMode(v,n,tasks,red,ctx){
-  studentVorname=(v||"").trim(); studentNachname=(n||"").trim();
-  $("who-name").textContent=(studentVorname+" "+studentNachname).trim();
-  escapeMode=true; escapeRed=Array.isArray(red)?red:[]; escapeCtx=cleanEscapeCtx(ctx);
-  const list=Array.isArray(tasks)?tasks:[];
-  prefilled=list.length>0;
-  fillEditor(list, i=>"Aufgabe "+(i+1));                         // vorbefüllte Aufgaben = feste Aufgabenblöcke
-  $("taskhint").classList.toggle("hidden",prefilled);
-  renderMoodleHints(); hideDlPanel(); closeTaskForm(); selectTask(null);
-  show("screen-editor");
-  setTimeout(()=>{ focusFirstAnswer(); positionTaskBtn(); },50);
-}
-function startEscapeFromPdfStr(str,errId){
-  const mm=pdfMarker(str,"ESCAPEDATA");
-  if(!mm){$(errId).textContent="In dieser PDF wurden keine Escape-Room-Daten gefunden. Bitte lade die Überblick-PDF aus dem Escape-Room hoch.";return;}
-  let d;
-  try{ d=JSON.parse(decodeURIComponent(escape(atob(mm[1])))); if(!d||typeof d!=="object") throw new Error("Format"); }
-  catch(e){ $(errId).textContent="Die Escape-Room-Daten konnten nicht gelesen werden."; return; }
-  escapeOverviewStreams=overviewStreamsFrom(str);   // Überblicksseiten für die fertige PDF
-  startEscapeMode(d.v,d.n,d.t,d.r,d.c);
-}
-async function readEscapePdf(file){
-  $("esc-err").textContent="";
-  let str;
-  try{ str=await readAsBinaryStr(file); }
-  catch(e){ $("esc-err").textContent="Datei konnte nicht gelesen werden."; return; }
-  if(pdfMarker(str,"TRACKDATA")){ await resumeFromPdfStr(str,"esc-err"); return; }   // Feiditor-PDF im Escape-Room-Feld: mit den Antworten weiterarbeiten statt leer neu beginnen
-  startEscapeFromPdfStr(str,"esc-err");
-}
-$("esc-input").addEventListener("change",e=>{const f=e.target.files[0];if(f)readEscapePdf(f);});
-const escDrop=$("esc-drop");
-["dragover","dragenter"].forEach(ev=>escDrop.addEventListener(ev,e=>{e.preventDefault();escDrop.style.borderColor="#8a6a3c";}));
-["dragleave","drop"].forEach(ev=>escDrop.addEventListener(ev,e=>{e.preventDefault();escDrop.style.borderColor="";}));
-escDrop.addEventListener("drop",e=>{const f=e.dataTransfer.files[0];if(f)readEscapePdf(f);});
-
-/* Editor-Tracking */
-ed.addEventListener("paste",(e)=>{
-  // Nur reinen Text einfügen, damit das DOM sauber bleibt (keine fremde Formatierung)
-  if(selectionTouchesTask()){ e.preventDefault(); return; }
-  if(e.clipboardData){
-    e.preventDefault();
-    const txt=e.clipboardData.getData("text/plain");
-    justPasted=true;
-    try{ document.execCommand("insertText",false,txt); }
-    catch(err){ justPasted=true; }
-  } else { justPasted=true; }
-});
-ed.addEventListener("drop",()=>{justPasted=true;});
-ed.addEventListener("keydown",(e)=>{
-  // Rücktaste/Entf dürfen einen Aufgabenblock nie (auch nicht zeichenweise) löschen
-  if(e.key==="Backspace"||e.key==="Delete"){
-    const sel=window.getSelection();
-    if(sel&&sel.rangeCount){
-      const r=sel.getRangeAt(0);
-      if(rangeTouchesTask(r)){ e.preventDefault(); return; }
-      if(r.collapsed){
-        const blk=blockAt(r.startContainer,r.startOffset);
-        if(blk&&!isTask(blk)){
-          if(e.key==="Backspace"&&isTask(blk.previousElementSibling)&&caretAtBlockStart(r,blk)){ e.preventDefault(); return; }
-          if(e.key==="Delete"&&isTask(blk.nextElementSibling)&&caretAtBlockEnd(r,blk)){ e.preventDefault(); return; }
-        }
-      }
-    }
-  }
-  // Strg/Cmd+B/I/U: Browser formatiert selbst; danach Button-Status aktualisieren
-  if((e.ctrlKey||e.metaKey)&&!e.altKey){
-    const k=e.key.toLowerCase();
-    if(k==="b"||k==="i"||k==="u"){ setTimeout(()=>{ updateFormatButtons(); updateEmpty(); },0); }
-  }
-  // Enter in einer Überschrift: neue Zeile soll normal sein
-  if(e.key==="Enter"){
-    setTimeout(()=>{
-      const blocks=selectedBlocks();
-      blocks.forEach(b=>{ const txt=(b.textContent||"").replace(/\u200B/g,""); if(b.classList.contains("heading")&&txt==="") b.classList.remove("heading"); });
-      updateFormatButtons();
-    },0);
-  }
-});
-ed.addEventListener("input",()=>{
-  normalizeBlocks();
-  syncTracking(justPasted?"p":"t");
-  justPasted=false;
-  updateCharcount();
-  updateEmpty();
-  positionTaskBtn();
-});
-ed.addEventListener("keyup",()=>{ updateFormatButtons(); positionTaskBtn(); });
-ed.addEventListener("mouseup",()=>{ updateFormatButtons(); positionTaskBtn(); });
-document.addEventListener("selectionchange",()=>{
-  const sel=window.getSelection();
-  if(!sel||!sel.rangeCount) return;
-  const r=sel.getRangeAt(0);
-  if(!ed.contains(r.startContainer)) return;
-  const b=blockAt(r.startContainer,r.startOffset); if(b) lastCaretBlock=b;
-  if(document.activeElement===ed) updateFormatButtons();
-  if(!taskFormOpen) positionTaskBtn();
-});
-
-/* Formatierungsleiste verdrahten – mousedown + preventDefault, damit die Auswahl erhalten bleibt */
-function wireFmtBtn(id,fn){
-  const b=$(id); if(!b) return;
-  b.addEventListener("mousedown",(e)=>{ e.preventDefault(); fn(); });
-}
-wireFmtBtn("fb-bold",()=>execInline("bold"));
-wireFmtBtn("fb-italic",()=>execInline("italic"));
-wireFmtBtn("fb-underline",()=>execInline("underline"));
-wireFmtBtn("fb-heading",toggleHeading);
-try{ document.execCommand("styleWithCSS",false,false); }catch(e){}
-
-/* Export: erzeugt die Text-PDF (mit rotem Moodle-Hinweis); die Tracking-Daten stecken verschlüsselt
-   als %TRACKDATA in der PDF und sind über „Zugang für die Lehrkraft → PDF laden + Code" auslesbar.
-   interim=true: dieselbe PDF als Zwischenstand („Zwischenstand vom … um … von …"), aus dem sich später
-   über die Startseite weiterarbeiten lässt. */
-async function exportPdf(interim){
-  const btn=interim?$("save-btn"):$("export-btn");
-  const ser=syncTracking(justPasted?"p":"t"); justPasted=false;   // Editor und Tracking sicher synchron
-  const text=ser.text; const fmt=ser.fmt;
-  const name=(studentVorname+" "+studentNachname).trim();
-  const old=btn.textContent; btn.disabled=true; btn.textContent="Erzeuge PDF…";
-  try{
-    const payload=buildPayload(name,ser,studentVorname,studentNachname,!!interim);
-    const code=_kf(studentVorname);
-    const bundle=await aesEncrypt(JSON.stringify(payload),code);
-
-    const pdfName=interim?interimPdfName():makePdfName();
-
-    // PDF: formatierter Text (Aufgaben fett) + roter Moodle-Hinweis; im Escape-Room zusätzlich die Übersichts-Seiten;
-    // Tracking-Daten stecken (verschlüsselt) als %TRACKDATA drin
-    const overview=(window.__ESCAPE_DATA__&&window.__ESCAPE_DATA__.overview)||null;
-    const pdfStr=buildPdf({name,text,fmt,trackB64:bundle,overview,overviewStreams:escapeOverviewStreams});
-    const u8=new Uint8Array(pdfStr.length);
-    for(let i=0;i<pdfStr.length;i++)u8[i]=pdfStr.charCodeAt(i)&0xFF;
-    // octet-stream im Escape-Room-Modus: erzwingt Speichern statt Anzeigen
-    const pdfBlob=new Blob([u8],{type:escapeMode?"application/octet-stream":"application/pdf"});
-
-    // Fallback-Link setzen (bleibt anklickbar, falls der Auto-Download blockiert wird)
-    const dlPdf=$("dl-pdf");
-    setLink(dlPdf,pdfBlob,pdfName);
-    $("dl-panel").classList.remove("hidden");
-
-    // PDF direkt im Klick-Kontext herunterladen
-    dlPdf.click();
-
-    btn.textContent=interim?"Zwischenstand gespeichert ✓":"PDF erstellt ✓";
-    setTimeout(()=>{ btn.textContent=old; }, 2200);
-  }catch(err){ alert("Fehler beim Erzeugen der PDF: "+err.message); btn.textContent=old; }
-  finally{ btn.disabled=false; }
-}
-$("export-btn").addEventListener("click",()=>exportPdf(false));
-$("save-btn").addEventListener("click",()=>exportPdf(true));
-
-/* Lehrkraft: PDF laden + Code (Einzelansicht) bzw. mehrere PDFs (Tabellenansicht) */
-let teacherBundle=null;
-let batchRows=[];        // Zeilen der Tabellenansicht
-let batchSelected=null;  // in der Tabelle angeklickte Zeile
-const TRACK_RE=/%TRACKDATA (\S+)/;
-
-function readAsBinaryStr(file){
-  return new Promise((res,rej)=>{
-    const fr=new FileReader();
-    fr.onload=()=>{const u=new Uint8Array(fr.result);let s="";const CH=0x8000;for(let i=0;i<u.length;i+=CH)s+=String.fromCharCode.apply(null,u.subarray(i,i+CH));res(s);};
-    fr.onerror=()=>rej(new Error("Datei konnte nicht gelesen werden."));
-    fr.readAsArrayBuffer(file);
-  });
-}
-function setCodeFor(text){
-  const el=$("code-for"); if(!el) return;
-  el.textContent=text?("Einzelansicht für "+text+" – bitte Code eingeben."):"";
-  el.classList.toggle("hidden",!text);
-}
-function resetTeacherView(){
-  $("teacher-err").textContent=""; $("result").innerHTML="";
-  $("code-area").classList.add("hidden"); $("code-input").value="";
-  setCodeFor(""); teacherBundle=null; batchRows=[]; batchSelected=null;
-}
-
-/* Einzelansicht: eine PDF, Code wird von der Lehrkraft eingegeben */
-async function readPdfFile(file){
-  resetTeacherView();
-  try{
-    const str=await readAsBinaryStr(file);
-    const mm=str.match(TRACK_RE);
-    if(!mm){$("teacher-err").textContent="In dieser PDF wurden keine Tracking-Daten gefunden.";return;}
-    teacherBundle=mm[1];
-    $("code-area").classList.remove("hidden");
-    setTimeout(()=>$("code-input").focus(),40);
-  }catch(err){ $("teacher-err").textContent=err.message||"Datei konnte nicht gelesen werden."; }
-}
-
-/* Code automatisch ermitteln: alle plausiblen Buchstabenzahlen des Vornamens durchprobieren
-   (AES-GCM schlägt bei falschem Code sauber fehl) */
-async function autoDecrypt(bundle){
-  for(let n=0;n<=60;n++){
-    const code=_kfN(n);
-    try{ const json=await aesDecrypt(bundle,code); return {payload:JSON.parse(json),code}; }catch(e){}
-  }
-  throw new Error("Code konnte nicht ermittelt werden.");
-}
-function splitName(p){
-  let vn=(p.vn||"").trim(), nn=(p.nn||"").trim();
-  if(!vn&&!nn){ // ältere PDFs: nur Gesamtname gespeichert -> am ersten Leerzeichen teilen
-    const n=(p.n||"").trim(); const i=n.indexOf(" ");
-    if(i<0) vn=n; else { vn=n.slice(0,i); nn=n.slice(i+1).trim(); }
-  }
-  return {vn,nn};
-}
-function redPercent(p){ return (typeof p.r==="number"&&isFinite(p.r))?p.r:computeStats(p.t||"",p.m||[]).redPct; }
-
-/* Tabellenansicht: mehrere PDFs */
-async function readBatch(files){
-  resetTeacherView();
-  $("result").innerHTML=`<p class="batchsum">Werte ${files.length} PDF-Dateien aus…</p>`;
-  const rows=[];
-  for(const f of files){
-    try{
-      const str=await readAsBinaryStr(f);
-      const mm=str.match(TRACK_RE);
-      if(!mm) throw new Error("keine Tracking-Daten gefunden");
-      const {payload}=await autoDecrypt(mm[1]);
-      const nm=splitName(payload);
-      rows.push({file:f.name,vn:nm.vn,nn:nm.nn,r:redPercent(payload),bundle:mm[1],z:payload.z===1});
-    }catch(err){ rows.push({file:f.name,error:err.message||"Fehler"}); }
-  }
-  batchRows=rows;
-  renderBatchTable();
-}
-function renderBatchTable(){
-  const rows=batchRows.slice();
-  rows.sort((a,b)=>{
-    if(!!a.error!==!!b.error) return a.error?1:-1;            // Fehlerzeilen ans Ende
-    if(!a.error && b.r!==a.r) return b.r-a.r;                  // Rot-Anteil absteigend
-    const c=(a.nn||"").localeCompare(b.nn||"","de"); if(c) return c;
-    return (a.vn||"").localeCompare(b.vn||"","de");
-  });
-  const ok=rows.filter(r=>!r.error), high=ok.filter(r=>r.r>RED_LIMIT).length, errs=rows.length-ok.length;
-  let html=`<p class="batchsum">${rows.length} PDF-Dateien · ${high} über ${RED_LIMIT} %${errs?` · ${errs} nicht lesbar`:""}</p>`;
-  html+='<div class="tablewrap"><table class="batch"><thead><tr><th>Vorname</th><th>Nachname</th><th class="pct">Rot-Anteil</th></tr></thead><tbody>';
-  rows.forEach(r=>{
-    if(r.error){ html+=`<tr class="errrow"><td colspan="3">${esc(r.file)} – ${esc(r.error)}</td></tr>`; return; }
-    const hi=r.r>RED_LIMIT;
-    html+=`<tr class="clickable" data-idx="${batchRows.indexOf(r)}" title="Einzelansicht öffnen (Code erforderlich)"><td>${esc(r.vn)}</td><td>${esc(r.nn)}${r.z?" (Zwischenstand)":""}</td><td class="pct${hi?" high":""}">${r.r}&nbsp;%</td></tr>`;
-  });
-  html+='</tbody></table></div>';
-  html+='<p class="batchhint">Rot-Anteil = Anteil der rot markierten Zeichen (eingefügt oder ≤ 0,015 s getippt). Klick auf eine Zeile öffnet die Einzelansicht nach Eingabe des Codes.</p>';
-  $("result").innerHTML=html;
-  $("code-area").classList.add("hidden"); setCodeFor(""); $("teacher-err").textContent="";
-  batchSelected=null; teacherBundle=null;
-  $("result").querySelectorAll("tr.clickable").forEach(tr=>tr.addEventListener("click",()=>selectBatchRow(parseInt(tr.dataset.idx,10),tr)));
-}
-function selectBatchRow(idx,tr){
-  const row=batchRows[idx]; if(!row||row.error) return;
-  batchSelected=row; teacherBundle=row.bundle;
-  $("result").querySelectorAll("tr.selected").forEach(x=>x.classList.remove("selected"));
-  tr.classList.add("selected");
-  setCodeFor((row.vn+" "+row.nn).trim());
-  $("teacher-err").textContent="";
-  $("code-area").classList.remove("hidden"); $("code-input").value="";
-  try{ $("code-area").scrollIntoView({behavior:"smooth",block:"center"}); }catch(e){}
-  setTimeout(()=>$("code-input").focus(),40);
-}
-
-function handleFiles(list){
-  const files=Array.prototype.slice.call(list||[]);
-  if(!files.length) return;
-  if(files.length===1) readPdfFile(files[0]); else readBatch(files);
-}
-$("pdf-input").addEventListener("change",e=>{handleFiles(e.target.files); e.target.value="";});
-const dropZone=$("teacher-drop");
-["dragover","dragenter"].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();dropZone.style.borderColor="#8a6a3c";}));
-["dragleave","drop"].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();dropZone.style.borderColor="";}));
-dropZone.addEventListener("drop",e=>{handleFiles(e.dataTransfer.files);});
-
-async function showTeacherResult(){
-  const code=$("code-input").value.trim();
-  $("teacher-err").textContent="";
-  if(!teacherBundle)return;
-  try{
-    const json=await aesDecrypt(teacherBundle,code);
-    const p=JSON.parse(json);
-    let html=renderAnalysis(p);
-    if(batchSelected) html='<a href="#" class="backlink" id="back-table">← zurück zur Tabelle</a>'+html;
-    $("result").innerHTML=html;
-    if(batchSelected){
-      $("code-area").classList.add("hidden"); setCodeFor("");
-      $("back-table").addEventListener("click",e=>{e.preventDefault();renderBatchTable();});
-    }
-  }catch(err){
-    if(!batchSelected) $("result").innerHTML="";   // in der Tabellenansicht bleibt die Tabelle stehen
-    $("teacher-err").textContent="Falscher Code.";
-  }
-}
-$("code-btn").addEventListener("click",showTeacherResult);
-$("code-input").addEventListener("keydown",e=>{if(e.key==="Enter")showTeacherResult();});
-
-/* ============================================================
-   Auto-Start aus dem Escape-Room (überspringt die Anmeldung)
-   Der Escape-Room injiziert window.__ESCAPE_DATA__ mit Name,
-   Aufgaben, roten Feldern und den Daten für die Übersichts-Seiten.
-   ============================================================ */
-(function autoStartFromEscape(){
-  const D=window.__ESCAPE_DATA__;
-  if(!D) return;                                   // ohne Daten: normaler Anmeldebildschirm
-  try{
-    const red=Array.isArray(D.redFields)?D.redFields:(Array.isArray(D.red)?D.red:[]);
-    startEscapeMode(D.firstName, D.lastName, Array.isArray(D.tasks)?D.tasks:[], red, D.ctx);
-  }catch(e){ console.error("Escape-Auto-Start fehlgeschlagen:", e); }
-})();
-<\/script>
-</body>
-</html>
-</script>
 <script>
 /* ============================================================
    GAME STATE & DATA
@@ -2644,6 +741,15 @@ function computeCode(birthDigits) {
   const n = parseInt(birthDigits, 10);
   return String(n * 1104 + MAGIC);
 }
+
+const FEIBEITSBLATT_URL = 'https://feibeitsblatt.janrickmer.de/';
+const FEIBEITSBLATT_CODE = '';                       // Code des Escape-Blattes im Feibeitsblatt (6 Zeichen ohne Bindestrich); leer = Finale gesperrt
+const ESCAPE_ROOM = { id: 'religion-e1-gutachten-stoodt-pastafari', name: 'Das Gutachten', url: 'https://escape-room-e1rel-stoodt.janrickmer.de/' };
+// Testhaken: nur wenn vor dem Laden window.__FF_TEST__ gesetzt ist (automatische Tests, nie produktiv)
+const FF_TEST = (window.__FF_TEST__ && typeof window.__FF_TEST__ === 'object') ? window.__FF_TEST__ : null;
+const FB_URL  = (FF_TEST && typeof FF_TEST.feibeitsblattUrl === 'string') ? FF_TEST.feibeitsblattUrl : FEIBEITSBLATT_URL;
+const FB_CODE = (c => { c = String(c || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); return c.length === 6 ? c : ''; })(
+  (FF_TEST && typeof FF_TEST.code === 'string') ? FF_TEST.code : FEIBEITSBLATT_CODE);
 
 // Fisher-Yates – echte Zufallsreihenfolge für alle Antwortoptionen
 function shuffle(arr) {
@@ -2924,10 +1030,11 @@ const PUZZLE_R6 = {
 // ===== State =====
 
 let state = {
-  screen: 'name',    // 'name' | 'intro' | 'lib1'..'lib6' | 'room1'..'room6' | 'final'
+  screen: 'start',   // 'start' | 'resume' | 'intro' | 'lib1'..'lib6' | 'room1'..'room6' | 'final'
   firstName: '',
   lastName: '',
   birthDate: '',     // 'TT.MM.JJJJ'
+  klasse: '',
   code: '',
   solved: [false, false, false, false, false, false],
   letters: ['_', '_', '_', '_', '_', '_'],
@@ -2936,6 +1043,7 @@ let state = {
   hintMax: [-1, -1, -1, -1, -1, -1],   // höchste angesehene Hinweis-Stufe je Raum (-1 = nie geöffnet)
   completedAt: null,
   resumeLog: [],     // jedes Laden einer Zwischenstand-Datei: { place, savedAt, loadedAt }
+  pdfDownloaded: false,
 };
 window.state = state;
 
@@ -2947,9 +1055,29 @@ function recordAttempt(roomIdx, errorData) {
   }
 }
 
+// Personendaten und Eingaben kommen nur so (oder per textContent) ins DOM
+function escapeHtml(s) {
+  return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+// Eingaben: Unicode normalisieren, Steuerzeichen entfernen, Leerraum zusammenfassen
+function cleanInput(s) {
+  return String(s == null ? '' : s).normalize('NFC').replace(/[\u0000-\u001F\u007F-\u009F]/g, '').replace(/\s+/g, ' ').trim();
+}
+const normKlasse = v => String(v || '').replace(/[\s.]+/g, '');
+// Einstellige Tage und Monate ergänzen: „4.5.2010“ → „04.05.2010“
+function padBirth(v) {
+  const m = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(v);
+  return m ? m[1].padStart(2, '0') + '.' + m[2].padStart(2, '0') + '.' + m[3] : v;
+}
+// Lässt sich der Text in der Überblick-PDF (WinAnsi) darstellen? Zeichen ohne Entsprechung würden dort zu „?“.
+function pdfPrintable(s) {
+  const q = (String(s).match(/\?/g) || []).length;
+  return encodeWinAnsi(s).filter(b => b === 0x3F).length === q;
+}
+
 /* ============================================================
    MINI PDF WRITER (self-contained, no dependencies)
-   Generates PDF 1.4 with Helvetica + Helvetica-Bold (WinAnsi)
+   Generates PDF 1.7 with Helvetica + Helvetica-Bold (WinAnsi), Link, eingebetteter Datei (/FbEscape 1) und Info-Objekt
    ============================================================ */
 
 const WIN_ANSI_MAP = {
@@ -2967,16 +1095,22 @@ const FALLBACK_MAP = {
   '\u00A0':' ','\u2009':' ','\u200B':'',
 };
 
-function encodeWinAnsi(str) {
-  const bytes = [];
-  for (const ch of str) {
-    const code = ch.charCodeAt(0);
-    if (code < 128) bytes.push(code);
-    else if (WIN_ANSI_MAP[ch] !== undefined) bytes.push(WIN_ANSI_MAP[ch]);
-    else if (FALLBACK_MAP[ch] !== undefined) {
-      for (const sub of FALLBACK_MAP[ch]) bytes.push(sub.charCodeAt(0) & 0xFF);
-    } else if (code <= 255) bytes.push(code);
-    else bytes.push(0x3F);
+const PDF_TRANSLIT = { 'Ł':'L','ł':'l','Đ':'D','đ':'d','ı':'i','Œ':'OE','œ':'oe',
+  '₀':'0','₁':'1','₂':'2','₃':'3','₄':'4','₅':'5','₆':'6','₇':'7','₈':'8','₉':'9' };
+function encodeWinAnsi(str){
+  const bytes=[];
+  for(const ch of String(str)){
+    const code=ch.charCodeAt(0);
+    if(code<128) bytes.push(code);
+    else if(WIN_ANSI_MAP[ch]!==undefined) bytes.push(WIN_ANSI_MAP[ch]);
+    else if(FALLBACK_MAP[ch]!==undefined){ for(const sub of FALLBACK_MAP[ch]) bytes.push(sub.charCodeAt(0)&0xFF); }
+    else if(code<=255) bytes.push(code);
+    else {
+      const base=ch.normalize('NFD').charAt(0);   // z. B. ş → s, ř → r, Ś → S
+      if(base!==ch && base.charCodeAt(0)<=255) bytes.push(...encodeWinAnsi(base));
+      else if(PDF_TRANSLIT[ch]!==undefined){ for(const sub of PDF_TRANSLIT[ch]) bytes.push(sub.charCodeAt(0)); }
+      else bytes.push(0x3F);
+    }
   }
   return bytes;
 }
@@ -3011,6 +1145,7 @@ function pdfStringWidth(str, fontSize, isBold) {
   return total * fontSize / 1000;
 }
 
+const pdfNum = n => String(Math.round(n * 100) / 100);
 class PdfDoc {
   constructor() {
     this.pages = [];
@@ -3036,13 +1171,12 @@ class PdfDoc {
     s += ')';
     return s;
   }
-  text(str, x, y, fontSize, isBold, color) {
+  _textCmd(str, x, y, fontSize, isBold, color) {
     const fontKey = isBold ? 'F2' : 'F1';
     const c = color || [0, 0, 0];
-    const pdfStr = this._escapedString(str);
-    let cmd = `${c[0]/255} ${c[1]/255} ${c[2]/255} rg\nBT\n/${fontKey} ${fontSize} Tf\n${x} ${y} Td\n${pdfStr} Tj\nET`;
-    this.currentContent.push(cmd);
+    return `${pdfNum(c[0]/255)} ${pdfNum(c[1]/255)} ${pdfNum(c[2]/255)} rg\nBT\n/${fontKey} ${fontSize} Tf\n${pdfNum(x)} ${pdfNum(y)} Td\n${this._escapedString(str)} Tj\nET`;
   }
+  text(str, x, y, fontSize, isBold, color) { this.currentContent.push(this._textCmd(str, x, y, fontSize, isBold, color)); }
   rect(x, y, w, h, fill, stroke) {
     let cmd = '';
     if (fill) cmd += `${fill[0]/255} ${fill[1]/255} ${fill[2]/255} rg\n`;
@@ -3057,6 +1191,17 @@ class PdfDoc {
     const c = color || [0,0,0];
     let cmd = `${c[0]/255} ${c[1]/255} ${c[2]/255} RG\n${width||0.5} w\n${x1} ${y1} m ${x2} ${y2} l S`;
     this.currentContent.push(cmd);
+  }
+  wrapLines(str, width, fontSize, isBold) {
+    const out = []; let line = '';
+    for (const word of String(str).split(/\s+/)) {
+      if (!word) continue;
+      const test = line ? line + ' ' + word : word;
+      if (pdfStringWidth(test, fontSize, isBold) <= width) line = test;
+      else { if (line) out.push(line); line = word; }
+    }
+    if (line) out.push(line);
+    return out;
   }
   paragraph(str, x, y, width, fontSize, isBold, color, leading) {
     if (!leading) leading = fontSize * 1.4;
@@ -3085,24 +1230,48 @@ class PdfDoc {
     }
     return curY;
   }
-  build(headComment) {
+  // opts: { embed: Uint8Array (Datensatz), link: {rect:[x1,y1,x2,y2], page:0, uri}, title }
+  build(opts) {
+    opts = opts || {};
+    const W = this.pageW, M = this.margin, FOOT = [85, 85, 85], N = this.pages.length;
     const objects = [null, null,  // catalog, pages
       '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
       '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>',
     ];
+    const add = o => { objects.push(o); return objects.length; };
+    const linkId = opts.link ? 4 + 2 * N + 1 : 0;
+    const linkPage = opts.link ? (opts.link.page || 0) : -1;
     const pageIds = [];
-    for (const page of this.pages) {
-      objects.push(`<< /Length ${page.content.length} >>\nstream\n${page.content}\nendstream`);
-      const contentId = objects.length;
-      objects.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${this.pageW} ${this.pageH}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${contentId} 0 R >>`);
-      pageIds.push(objects.length);
+    this.pages.forEach((page, i) => {
+      const label = 'Seite ' + (i + 1) + ' von ' + N;
+      const foot = this._textCmd('Copyright Jan-Rickmer Feindt', M, 32, 8.5, false, FOOT) + '\n'
+        + this._textCmd(label, W - M - pdfStringWidth(label, 8.5, false), 32, 8.5, false, FOOT);
+      const content = page.content + '\n' + foot;
+      const contentId = add(`<< /Length ${content.length} >>\nstream\n${content}\nendstream`);
+      pageIds.push(add(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${this.pageW} ${this.pageH}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${contentId} 0 R${i === linkPage ? ` /Annots [${linkId} 0 R]` : ''} >>`));
+    });
+    if (opts.link) {
+      const r = opts.link.rect.map(pdfNum).join(' ');
+      add(`<< /Type /Annot /Subtype /Link /Rect [${r}] /Border [0 0 0] /A << /S /URI /URI ${this._escapedString(opts.link.uri)} >> >>`);
     }
+    let specId = 0;
+    const desc = this._escapedString('Escape-Room ' + ESCAPE_ROOM.name);
+    if (opts.embed) {
+      const bytes = opts.embed; let bin = '';
+      for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+      specId = objects.length + 1; const fileId = specId + 1;
+      add(`<< /Type /Filespec /F (feibeitsblatt-escape.json) /UF (feibeitsblatt-escape.json) /Desc ${desc} /AFRelationship /Data /EF << /F ${fileId} 0 R /UF ${fileId} 0 R >> >>`);
+      add(`<< /Type /EmbeddedFile /Subtype /application#2Fjson /FbEscape 1 /Params << /Size ${bytes.length} >> /Length ${bytes.length} >>\nstream\n${bin}\nendstream`);
+    }
+    const now = new Date(), two = n => String(n).padStart(2, '0');
+    const stamp = 'D:' + now.getFullYear() + two(now.getMonth() + 1) + two(now.getDate()) + two(now.getHours()) + two(now.getMinutes()) + two(now.getSeconds());
+    let titleHex = 'FEFF'; for (const ch of String(opts.title || '')) { titleHex += ch.charCodeAt(0).toString(16).toUpperCase().padStart(4, '0'); }
+    const infoId = add(`<< /Title <${titleHex}> /Producer ${desc} /CreationDate (${stamp}) >>`);
     objects[1] = `<< /Type /Pages /Kids [${pageIds.map(i => i + ' 0 R').join(' ')}] /Count ${pageIds.length} >>`;
-    objects[0] = '<< /Type /Catalog /Pages 2 0 R >>';
-
-    // Kennung (%ESCAPEDATA) als Kommentarzeile direkt nach dem Kopf (wie %TRACKDATA im Feiditor), nicht hinter %%EOF:
-    // so bleibt startxref in den letzten Bytes der Datei und PDF-Werkzeuge müssen nichts reparieren.
-    let pdf = '%PDF-1.4\n%\xC4\xC5\xC6\xC7\n' + (headComment ? headComment.replace(/^\n+|\n+$/g, '') + '\n' : '');
+    objects[0] = specId
+      ? `<< /Type /Catalog /Pages 2 0 R /Names << /EmbeddedFiles << /Names [(feibeitsblatt-escape.json) ${specId} 0 R] >> >> /AF [${specId} 0 R] >>`
+      : '<< /Type /Catalog /Pages 2 0 R >>';
+    let pdf = '%PDF-1.7\n%\xE2\xE3\xCF\xD3\n';
     const offsets = [0];
     for (let i = 0; i < objects.length; i++) {
       offsets.push(pdf.length);
@@ -3111,10 +1280,9 @@ class PdfDoc {
     const xrefOffset = pdf.length;
     pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
     for (let i = 1; i <= objects.length; i++) pdf += String(offsets[i]).padStart(10, '0') + ' 00000 n \n';
-    pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`;
-    return pdf;
+    pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R /Info ${infoId} 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`;
+    return pdf;   // Binär-String: ein Zeichen je Byte
   }
-  toBase64(headComment) { return btoa(this.build(headComment)); }
 }
 
 
@@ -3149,7 +1317,7 @@ const SOLUTION_NOTES = [
    PDF 1 — „Überblick deiner Antworten & Erläuterungen"
    ============================================================ */
 
-const PDF_SUBLINE = 'Ev. Religion · E-Phase · E1 · Escape-Room „Das Gutachten"';
+const PDF_SUBLINE = 'Ev. Religion · E-Phase · E1 · Escape-Room „Das Gutachten“';
 
 function generateMistakesPdf() {
   const doc = new PdfDoc();
@@ -3161,6 +1329,7 @@ function generateMistakesPdf() {
   const GREEN = [47, 125, 65];
   const TEXT_MUTE = [85, 85, 85];
   const TEXT = [25, 25, 25];
+  const N = ROOM_LABELS.length;
 
   function newPage() {
     doc.startPage();
@@ -3174,30 +1343,39 @@ function generateMistakesPdf() {
 
   let y = newPage();
 
-  // Hinweis (fett) + Fortsetzen-Tipp (ganz oben). Diese Seiten gibt es allein (Pause) und angehängt an die fertige
-  // Abgabe aus dem eigenständigen Feiditor – der Text gilt für beides. Kastenhöhe nach Zeilenzahl.
-  const NOTE1 = 'Diese Seiten gehören zu deiner Abgabe bei Moodle – als Teil der fertigen Datei „Abgeschlossener Escape-Room von …“, die am Ende des Finales im Feiditor entsteht.';
-  const NOTE2 = 'Hinweis: Mit dieser Überblick-PDF kannst du das Finale jederzeit auf https://feiditor.janrickmer.de/ fortsetzen (Auswahl „Ich komme aus einem Escape-Room …“).';
-  const lineCount = (str, size, bold, width) => { let line = '', n = 0; for (const w of String(str).split(/\s+/).filter(Boolean)) { const t = line ? line + ' ' + w : w; if (pdfStringWidth(t, size, bold) <= width) line = t; else { n++; line = w; } } return line ? n + 1 : n; };
-  const boxH = 16 + lineCount(NOTE1, 10.5, true, CONTENT_W - 24) * 13.5 + 4 + lineCount(NOTE2, 9, false, CONTENT_W - 24) * 12 + 6;
+  // Hinweiskasten (ganz oben): Bedeutung der Datei + Fortsetzen im Feiditor-Feibeitsblatt (Adresse als Link). Kastenhöhe nach Zeilenzahl.
+  const NOTE1 = 'Diese Überblick-PDF gehört zu deinem Escape-Room „Das Gutachten“. Bewahre sie gut auf – sie enthält deinen Bestätigungscode, deine Ergebnisse und die Lösungserläuterungen.';
+  // Ohne Code des Feibeitsblatts (Finale noch gesperrt) trägt der Datensatz code "" – damit lässt sich das Finale nicht fortsetzen.
+  const NOTE2 = FB_CODE
+    ? 'Hinweis: Mit dieser Überblick-PDF kannst du das Finale jederzeit im Feiditor-Feibeitsblatt fortsetzen. Öffne die Adresse unten und wähle dort „Zwischenstand-PDF hochladen“.'
+    : 'Hinweis: Als diese PDF entstand, war das Finale im Feiditor-Feibeitsblatt (Adresse unten) noch nicht freigeschaltet – mit dieser Datei lässt es sich nicht fortsetzen. Lade deine Zwischenstand-Datei im Escape-Room, sobald das Finale freigeschaltet ist, und geh durch den Arena-Tunnel.';
+  const ADDR = FEIBEITSBLATT_URL;
+  const n1 = doc.wrapLines(NOTE1, CONTENT_W - 24, 10.5, true).length, n2 = doc.wrapLines(NOTE2, CONTENT_W - 24, 9, false).length;
+  const boxH = 16 + n1 * 13.5 + 4 + n2 * 12 + 4 + 12;
   doc.rect(M, y - boxH, CONTENT_W, boxH, [230, 242, 251]);
   doc.rect(M, y - boxH, 3, boxH, ACCENT);
-  const yTop = doc.paragraph(NOTE1, M + 12, y - 16, CONTENT_W - 24, 10.5, true, PRIMARY, 13.5);
-  doc.paragraph(NOTE2, M + 12, yTop - 4, CONTENT_W - 24, 9, false, TEXT_MUTE, 12);
+  let yb = doc.paragraph(NOTE1, M + 12, y - 16, CONTENT_W - 24, 10.5, true, PRIMARY, 13.5);
+  yb = doc.paragraph(NOTE2, M + 12, yb - 4, CONTENT_W - 24, 9, false, TEXT_MUTE, 12);
+  const ay = yb - 4, aw = pdfStringWidth(ADDR, 10, true);
+  doc.text(ADDR, M + 12, ay, 10, true, PRIMARY);
+  doc.line(M + 12, ay - 2, M + 12 + aw, ay - 2, PRIMARY, 0.6);
+  const link = { rect: [M + 11, ay - 3, M + 12 + aw + 2, ay + 10], page: 0, uri: ADDR };
   y -= boxH + 14;
 
-  const blockH = 80;
+  const blockH = 108;
   doc.rect(M, y - blockH, CONTENT_W, blockH, [244, 248, 252]);
   doc.rect(M, y - blockH, 3, blockH, ACCENT);
-  doc.text('SCHÜLERIN / SCHÜLER', M + 14, y - 16, 8.5, true, ACCENT);
+  doc.text('NAME', M + 14, y - 16, 8.5, true, ACCENT);
   const nameStr = state.firstName + ' ' + state.lastName;
   doc.text(nameStr, M + 14, y - 31, pdfStringWidth(nameStr, 13, true) > 270 ? 10 : 13, true, PRIMARY);   // lange Namen kleiner, damit sie nicht in die Code-Spalte laufen
-  doc.text('GEBURTSDATUM', M + 14, y - 50, 8.5, true, ACCENT);
-  doc.text(state.birthDate, M + 14, y - 64, 11, false, TEXT);
+  doc.text('GEBURTSDATUM', M + 14, y - 49, 8.5, true, ACCENT);
+  doc.text(state.birthDate, M + 14, y - 63, 11, false, TEXT);
+  doc.text('KLASSE', M + 14, y - 81, 8.5, true, ACCENT);
+  doc.text(state.klasse, M + 14, y - 95, 11, false, TEXT);
   doc.text('BESTÄTIGUNGSCODE', M + 300, y - 16, 8.5, true, ACCENT);
   doc.text(state.code, M + 300, y - 31, 13, true, PRIMARY);
-  doc.text('ABGESCHLOSSEN AM', M + 300, y - 50, 8.5, true, ACCENT);
-  doc.text(fmtDateTime(state.completedAt), M + 300, y - 64, 11, false, TEXT);
+  doc.text('ABGESCHLOSSEN AM', M + 300, y - 49, 8.5, true, ACCENT);
+  doc.text(fmtDateTime(state.completedAt), M + 300, y - 63, 11, false, TEXT);
   y -= blockH + 16;
 
   y = doc.paragraph(
@@ -3213,11 +1391,11 @@ function generateMistakesPdf() {
   doc.rect(M, y - 36, CONTENT_W, 36, [248, 251, 247]);
   doc.rect(M, y - 36, 3, 36, GREEN);
   doc.text('ÜBERSICHT', M + 14, y - 14, 8.5, true, GREEN);
-  doc.text(`Räume im ersten Versuch fehlerfrei: ${perfectRooms} von 6   ·   Fehler im ersten Versuch insgesamt: ${totalErrors}`,
+  doc.text(`Ordner im ersten Versuch fehlerfrei: ${perfectRooms} von ${N}   ·   Fehler im ersten Versuch insgesamt: ${totalErrors}`,
            M + 14, y - 27, 10.5, true, TEXT);
   y -= 50;
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < N; i++) {
     y = ensure(y, 60);
     doc.text(ROOM_LABELS[i], M, y, 12.5, true, PRIMARY);
     doc.line(M, y - 4, M + CONTENT_W, y - 4, ACCENT, 0.8);
@@ -3246,13 +1424,13 @@ function generateMistakesPdf() {
       y = ensure(y, 60);
       doc.text('•', M, y, 11, true, RED);
       if (err.kind === 'falsch_einsortiert') {
-        y = doc.paragraph('"' + err.item + '"', M + 14, y, CONTENT_W - 14, 10.5, true, TEXT, 13);
+        y = doc.paragraph('„' + err.item + '“', M + 14, y, CONTENT_W - 14, 10.5, true, TEXT, 13);
         y = doc.paragraph('Du hast einsortiert in: ' + err.wrongAnswer + '   ·   Richtig: ' + err.correctAnswer,
                           M + 14, y, CONTENT_W - 14, 10, false, TEXT_MUTE, 13);
         if (err.explanation) y = doc.paragraph('→ ' + err.explanation, M + 14, y, CONTENT_W - 14, 10, false, TEXT_MUTE, 13);
       } else if (err.kind === 'falsche_eingabe') {
         y = doc.paragraph(err.item, M + 14, y, CONTENT_W - 14, 10.5, true, TEXT, 13);
-        y = doc.paragraph('Deine Eingabe: "' + err.wrongAnswer + '"   ·   Richtig: ' + err.correctAnswer,
+        y = doc.paragraph('Deine Eingabe: „' + err.wrongAnswer + '“   ·   Richtig: ' + err.correctAnswer,
                           M + 14, y, CONTENT_W - 14, 10, false, TEXT_MUTE, 13);
       } else if (err.kind === 'falsche_wahl') {
         y = doc.paragraph(err.item, M + 14, y, CONTENT_W - 14, 10.5, true, TEXT, 13);
@@ -3273,9 +1451,7 @@ function generateMistakesPdf() {
   y = ensure(y, 50);
   doc.line(M, y, M + CONTENT_W, y, [200, 200, 200], 0.4);
   y -= 14;
-  doc.text('Bestätigungscode für Moodle: ' + state.code, M, y, 10, true, PRIMARY);
-  y -= 22;
-  doc.text('Copyright Jan-Rickmer Feindt', M, y, 8.5, false, TEXT_MUTE);
+  doc.text('Bestätigungscode: ' + state.code, M, y, 10, true, PRIMARY);
   doc.endPage();
 
   /* ---- Seite 2: Lösungserläuterungen ---- */
@@ -3310,20 +1486,127 @@ function generateMistakesPdf() {
   doc.line(M, y2 - 4, M + CONTENT_W, y2 - 4, ACCENT, 0.8);
   y2 -= 18;
   for (const line of saveLogPdfLines()) { y2 = ensure2(y2, 20); y2 = doc.paragraph(line, M, y2, CONTENT_W, 10.5, false, TEXT, 14.5); y2 -= 2; }
-  y2 -= 12;
-
-  y2 = ensure2(y2, 30);
-  doc.line(M, y2, M + CONTENT_W, y2, [200, 200, 200], 0.4);
-  y2 -= 14;
-  doc.text('Copyright Jan-Rickmer Feindt', M, y2, 8.5, false, TEXT_MUTE);
   doc.endPage();
 
-  // Versteckte Rekonstruktionsdaten für den Standalone-Feiditor: Kommentarzeile direkt nach dem PDF-Kopf (von Viewern ignoriert).
-  const escData = { v: state.firstName, n: state.lastName, t: REFLECT_TASKS.slice(0, 6), r: RED_FIELDS, c: ROOM_CONTEXT };
-  let escB64 = '';
-  try { escB64 = btoa(unescape(encodeURIComponent(JSON.stringify(escData)))); } catch (e) { escB64 = ''; }
-  return doc.toBase64(escB64 ? ('%ESCAPEDATA ' + escB64) : '');
+  const embed = new TextEncoder().encode(JSON.stringify(buildEscapeRecord()));
+  return doc.build({ embed, link, title: 'Überblick Escape-Room Das Gutachten' });
 }
+
+/* ============================================================
+   DATENSATZ FÜR DAS FEIDITOR-FEIBEITSBLATT (Schnittstelle v1)
+   ============================================================ */
+function fbEscapeHash(str) { // cyrb53-Variante wie saveHash, 64 Bit als 16 Hex-Zeichen
+  let h1 = 0xdeadbeef ^ str.length, h2 = 0x41c6ce57 ^ str.length;
+  for (let i = 0; i < str.length; i++) { const ch = str.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (h2 >>> 0).toString(16).padStart(8, '0') + (h1 >>> 0).toString(16).padStart(8, '0');
+}
+function cleanLine(s, max) { return String(s == null ? '' : s).normalize('NFC').replace(/[\u0000-\u001F\u007F]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max); }
+function cleanText(s, max) { return String(s == null ? '' : s).normalize('NFC').replace(/\r\n?/g, '\n').replace(/[\u0000-\u0009\u000B-\u001F\u007F]+/g, ' ').slice(0, max); }
+// Ein gespeichertes Fehlerobjekt (kind, item, wrongAnswer, correctAnswer, explanation) in Textform – derselbe Wortlaut
+// wie die erste Zeile dieses Fehlers in der Überblick-PDF; unbekannte Arten fallen auf item zurück.
+function errorToRecord(e) {
+  const o = { item: cleanLine(e.kind === 'falsch_einsortiert' ? '„' + e.item + '“' : e.item, 2000) };
+  const wrong = cleanLine(e.wrongAnswer, 2000), right = cleanLine(e.correctAnswer, 2000), note = cleanLine(e.explanation, 2000);
+  if (wrong) o.wrong = wrong;
+  if (right) o.right = right;
+  if (note) o.note = note;
+  return o;
+}
+function buildEscapeRecord() {
+  const iso = d => { const x = new Date(d); return isNaN(x) ? '' : x.toISOString(); };
+  const data = {
+    code: FB_CODE,
+    room: { id: ESCAPE_ROOM.id, name: ESCAPE_ROOM.name, url: ESCAPE_ROOM.url },
+    person: { vorname: cleanLine(state.firstName, 60), nachname: cleanLine(state.lastName, 60),
+              geburtsdatum: state.birthDate, klasse: state.klasse },
+    confirm: String(state.code),
+    word: CODE_WORD,
+    completedAt: iso(state.completedAt || new Date()),
+    stations: ROOM_LABELS.map((label, i) => ({ label, attempts: state.attempts[i],
+      errors: ((state.mistakes[i] && state.mistakes[i].errors) || []).filter(e => e && typeof e === 'object').slice(0, 30).map(errorToRecord) })),
+    notes: SOLUTION_NOTES.map(n => ({ label: n.room, text: cleanText(n.text, 4000) })),
+    resumes: (state.resumeLog || []).slice(-20).map(r => ({ place: cleanLine(r.place, 2000), savedAt: iso(r.savedAt), loadedAt: iso(r.loadedAt) })),
+  };
+  const d = JSON.stringify(data);
+  return { kind: 'feibeitsblatt-escape', v: 1, d, s: fbEscapeHash('FbEscape|v1|' + d) };
+}
+function b64url(str) {
+  const bytes = new TextEncoder().encode(str); let bin = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+/* ============================================================
+   DOWNLOAD DER ÜBERBLICK-PDF
+   ============================================================ */
+function translit(s) {
+  return (s || '').replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue')
+    .replace(/Ä/g, 'Ae').replace(/Ö/g, 'Oe').replace(/Ü/g, 'Ue').replace(/ß/g, 'ss')
+    .replace(/[^a-zA-Z0-9-]/g, '');
+}
+function overviewFileName() {
+  const d = new Date(), two = n => String(n).padStart(2, '0');
+  return `Ueberblick-Escape-Room-${translit(ESCAPE_ROOM.name)}-${two(d.getDate())}-${two(d.getMonth() + 1)}-${d.getFullYear()}.pdf`;
+}
+window.downloadOverviewPDF = () => {
+  try {
+    const bin = generateMistakesPdf();
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i) & 0xFF;
+    // application/octet-stream statt application/pdf: Der Browser SPEICHERT die Datei, statt sie anzuzeigen.
+    const blob = new Blob([bytes], { type: 'application/octet-stream' });
+    const url = URL.createObjectURL(blob);
+    // Unsichtbarer Link, synchron im Klick-Handler ausgelöst – kein window.open, alles bleibt in diesem Tab.
+    const link = document.createElement('a');
+    link.href = url; link.download = overviewFileName(); link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    // Object-URL lange gültig lassen: iOS liest den Blob erst, wenn der Download-Dialog bestätigt ist.
+    setTimeout(() => { try { document.body.removeChild(link); } catch (_) {} URL.revokeObjectURL(url); }, 60000);
+    state.pdfDownloaded = true;
+    return true;
+  } catch (e) { console.error(e); return false; }
+};
+const LOCK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+const DOWNLOAD_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 19h16"/></svg>';
+function pdfButtonsDone() {
+  const b1 = document.getElementById('pdfBtn'), b2 = document.getElementById('pdfBtn2');
+  if (b1) b1.textContent = 'Überblick-PDF erneut herunterladen';
+  if (b2) b2.innerHTML = DOWNLOAD_ICON + 'Überblick-PDF erneut herunterladen';
+}
+function pdfAction(msgId) {
+  const ok = window.downloadOverviewPDF();
+  ['pdfMsg', 'pdfMsg2'].forEach(id => { const m = document.getElementById(id); if (m) { m.textContent = ''; m.className = 'msg'; m.setAttribute('role', 'status'); } });
+  const msg = document.getElementById(msgId);
+  if (ok) { pdfButtonsDone(); if (msg) msg.textContent = 'Gespeichert. Du findest die Datei in deinem Download-Ordner.'; }
+  else if (msg) { msg.setAttribute('role', 'alert'); msg.className = 'msg is-err'; msg.textContent = 'Die Überblick-PDF konnte nicht erstellt werden. Lade die Seite nicht neu – versuche es noch einmal.'; }
+  return ok;
+}
+
+/* ============================================================
+   TUNNEL ZUM FEIDITOR-FEIBEITSBLATT (gleicher Tab)
+   ============================================================ */
+function enterTunnel(force) {
+  if (!FB_CODE) { const lk = document.getElementById('gateLocked'); if (lk) lk.focus(); return; }
+  if (!state.pdfDownloaded && !force) { document.getElementById('tunnelDialog').showModal(); return; }
+  const msg = document.getElementById('gateMsg'); if (msg) { msg.textContent = ''; msg.className = 'msg'; }
+  try {
+    const url = FB_URL + '#escape=' + b64url(JSON.stringify(buildEscapeRecord()));
+    leaving = true;
+    location.assign(url);
+  } catch (e) {
+    leaving = false; console.error(e);
+    if (msg) { msg.className = 'msg is-err'; msg.textContent = 'Der Tunnel konnte nicht geöffnet werden. Lade die Seite nicht neu – versuche es noch einmal.'; }
+  }
+}
+// Versehentliches Neuladen oder Schließen kostet den ganzen Fortschritt: vorher nachfragen (nicht beim Gang durch den Tunnel)
+let leaving = false;
+window.addEventListener('beforeunload', e => {
+  if (leaving || /^(start|resume)$/.test(state.screen) || !state.firstName) return;
+  e.preventDefault(); e.returnValue = '';
+});
 
 function fmtDateTime(d) {
   if (!d) d = new Date();
@@ -3376,8 +1659,8 @@ function renderSeals() {
    SCREEN: ZUGANGSPROTOKOLL (Name & Geburtsdatum)
    ============================================================ */
 
-function renderNameInput() {
-  state.screen = 'name';
+function renderStart() {
+  state.screen = 'start';
   renderSeals();
   root.innerHTML = `
     <div class="kicker">Ev. Religion · E-Phase · Escape-Room</div>
@@ -3387,36 +1670,46 @@ function renderNameInput() {
     <div class="card card-accent" style="max-width: 640px;">
       <h3 style="font-size: 22px; margin-bottom: 14px;">Zutrittsprotokoll</h3>
       <p style="margin-bottom: 22px; color: var(--c-text-mute); font-size: 15px;">
-        Trage deinen vollen Namen und dein Geburtsdatum ein. Beide Angaben erscheinen später auf deiner PDF-Datei für Moodle.
+        Trage deinen vollen Namen, dein Geburtsdatum und deine Klasse ein. Diese Angaben stehen später auf deiner Überblick-PDF und gehen am Ende mit ins Feiditor-Feibeitsblatt. Am Ende bekommst du außerdem deinen persönlichen Bestätigungscode.
       </p>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div class="start-fields">
         <div>
           <label for="firstNameInput" class="field-label">Vorname</label>
-          <input id="firstNameInput" class="field-input" type="text" autocomplete="given-name" maxlength="40"
-                 onkeydown="if(event.key==='Enter') document.getElementById('lastNameInput').focus()">
+          <input id="firstNameInput" class="field-input" type="text" autocomplete="given-name" maxlength="40">
         </div>
         <div>
           <label for="lastNameInput" class="field-label">Nachname</label>
-          <input id="lastNameInput" class="field-input" type="text" autocomplete="family-name" maxlength="40"
-                 onkeydown="if(event.key==='Enter') document.getElementById('birthInput').focus()">
+          <input id="lastNameInput" class="field-input" type="text" autocomplete="family-name" maxlength="40">
+        </div>
+      </div>
+      <div class="start-fields">
+        <div>
+          <label for="birthInput" class="field-label">Geburtsdatum (TT.MM.JJJJ)</label>
+          <input id="birthInput" class="field-input" type="text" inputmode="numeric" maxlength="10" placeholder="TT.MM.JJJJ" autocomplete="bday" oninput="maskBirth(this)">
+        </div>
+        <div>
+          <label for="klasseInput" class="field-label">Klasse</label>
+          <input id="klasseInput" class="field-input" type="text" maxlength="12" placeholder="z. B. E1" autocomplete="off" autocapitalize="off" spellcheck="false">
         </div>
       </div>
 
-      <div style="margin-top:16px; max-width:260px;">
-        <label for="birthInput" class="field-label">Geburtsdatum (TT.MM.JJJJ)</label>
-        <input id="birthInput" class="field-input" type="text" inputmode="numeric" maxlength="10" placeholder="TT.MM.JJJJ"
-               oninput="maskBirth(this)" onkeydown="if(event.key==='Enter') submitName()">
-      </div>
-
-      <div id="nameError" class="field-error"></div>
+      <div id="startError" class="field-error" role="alert"></div>
 
       <div class="btn-row" style="margin-top: 24px;">
-        <button class="btn btn-primary btn-arrow" onclick="submitName()">Arbeitszimmer betreten</button>
+        <button type="button" class="btn btn-primary btn-arrow" onclick="submitStart()">Arbeitszimmer betreten</button>
       </div>
     </div>
     ${saveLoadFieldHtml()}
   `;
+  // Enter springt ins nächste Feld, in der Klasse prüft es
+  const order = ['firstNameInput', 'lastNameInput', 'birthInput', 'klasseInput'];
+  order.forEach((id, i) => document.getElementById(id).addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    if (i < order.length - 1) document.getElementById(order[i + 1]).focus(); else submitStart();
+  }));
+  document.getElementById('birthInput').addEventListener('blur', e => { const v = padBirth(e.target.value); if (v !== e.target.value) e.target.value = v; });
   setTimeout(() => document.getElementById('firstNameInput')?.focus(), 100);
 }
 
@@ -3428,30 +1721,34 @@ window.maskBirth = (el) => {
   el.value = out;
 };
 
-window.submitName = () => {
-  const fn = document.getElementById('firstNameInput').value.trim();
-  const ln = document.getElementById('lastNameInput').value.trim();
-  const bd = document.getElementById('birthInput').value.trim();
-  const err = document.getElementById('nameError');
-  function showErr(msg) { err.style.display = 'block'; err.textContent = msg; }
-  if (fn.length < 2 || ln.length < 2) {
-    showErr('Bitte trage deinen vollen Vor- und Nachnamen ein (jeweils mindestens 2 Zeichen).');
-    return;
-  }
-  const m = bd.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
-  if (!m) {
-    showErr('Bitte gib dein Geburtsdatum im Format TT.MM.JJJJ ein (z. B. 07.03.2009).');
-    return;
-  }
-  const dd = parseInt(m[1], 10), mm = parseInt(m[2], 10), yyyy = parseInt(m[3], 10);
-  const thisYear = new Date().getFullYear();
-  if (dd < 1 || dd > 31 || mm < 1 || mm > 12 || yyyy < 1900 || yyyy > thisYear) {
-    showErr('Das Geburtsdatum scheint nicht zu stimmen. Bitte prüfe Tag, Monat und Jahr.');
-    return;
-  }
+window.submitStart = () => {
+  const ids = ['firstNameInput', 'lastNameInput', 'birthInput', 'klasseInput'], el = ids.map(id => document.getElementById(id));
+  const err = document.getElementById('startError');
+  el.forEach(x => { x.removeAttribute('aria-invalid'); x.removeAttribute('aria-describedby'); });
+  err.textContent = '';
+  const fail = (x, msg) => { err.textContent = msg; x.setAttribute('aria-invalid', 'true'); x.setAttribute('aria-describedby', 'startError'); x.focus(); };
+  const fn = cleanInput(el[0].value), ln = cleanInput(el[1].value), bd = padBirth(cleanInput(el[2].value).replace(/\s/g, '')), kv = cleanInput(el[3].value);
+  const nameOk = s => s.length >= 2 && /\p{L}/u.test(s);
+  const NAME_MSG = 'Bitte trage deinen vollen Vor- und Nachnamen ein (jeweils mindestens 2 Zeichen).';
+  const LATIN_MSG = 'Bitte schreibe deinen Vor- und Nachnamen mit lateinischen Buchstaben – so, wie er in deinem Zeugnis steht.';
+  if (!nameOk(fn)) return fail(el[0], NAME_MSG);
+  if (!nameOk(ln)) return fail(el[1], NAME_MSG);
+  if (!pdfPrintable(fn)) return fail(el[0], LATIN_MSG);
+  if (!pdfPrintable(ln)) return fail(el[1], LATIN_MSG);
+  if (el[2].value !== bd && /^\d{2}\.\d{2}\.\d{4}$/.test(bd)) el[2].value = bd;
+  const m = /^(\d{2})\.(\d{2})\.(\d{4})$/.exec(bd);
+  if (!m) return fail(el[2], 'Bitte gib dein Geburtsdatum im Format TT.MM.JJJJ ein (z. B. 07.03.2009).');
+  const dd = +m[1], mm = +m[2], yy = +m[3], dt = new Date(yy, mm - 1, dd), now = new Date();
+  if (dt.getFullYear() !== yy || dt.getMonth() !== mm - 1 || dt.getDate() !== dd || yy < 1950 || yy > now.getFullYear() || dt > now)
+    return fail(el[2], 'Das Geburtsdatum scheint nicht zu stimmen. Bitte prüfe Tag, Monat und Jahr.');
+  const k = normKlasse(kv);
+  if (!k) return fail(el[3], 'Bitte gib deine Klasse ein (z. B. E1).');
+  if (!/^[\p{L}\p{N}/-]{1,10}$/u.test(k)) return fail(el[3], 'Bitte gib deine Klasse nur mit Buchstaben und Ziffern ein (z. B. E1).');
+  if (!pdfPrintable(k)) return fail(el[3], 'Bitte gib deine Klasse mit lateinischen Buchstaben und Ziffern ein (z. B. E1).');
   state.firstName = fn;
   state.lastName = ln;
   state.birthDate = bd;
+  state.klasse = k;
   state.code = computeCode(m[1] + m[2] + m[3]);
   renderIntro();
 };
@@ -3466,15 +1763,15 @@ function renderIntro() {
   window.scrollTo({ top: 0, behavior: 'instant' });
   root.innerHTML = `
     <div class="kicker">Ev. Religion · E-Phase · Briefing</div>
-    <h1 class="title-mega">Willkommen,<br><em>${state.firstName}</em></h1>
+    <h1 class="title-mega">Willkommen,<br><em>${escapeHtml(state.firstName)}</em></h1>
 
     <div class="intro-video">
       <div class="video-wrap">
-        <iframe width="560" height="315" data-yt-src="https://www.youtube-nocookie.com/embed/ShLxo4Mrb0I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="560" height="315" data-yt-src="https://www.youtube-nocookie.com/embed/Mh3PV9lGJtU" title="Anleitung: Escape-Room meistern" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
       <div class="fallback-line">
-        <a class="btn btn-ghost" href="https://youtu.be/ShLxo4Mrb0I" target="_blank" rel="noopener noreferrer">Video auf YouTube öffnen ↗</a>
-        <span>Öffnet das Video in einem neuen Tab.</span>
+        <a class="btn btn-ghost" href="https://youtu.be/Mh3PV9lGJtU" target="_blank" rel="noopener noreferrer">Video auf YouTube öffnen ↗</a>
+        <span>Öffnet das Video direkt auf YouTube.</span>
       </div>
     </div>
 
@@ -3506,9 +1803,11 @@ function renderIntro() {
       <aside class="intro-meta">
         <dl>
           <dt>Wissenschaftliche Hilfskraft</dt>
-          <dd>${state.firstName} ${state.lastName}</dd>
+          <dd id="introName"></dd>
           <dt>Geburtsdatum</dt>
-          <dd>${state.birthDate}</dd>
+          <dd id="introBirth"></dd>
+          <dt>Klasse</dt>
+          <dd id="introKlasse"></dd>
           <dt>Streitfall</dt>
           <dd>Kirche des Fliegenden Spaghettimonsters Deutschland e. V. gegen das Land Brandenburg</dd>
           <dt>Bearbeitungszeit</dt>
@@ -3516,7 +1815,7 @@ function renderIntro() {
           <dt>Was du brauchst</dt>
           <dd>Stift und Papier für Notizen aus den Bibliotheksräumen.</dd>
           <dt>Am Ende</dt>
-          <dd>Du lädst in Moodle eine PDF-Datei hoch: dein digitales Arbeitsblatt aus dem Feiditor, das auch deinen persönlichen Überblick (mit Bestätigungscode) enthält.</dd>
+          <dd>Der Arena-Tunnel führt dich zum Feiditor-Feibeitsblatt. Dort schreibst du zu den sechs Ordnern – in deinen eigenen Worten. Vorher lädst du deine Überblick-PDF (mit Bestätigungscode) herunter.</dd>
         </dl>
       </aside>
     </div>
@@ -3535,11 +1834,14 @@ function renderIntro() {
           <li>Falsche Eingaben werden farblich markiert und kurz erklärt. Du kannst es erneut probieren – aber jeder Fehler im ersten Versuch wird in deinem Protokoll vermerkt.</li>
           <li>Kommst du nicht weiter, hilft der <strong>Hinweis</strong> unter jedem Rätsel: Er wird mit jedem Fehlversuch konkreter – nach dem dritten Fehlversuch zeigt er die Lösung. Wie viele Versuche und Hinweise du gebraucht hast, steht später in deinem Protokoll.</li>
           <li>Wenn ein Raum gelöst ist, erscheint ein Buchstabe. Sammle alle sechs – sie öffnen den Tresor.</li>
-          <li>Am Ende lädst du in Moodle eine PDF-Datei hoch: dein digitales Arbeitsblatt aus dem Feiditor, das auch deinen persönlichen Überblick enthält.</li>
+          <li>Am Ende führt dich der Arena-Tunnel zum Feiditor-Feibeitsblatt. Dort schreibst du zu den Ordnern – in deinen eigenen Worten. Vorher lädst du deine Überblick-PDF herunter.</li>
         </ul>
       </div>
     </div>
   `;
+  document.getElementById('introName').textContent = state.firstName + ' ' + state.lastName;
+  document.getElementById('introBirth').textContent = state.birthDate;
+  document.getElementById('introKlasse').textContent = state.klasse;
 }
 
 window.showHelp = () => {
@@ -4024,7 +2326,7 @@ const LIBRARIES = [
         </div>
         <div class="fallback-line">
           <a class="btn btn-ghost" href="https://youtu.be/Fxbl83GK2Wk" target="_blank" rel="noopener noreferrer">Video auf YouTube öffnen ↗</a>
-          <span>Öffnet das Video in einem neuen Tab.</span>
+          <span>Öffnet das Video direkt auf YouTube.</span>
         </div>
       </div>
     `,
@@ -4884,11 +3186,15 @@ function renderFinal() {
   renderSeals();
   window.scrollTo({ top: 0, behavior: 'instant' });
 
+  const N = ROOM_LABELS.length;
   const totalErrors = state.mistakes.reduce((a, m) => a + (m && m.errors ? m.errors.length : 0), 0);
   const perfectRooms = state.attempts.filter((a, i) => a === 1 && (!state.mistakes[i] || !state.mistakes[i].errors || state.mistakes[i].errors.length === 0)).length;
   const errorSummary = totalErrors === 0
     ? `Alle sechs Ordner im ersten Versuch fehlerfrei – beeindruckend, ${state.firstName}.`
-    : `Du hast ${perfectRooms} von 6 Ordnern im ersten Versuch fehlerfrei gelöst (${totalErrors} Fehler im ersten Versuch) – kein Problem, das gehört zum Lernen. Im „Überblick deiner Antworten & Erläuterungen" findest du sie alle mit Erklärung.`;
+    : `Du hast ${perfectRooms} von ${N} Ordnern im ersten Versuch fehlerfrei gelöst (${totalErrors} Fehler im ersten Versuch) – kein Problem, das gehört zum Lernen. In deiner Überblick-PDF findest du sie alle mit Erklärung.`;
+  const locked = !FB_CODE;
+  const pdfLabel = state.pdfDownloaded ? 'Überblick-PDF erneut herunterladen' : 'Überblick-PDF herunterladen';
+  const name = escapeHtml(state.firstName);
 
   root.innerHTML = `
     <div class="mid-hero">
@@ -4897,22 +3203,34 @@ function renderFinal() {
       <div class="mid-steps">
         <span class="mid-step done">✓ Etappe 1 · Sechs Aktenordner</span>
         <span class="code-badge"><small>Codewort</small>${CODE_WORD}</span>
-        <span class="mid-step next">Etappe 2 · Finale gegen den Feiditor</span>
+        <span class="mid-step next">Etappe 2 · Finale im Feiditor-Feibeitsblatt</span>
       </div>
-      <p class="lede" style="margin: 14px auto 0; max-width: 60ch;">Geschafft, ${state.firstName} – aber der Escape-Room ist noch nicht vorbei: In der Arena zeigst du jetzt schriftlich, was du vom Gutachten verstanden hast.</p>
+      <p class="lede" style="margin: 14px auto 0; max-width: 60ch;">Geschafft, ${name} – aber der Escape-Room ist noch nicht vorbei: Im Feiditor-Feibeitsblatt zeigst du jetzt schriftlich, was du vom Gutachten verstanden hast.</p>
     </div>
 
     <div class="arena">
       <div class="arena-kicker">Etappe 2 · Das Finale</div>
       <h2>Erst das Video, dann durch den Gang</h2>
       <div class="video-wrap">
-        <iframe width="560" height="315" data-yt-src="https://www.youtube-nocookie.com/embed/Sh0REtJ1o5w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="560" height="315" data-yt-src="https://www.youtube-nocookie.com/embed/pk2wL_UwQ5c" title="Anleitung: Das Feiditor-Feibeitsblatt als Endgegner" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
       <div class="fallback-line">
-        <a class="btn btn-ghost btn-small" href="https://youtu.be/Sh0REtJ1o5w" target="_blank" rel="noopener noreferrer">Video auf YouTube öffnen ↗</a>
-        <span>Falls das Video hier nicht abspielt, öffnet der Button es in einem neuen Tab.</span>
+        <a class="btn btn-ghost btn-small" href="https://youtu.be/pk2wL_UwQ5c" target="_blank" rel="noopener noreferrer">Video auf YouTube öffnen ↗</a>
+        <span>Falls das Video hier nicht abspielt, öffnet der Button es direkt auf YouTube.</span>
       </div>
-      <button class="arena-gate" onclick="openFeiditor()" aria-label="Finale gegen den Feiditor betreten">
+
+      <div class="prep">
+        <h3>Bevor du durch den Gang gehst</h3>
+        <ol>
+          <li><strong>Lade zuerst deine Überblick-PDF herunter.</strong> Sie enthält deinen Bestätigungscode, deine Ergebnisse und die Lösungserläuterungen. ${locked ? 'Im Finale verweist die KI darauf.' : 'Im Finale verweist die KI darauf – und mit der PDF kannst du jederzeit weitermachen.'}
+            <div class="btn-row"><button type="button" class="btn btn-primary" id="pdfBtn">${pdfLabel}</button></div>
+            <p id="pdfMsg" class="msg" role="status"></p></li>
+          <li><strong>Nimm deine Notizen dazu.</strong> Nutze deine Notizen aus den Bibliotheksräumen – im Feibeitsblatt schreibst du zu jedem Ordner.</li>
+        </ol>
+      </div>
+      ${locked ? `<p id="gateLocked" class="gate-locked" tabindex="-1">${LOCK_ICON}<span>Das Finale ist noch nicht freigeschaltet. Speichere deinen Zwischenstand als Datei – damit kommst du später hierher zurück und gehst durch den Tunnel, sobald er offen ist.</span></p>
+      <div class="btn-row gate-save"><button type="button" class="save-btn" id="lockedSave">${SAVE_ICON}<span>Zwischenstand als Datei speichern</span></button></div>` : ''}
+      <button type="button" class="arena-gate" id="gate"${locked ? ' aria-disabled="true" aria-describedby="gateLocked gateHint"' : ' aria-describedby="gateHint"'}>
         <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ein dunkler Gang führt auf das hell erleuchtete Spielfeld einer Arena">
           <defs>
             <linearGradient id="arWallL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#25324f"/></linearGradient>
@@ -4956,21 +3274,22 @@ function renderFinal() {
           <ellipse class="gate-glow" cx="400" cy="240" rx="230" ry="190" fill="url(#arGlow)"/>
           <rect x="300" y="140" width="200" height="200" fill="none" stroke="#d6b25e" stroke-width="2.5" opacity=".9"/>
         </svg>
-        <span class="arena-enter">Finale gegen den Feiditor betreten <span aria-hidden="true">→</span></span>
+        <span class="arena-enter">${locked ? LOCK_ICON + 'Noch gesperrt<span class="sr-only">: Tunnel zum Feiditor-Feibeitsblatt</span>' : 'Durch den Tunnel zum Feiditor-Feibeitsblatt <span aria-hidden="true">→</span>'}</span>
       </button>
-      <div class="arena-foot">Der Gang führt zum <strong style="color:#f0cf78">Feiditor</strong> (neuer Tab), deine Aufgaben sind dort schon eingetragen. Am Ende wandelst du deinen Text in eine PDF-Datei um – sie enthält auch deinen Überblick – und lädst sie bei Moodle hoch.</div>
+      <p id="gateHint" class="gate-hint">Der Gang öffnet das Feiditor-Feibeitsblatt in diesem Tab. Zurück in den Escape-Room geht es danach nur mit einer Zwischenstand-Datei.${locked ? '' : ' Der Link mit deinen Angaben bleibt im Verlauf deines Browsers – auf einem Gerät, das auch andere nutzen, lösch ihn dort, wenn du fertig bist.'}</p>
+      <p id="gateMsg" class="msg" role="alert"></p>
     </div>
 
     <div class="pause-card">
-      <button class="pause-btn" onclick="downloadOverviewPDF()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 19h16"/></svg>
-        Erstmal eine Pause machen und den Zwischenstand herunterladen
-      </button>
-      <p class="text-mute" style="font-size:13.5px; margin:12px 0 0;">Du bekommst deine Überblick-PDF mit deinen Antworten, deinem Code und den Lösungserläuterungen. Wenn du weitermachen willst, lade sie auf <strong>feiditor.janrickmer.de</strong> hoch (Auswahl „Ich komme aus einem Escape-Room …“) – dann öffnet sich das Finale mit deinen Aufgaben. Bei Moodle lädst du erst die fertige Datei „Abgeschlossener Escape-Room von …“ hoch.</p>
+      <h3>Erst einmal Pause?</h3>
+      <p>${locked ? 'Speichere deinen Zwischenstand als Datei (Knopf unten) – damit kommst du hierher zurück, sobald das Finale freigeschaltet ist. Deine Überblick-PDF kannst du schon jetzt herunterladen.' : 'Lade deine Überblick-PDF herunter. Weitermachen kannst du später unter feibeitsblatt.janrickmer.de mit „Zwischenstand-PDF hochladen“ – dort beginnt dann gleich das Finale.'}</p>
+      <button type="button" class="pause-btn" id="pdfBtn2">${DOWNLOAD_ICON}${pdfLabel}</button>
+      <p id="pdfMsg2" class="msg" role="status"></p>
     </div>
+    <div data-save-slot><p class="save-lead">${locked ? 'Damit kommst du hierher zurück, sobald das Finale freigeschaltet ist:' : 'Nur falls du später noch einmal hierher in den Escape-Room zurückwillst:'}</p></div>
 
     <div class="readmore"><span>Zum Nachlesen</span></div>
-    <p class="text-mute" style="text-align:center; font-size:13.5px; margin:-4px 0 14px;">${errorSummary}</p>
+    <p class="text-mute" id="finalSummary" style="text-align:center; font-size:13.5px; margin:-4px 0 14px;"></p>
 
     <div class="gutachten" style="margin-bottom:22px;">
       <div class="gutachten-head">Gutachten · Prof. Dr. Marlene Hagedorn · Streitfall Kirche des Fliegenden Spaghettimonsters Deutschland e. V.</div>
@@ -4985,7 +3304,7 @@ function renderFinal() {
       <p style="margin-bottom:0;"><strong>3. Ergebnis.</strong></p>
       <span class="empty-field">
         [ Feld bewusst leer gelassen. ]<br>
-        Handschriftliche Notiz am Rand: „Die Prüfung ist abgeschlossen. Das Urteil überlasse ich dem Gericht – und dir, ${state.firstName}. – M. H."
+        Handschriftliche Notiz am Rand: „Die Prüfung ist abgeschlossen. Das Urteil überlasse ich dem Gericht – und dir, ${escapeHtml(state.firstName)}. – M. H."
       </span>
     </div>
 
@@ -5007,227 +3326,35 @@ function renderFinal() {
       </div>
     </div>
   `;
+  document.getElementById('finalSummary').textContent = errorSummary;
+  document.getElementById('pdfBtn').addEventListener('click', () => pdfAction('pdfMsg'));
+  document.getElementById('pdfBtn2').addEventListener('click', () => pdfAction('pdfMsg2'));
+  document.getElementById('gate').addEventListener('click', () => enterTunnel(false));
+  const lockedSave = document.getElementById('lockedSave');
+  if (lockedSave) lockedSave.addEventListener('click', () => window.saveProgress());
 }
-
-/* ============================================================
-   DIGITALES ARBEITSBLATT — Aufgaben für den Feiditor
-   ============================================================ */
-/* Steckbrief des Escape-Rooms für die KI-Bewertung im „Check des Feind(t)es“ (check.janrickmer.de).
-   PFLICHT in jedem Escape-Room (auch in neuen, die aus diesem kopiert werden):
-   - Der eingebettete Feiditor übernimmt ihn beim Öffnen (window.__ESCAPE_DATA__.ctx, siehe openFeiditor) und speichert
-     ihn verschlüsselt in der PDF (e.ctx); die Überblick-PDF trägt ihn in %ESCAPEDATA (Feld c).
-   - Der Check gibt ihn an die KI weiter: Jahrgangsstufe = Anspruchsniveau, „inhalte“ = Erwartungshorizont.
-   Felder: id (kurzer Schlüssel) · fach · stufe (ausdrückliche Jahrgangsstufe; im Zweifel bei der Lehrkraft nachfragen) ·
-   thema · raum (Name, wie ihn die Schüler:innen sehen) · inhalte (5–8 Punkte, nur Inhalte dieses Escape-Rooms aus Räumen
-   und Lösungserläuterungen, gegen diese Datei geprüft). Ein neuer Escape-Room braucht außerdem einen Eintrag in
-   ESCAPE_ROOMS (und seine Prüfkonstante in KNOWN_MAGIC) im Check – siehe CLAUDE.md im Repository des Checks. */
-const ROOM_CONTEXT = {
-  id: "religion",
-  fach: "Evangelische Religion",
-  stufe: "Jahrgangsstufe 11 (Einführungsphase, E1)",
-  thema: "Religionsbegriffe, Funktionen von Religion nach Stoodt, Fallbeispiel Pastafari",
-  raum: "Das Gutachten",
-  inhalte: [
-    "Substanzieller Religionsbegriff (Was ist Religion ihrem Kern nach? – Bezug auf Gott, das Heilige, Transzendenz) vs. funktionaler Religionsbegriff (Was leistet Religion für Menschen und Gesellschaft?).",
-    "Grenzen: Ein enger substanzieller Begriff („Glaube an Gott“) müsste den Buddhismus ausschließen, der funktionale ist weit (auch Fußballvereine, Konsum, Ideologien); daher Arbeit mit beiden Perspektiven.",
-    "Grundidee des evangelischen Theologen Dieter Stoodt: Jede der sechs Funktionen von Religion antwortet auf eine Bedürftigkeit – Angst, Sinnsuche, Schicksal, Orientierung, Zugehörigkeit, Unrecht.",
-    "Funktionen 1–3: Angstbewältigung (Furcht vor Kommendem, z. B. Prüfung, Tod; Gebet), Weltdeutung / Sinnstiftung (Schöpfungserzählung), Kontingenzbewältigung (eingetretenes Leid aushalten; Klage, Hiob).",
-    "Funktionen 4–6: Handlungsführung (Zehn Gebote, Nächstenliebe, Goldene Regel), Gemeinschaftsbildung / soziale Integration (Gemeinde, Feste), Weltdistanzierung / Emanzipation (Propheten, Leipzig 1989).",
-    "Pastafari („Kirche des Fliegenden Spaghettimonsters“): 2005 aus Bobby Hendersons Satire-Brief gegen „Intelligent Design“ im Biologieunterricht (Kansas); Kennzeichen: Nudelsieb, „Ramen“, Piraten, acht Regeln.",
-    "OLG Brandenburg 2017 (Nudelmesse-Schilder in Templin): keine Religions-/Weltanschauungsgemeinschaft – keine gemeinsame Weltanschauung, Satire statt Glaube, kein Gottesbezug; also substanziell argumentiert.",
-    "Prüfbogen: bei den Pastafari Gemeinschaftsbildung und Weltdistanzierung deutlich erfüllt, Weltdeutung und Handlungsführung vorhanden, aber fraglich, Angst- und Kontingenzbewältigung kaum erkennbar.",
-  ]
-};
-const REFLECT_TASKS = [
-  'Erkläre in eigenen Worten den Unterschied zwischen einem substanziellen und einem funktionalen Religionsbegriff. Nenne zu beiden je ein eigenes Beispiel. (Bibliotheksraum 1)',
-  'Fasse die sechs Funktionen von Religion nach Stoodt in eigenen Worten zusammen: Auf welche Bedürftigkeit des Menschen antwortet jede Funktion? (Bibliotheksräume 2 und 3)',
-  'Erläutere an einem selbst gewählten Beispiel, wie Religion Menschen in einer schwierigen Lebenssituation Halt geben kann. Ordne dein Beispiel einer Funktion nach Stoodt zu. (Bibliotheksraum 2)',
-  'Beschreibe mit eigenen Worten, wie und warum die „Kirche des Fliegenden Spaghettimonsters" entstanden ist und woran man Pastafari erkennt. (Bibliotheksraum 4)',
-  'Erkläre in eigenen Worten, mit welcher Begründung deutsche Gerichte der „Kirche des Fliegenden Spaghettimonsters" die Anerkennung als Religions- bzw. Weltanschauungsgemeinschaft verweigert haben. (Bibliotheksraum 5)',
-  'Vergleiche die Pastafari-Bewegung mit einer klassischen Religion (z. B. dem Christentum) im Hinblick auf zwei Funktionen nach Stoodt: Wo erfüllen die Pastafari die Funktion, wo eher nicht? Begründe dein Ergebnis. (Bibliotheksräume 2–6)',
-  'Bearbeite nun auf Moodle die Aufgabe „Text verfassen …".',
-  'Lade diese Reflexions-Datei in der dafür vorgesehenen Abgabe bei Moodle hoch.',
-];
-
-// Texte der beiden roten Felder des Feiditors – exakt wie im eingebetteten Feiditor.
-const RED_FIELDS = [
-  'Wandle diesen Text nun in eine PDF-Datei um und lade diese PDF-Datei in der korrekten Abgabe auf Moodle hoch.',
-  'Aufgabe 7: Nachdem du die Lösungen zu Aufgaben 1-6 auf Moodle hochgeladen hast, bearbeitest du die auf Moodle verlinkte Aufgabe "Text verfassen ..."',
-];
-
-/* ============================================================
-   PDF 2 — Reflexions-Datei (dynamisch erzeugt)
-   ============================================================ */
-function generateReflexionPdf() {
-  const doc = new PdfDoc();
-  const W = doc.pageW, H = doc.pageH, M = doc.margin; const CW = W - 2 * M;
-  const PRIMARY = [21, 95, 148], ACCENT = [59, 157, 221], MUTE = [108, 120, 136], TEXT = [25, 25, 25], LINE = [205, 205, 205];
-
-  function header() {
-    doc.startPage();
-    doc.rect(0, H - 72, W, 72, PRIMARY);
-    doc.text('Reflexion — Das Gutachten', M, H - 38, 18, true, [255, 255, 255]);
-    doc.text('Escape-Room „Das Gutachten" · Bearbeite die Aufgaben in eigenen Worten', M, H - 58, 9, false, [207, 230, 247]);
-    return H - 72 - 22;
-  }
-  function ensure(y, need) { if (y - need < 70) { doc.endPage(); return header(); } return y; }
-
-  let y = header();
-  const bH = 58;
-  doc.rect(M, y - bH, CW, bH, [244, 248, 252]);
-  doc.rect(M, y - bH, 3, bH, ACCENT);
-  doc.text('NAME', M + 14, y - 15, 8, true, ACCENT);
-  doc.text(state.firstName + ' ' + state.lastName, M + 14, y - 30, 12.5, true, PRIMARY);
-  doc.text('GEBURTSDATUM', M + 260, y - 15, 8, true, ACCENT);
-  doc.text(state.birthDate, M + 260, y - 30, 11, false, TEXT);
-  doc.text('ABGESCHLOSSEN AM', M + 380, y - 15, 8, true, ACCENT);
-  doc.text(fmtDateTime(state.completedAt), M + 380, y - 30, 9.5, false, TEXT);
-  y -= bH + 18;
-
-  y = doc.paragraph('Diese Reflexion vertieft die Inhalte aus den Bibliotheksräumen. Beantworte die folgenden Aufgaben in eigenen Worten – stichpunktartig oder in ganzen Sätzen.',
-    M, y, CW, 10.5, false, TEXT, 14);
-  y -= 8;
-
-  for (let i = 0; i < REFLECT_TASKS.length; i++) {
-    const isLast = i === REFLECT_TASKS.length - 1;
-    const isSecondLast = i === REFLECT_TASKS.length - 2;
-    y = ensure(y, (isLast || isSecondLast) ? 70 : 120);
-    doc.text('Aufgabe ' + (i + 1), M, y, 11, true, ACCENT);
-    y -= 15;
-    y = doc.paragraph(REFLECT_TASKS[i], M, y, CW, 11, true, TEXT, 15);
-    y -= 8;
-    if (isLast || isSecondLast) {
-      doc.rect(M, y - 12, 12, 12, null, MUTE);
-      doc.text('erledigt', M + 20, y - 10, 9.5, false, MUTE);
-      y -= 26;
-    } else {
-      for (let l = 0; l < 4; l++) { y -= 20; doc.line(M, y, M + CW, y, LINE, 0.5); }
-      y -= 14;
-    }
-  }
-
-  y = ensure(y, 30);
-  doc.line(M, y, M + CW, y, LINE, 0.4); y -= 14;
-  doc.text('Copyright Jan-Rickmer Feindt', M, y, 8.5, false, MUTE);
-  doc.endPage();
-  return doc.toBase64();
-}
-/* ============================================================
-   DOWNLOAD-HELFER
-   ============================================================ */
-function translit(s) {
-  return (s || '').replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue')
-    .replace(/Ä/g, 'Ae').replace(/Ö/g, 'Oe').replace(/Ü/g, 'Ue').replace(/ß/g, 'ss')
-    .replace(/[^a-zA-Z0-9-]/g, '');
-}
-function downloadPdfBase64(b64, filename) {
-  const binary = atob(b64); const bytes = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-  const blob = new Blob([bytes], { type: 'application/pdf' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a'); link.href = url; link.download = filename;
-  document.body.appendChild(link); link.click(); document.body.removeChild(link);
-  setTimeout(() => URL.revokeObjectURL(url), 1200);
-}
-
-window.downloadReflexionPDF = () => {
-  try {
-    const b64 = generateReflexionPdf();
-    const name = translit(state.lastName) || 'Schueler';
-    downloadPdfBase64(b64, `Reflexion_${name}_${state.code}.pdf`);
-  } catch (e) {
-    console.error('Reflexion PDF generation failed:', e);
-    alert('Konnte die Reflexions-Datei nicht erzeugen: ' + e.message);
-  }
-};
-
-/* ============================================================
-   DIGITALES ARBEITSBLATT IM FEIDITOR („Arena")
-   Der eingebettete Feiditor (neue Version mit Rich-Text, Rot-Anteil,
-   Batch-Ansicht und Rekonstruktion per PDF-Upload) wird per
-   document.write in einem neuen Tab geöffnet und startet automatisch
-   mit den Aufgaben dieses Escape-Rooms.
-   ============================================================ */
-window.openFeiditor = () => {
-  try {
-    const tplEl = document.getElementById('feiditor-src');
-    if (!tplEl) { alert('Der Feiditor konnte nicht geladen werden.'); return; }
-    // Eingebetteten Feiditor-Quelltext holen und die escapten Script-End-Tags wiederherstellen
-    let html = tplEl.textContent.replace(/<\\\/script>/gi, '<\/script>');
-    // Escape-Room-Daten in den Feiditor injizieren: Name, die sechs Aufgaben, die roten Felder
-    // und alle Daten für die Übersichts-Seiten der kombinierten PDF
-    const data = {
-      firstName: state.firstName,
-      lastName:  state.lastName,
-      birthDate: state.birthDate,
-      code:      state.code,
-      tasks:     REFLECT_TASKS.slice(0, 6),
-      redFields: RED_FIELDS,
-      ctx:       ROOM_CONTEXT,
-      overview:  {
-        firstName:     state.firstName,
-        lastName:      state.lastName,
-        birthDate:     state.birthDate,
-        code:          state.code,
-        completedAt:   fmtDateTime(state.completedAt),
-        attempts:      state.attempts,
-        mistakes:      state.mistakes,
-        hintMax:       state.hintMax,
-        roomLabels:    ROOM_LABELS,
-        solutionNotes: SOLUTION_NOTES,
-        subtitle:      PDF_SUBLINE,
-        resumeNotes:   saveLogPdfLines()
-      }
-    };
-    const inject = '<script>window.__ESCAPE_DATA__=' + JSON.stringify(data).replace(/</g, '\\u003c') + ';<\/script>';
-    // Direkt nach dem öffnenden <head> einfügen (erstes Vorkommen = echter Dokument-Head;
-    // ein </head> käme auch in JS-Strings des Feiditors vor und wäre kein sicherer Anker)
-    if (html.indexOf('<head>') !== -1) html = html.replace('<head>', '<head>\n' + inject);
-    else html = inject + html;
-    // Per document.write öffnen, damit der sichere Kontext (crypto.subtle) erhalten bleibt.
-    // Ein Blob-URL würde den secure context verlieren -> Verschlüsselung schlägt fehl.
-    // window.open steht synchron im Klick-Handler (kein await davor).
-    const win = window.open('', '_blank');
-    if (!win) { alert('Bitte erlaube Pop-ups für diese Seite, damit sich die Arena (der Feiditor) öffnen kann.'); return; }
-    win.document.open();
-    win.document.write(html);
-    win.document.close();
-  } catch (e) { console.error(e); alert('Die Arena (der Feiditor) konnte nicht geöffnet werden: ' + e.message); }
-};
-
-window.downloadOverviewPDF = () => {
-  try {
-    const b64 = generateMistakesPdf();
-    const clean = (s) => (s || '').trim().replace(/\s+/g, '-').replace(/[\/\\:*?"<>|]+/g, '');
-    const vn = clean(state.firstName) || 'Vorname';
-    const nn = clean(state.lastName) || 'Nachname';
-    const filename = `Escape-Room-Überblick_von_${vn}_${nn}.pdf`;
-    const binary = atob(b64);
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-    // Als generischer Binärstrom (octet-stream) statt application/pdf: So kann kein Browser die Datei
-    // inline anzeigen – auch Firefox/Chrome mit „PDF im Browser öffnen" müssen sie speichern. Der Name
-    // (.pdf) kommt über das download-Attribut; die Datei selbst ist eine ganz normale PDF.
-    const blob = new Blob([bytes], { type: 'application/octet-stream' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url; link.download = filename; link.rel = 'noopener'; link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();   // synchron im Klick-Handler -> gilt als vom Nutzer ausgelöst; kein window.open, kein neuer Tab
-    // Link und Object-URL erst verzögert entfernen: manche Browser brechen den Download sonst ab
-    setTimeout(() => { try { document.body.removeChild(link); } catch (e) {} URL.revokeObjectURL(url); }, 5000);
-  } catch (e) {
-    console.error('Overview PDF generation failed:', e);
-    alert('Konnte die Datei „Escape-Room-Überblick" nicht erzeugen: ' + e.message);
-  }
-};
+// Rückfrage vor dem Tunnel (nur ohne heruntergeladene Überblick-PDF)
+let tunnelNext = null;
+(function () {
+  const dlg = document.getElementById('tunnelDialog');
+  // Download direkt im Klick auslösen (Nutzeraktion), danach schließen
+  document.getElementById('tunnelPdf').addEventListener('click', () => { pdfAction('pdfMsg'); tunnelNext = 'pdf'; dlg.close(); });
+  document.getElementById('tunnelGo').addEventListener('click', () => { tunnelNext = 'go'; dlg.close(); });
+  dlg.addEventListener('close', () => {
+    const next = tunnelNext; tunnelNext = null;
+    if (next === 'pdf') { const b = document.getElementById('pdfBtn'); if (b) b.focus(); }
+    else if (next === 'go') enterTunnel(true);
+    else { const g = document.getElementById('gate'); if (g) g.focus(); }
+  });
+})();
 
 window.restartGame = () => {
   state = {
-    screen: 'name',
+    screen: 'start',
     firstName: '',
     lastName: '',
     birthDate: '',
+    klasse: '',
     code: '',
     solved: [false, false, false, false, false, false],
     letters: ['_', '_', '_', '_', '_', '_'],
@@ -5236,10 +3363,11 @@ window.restartGame = () => {
     hintMax: [-1, -1, -1, -1, -1, -1],
     completedAt: null,
     resumeLog: [],
+    pdfDownloaded: false,
   };
   window.state = state;
   for (let i = 0; i < 6; i++) roomLocked[i] = false;
-  renderNameInput();
+  renderStart();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
@@ -5264,12 +3392,16 @@ const SAVE_GAME_TITLE   = 'Das Gutachten';                           // Spieltit
 const SAVE_ROOM_ID      = 'religion-e1-gutachten-stoodt-pastafari';  // Kennung: Dateien anderer Escape-Rooms werden abgelehnt
 const SAVE_CONTAINER_ID = 'screenContainer';                         // Container, dessen Inhalt jeder Bildschirm ersetzt
 const SAVE_ROOMS        = 6;                                         // Anzahl der Ordner (je ein Bibliotheks- und Rätselraum)
-// Speichern nur in Bibliotheks- und Rätselräumen ab Nr. 2
-function saveScreenAllowed(s){ const m=/^(lib|room)(\d+)$/.exec(s||''); return !!m && +m[2]>=2 && +m[2]<=SAVE_ROOMS; }
+// Speichern in Bibliotheks- und Rätselräumen ab Nr. 2 und im Finale
+function saveScreenAllowed(s){
+  const m=/^(lib|room)(\d+)$/.exec(s||'');
+  if(m) return +m[2]>=2 && +m[2]<=SAVE_ROOMS;
+  return s==='final';
+}
 function saveScreenLabel(s){
   const m=/^(lib|room)(\d+)$/.exec(s||'');
   if(m) return (m[1]==='lib'?'Bibliotheksraum ':'Rätselraum ')+m[2];
-  return s==='final'?'Abschlussseite':'Einführung';
+  return s==='final'?'Finale':'Einführung';
 }
 // Ein bereits gelöster Rätselraum wird nicht erneut gezeigt: weiter wie nach dem Enthüllungs-Dialog.
 // roomLocked: richtig geprüft, der Buchstabe wird gerade enthüllt (state.solved folgt nach 0,9 s).
@@ -5306,8 +3438,9 @@ function saveRenderResumeScreen(){
         Lade hier deine Zwischenstand-Datei hoch. Sie heißt „Zwischenstand zum Escape-Room ${SAVE_GAME_TITLE} vom … von …“ und liegt meistens in deinem Download-Ordner.
       </p>
       ${saveDropHtml()}
+      ${FB_CODE?'<p class="resume-pdf">Du hast schon deine Überblick-PDF? Mit ihr geht es im Feiditor-Feibeitsblatt weiter: feibeitsblatt.janrickmer.de, „Zwischenstand-PDF hochladen“.</p>':''}
       <div class="btn-row" style="margin-top: 24px;">
-        <button type="button" class="btn btn-ghost" onclick="renderNameInput()">Zurück zur Anmeldung</button>
+        <button type="button" class="btn btn-ghost" onclick="renderStart()">Zurück zur Anmeldung</button>
       </div>
     </div>
   `;
@@ -5321,7 +3454,7 @@ function saveRenderResumeScreen(){
    Jedes Laden wird in state.resumeLog vermerkt und erscheint am
    Ende der Überblick-PDF (für die Lehrkraft).
    ============================================================ */
-const SAVE_FORMAT = 1;
+const SAVE_FORMAT = 2;   // 2: mit Klasse (Dateien der Fassung 1 werden abgelehnt)
 const SAVE_SALT   = 'Zwischenstand|Escape-Room|v1';
 const SAVE_BEGIN  = '-----BEGIN ZWISCHENSTAND-----';
 const SAVE_END    = '-----END ZWISCHENSTAND-----';
@@ -5368,6 +3501,7 @@ function saveDecode(text){ // wirft Error mit schülergerechter Meldung
   if(!wrap||typeof wrap.d!=='string'||typeof wrap.id!=='string'||wrap.s!==saveHash(SAVE_SALT+'|'+wrap.id+'|'+wrap.d)) throw new Error(broken);
   let data; try{ data=JSON.parse(wrap.d); }catch(e){ throw new Error(broken); }
   if(wrap.id!==SAVE_ROOM_ID) throw new Error('Diese Zwischenstand-Datei gehört zu einem anderen Escape-Room'+(data&&data.game?' („'+data.game+'“)':'')+'. Bitte öffne den passenden Escape-Room.');
+  if(wrap.f<SAVE_FORMAT) throw new Error('Diese Zwischenstand-Datei stammt aus einer älteren Fassung des Escape-Rooms (noch ohne Klasse) und kann nicht mehr geladen werden. Bitte beginne den Escape-Room neu und gib dabei deine Klasse an.');
   if(wrap.f>SAVE_FORMAT) throw new Error(newer);
   if(!data||typeof data!=='object'||!data.state||typeof data.state!=='object'||typeof data.screen!=='string') throw new Error(broken);
   return data;
@@ -5384,11 +3518,19 @@ function saveFileName(d){
 
 /* Toast-Meldung (unten, blendet sich selbst aus) */
 let saveToastTimer=null;
-function showSaveToast(msg){
+// Die Meldefläche gibt es von Anfang an (leer): Eine Live-Region, die erst mit ihrem Text entsteht, liest kaum ein Screenreader vor.
+function saveToastEl(){
   let t=document.getElementById('saveToast');
   if(!t){ t=document.createElement('div'); t.id='saveToast'; t.className='save-toast'; t.setAttribute('role','status'); document.body.appendChild(t); }
+  return t;
+}
+saveToastEl();
+function showSaveToast(msg,isError){
+  const t=saveToastEl();
+  t.setAttribute('role',isError?'alert':'status');
   t.textContent=msg; t.classList.add('show');
-  clearTimeout(saveToastTimer); saveToastTimer=setTimeout(()=>t.classList.remove('show'),6000);
+  clearTimeout(saveToastTimer);
+  saveToastTimer=setTimeout(()=>{ t.classList.remove('show'); saveToastTimer=setTimeout(()=>{ t.textContent=''; t.setAttribute('role','status'); },400); },6000);
 }
 
 /* ---------- Speichern ---------- */
@@ -5418,17 +3560,18 @@ window.saveProgress=()=>{
     // Object-URL lange gültig lassen: iOS liest den Blob erst, wenn der Download-Dialog bestätigt ist.
     setTimeout(()=>{ try{ document.body.removeChild(link); }catch(_){} URL.revokeObjectURL(url); },60000);
     showSaveToast('Zwischenstand gespeichert. Du findest die Datei in deinem Download-Ordner.');
-  }catch(e){ console.error(e); alert('Der Zwischenstand konnte nicht gespeichert werden: '+e.message); }
+  }catch(e){ console.error(e); showSaveToast('Der Zwischenstand konnte nicht gespeichert werden. Bitte versuche es noch einmal.',true); }
 };
 
-/* ---------- Speicher-Button am Seitenende (Bibliotheks- und Rätselräume ab Nr. 2) ---------- */
+/* ---------- Speicher-Button am Seitenende (bzw. im Platzhalter data-save-slot des Finales) ---------- */
 function refreshSaveBar(){
   const box=document.getElementById(SAVE_CONTAINER_ID); if(!box) return;
   const bar=document.getElementById('saveBar');
   if(!saveScreenAllowed(state.screen)){ if(bar) bar.remove(); return; }
-  if(bar&&bar.parentNode===box&&box.lastElementChild===bar) return;
+  const slot=box.querySelector('[data-save-slot]')||box;
+  if(bar&&bar.parentNode===slot&&slot.lastElementChild===bar) return;
   if(bar) bar.remove();
-  box.insertAdjacentHTML('beforeend',
+  slot.insertAdjacentHTML('beforeend',
     '<div class="save-bar" id="saveBar"><button type="button" class="save-btn" onclick="saveProgress()" '
     +'title="Lädt eine Datei mit deinem bisherigen Fortschritt herunter. Damit kannst du später an dieser Stelle weiterspielen.">'
     +SAVE_ICON+'<span>Zwischenstand als Datei speichern</span></button></div>');
@@ -5453,8 +3596,60 @@ function saveApplyState(snap){
   });
   state.resumeLog=Array.isArray(state.resumeLog)?state.resumeLog.filter(e=>e&&typeof e==='object'&&typeof e.place==='string'):[];
 }
+// Inhalt einer Zwischenstand-Datei prüfen und vereinheitlichen, bevor er übernommen wird: dieselben Regeln wie beim Start
+// (samt Klasse), genau SAVE_ROOMS Ordner, Versuche als Ganzzahlen, Fehler als kurze Texte, Bildschirm passend zum Fortschritt.
+// Sonst abgelehnt. (Die Prüfsumme steht im öffentlichen Code – das ist ein Schutz gegen Beschädigung und Unsinn, kein Beweis.)
+function saveCheckData(data){
+  const broken='Diese Zwischenstand-Datei wurde verändert oder ist beschädigt und kann nicht geladen werden.';
+  const bad=()=>{ throw new Error(broken); };
+  const N=SAVE_ROOMS, sn=data.state, str=v=>typeof v==='string';
+  const each=(a,f)=>{ if(!Array.isArray(a)||a.length!==N) bad(); return a.map(f); };
+  const fn=cleanInput(sn.firstName), ln=cleanInput(sn.lastName), bd=str(sn.birthDate)?sn.birthDate:'', k=normKlasse(str(sn.klasse)?sn.klasse:'');
+  const nameOk=x=>x.length>=2 && x.length<=40 && /\p{L}/u.test(x) && pdfPrintable(x);
+  if(!nameOk(fn)||!nameOk(ln)) bad();
+  const m=/^(\d{2})\.(\d{2})\.(\d{4})$/.exec(bd); if(!m) bad();
+  const dt=new Date(+m[3],+m[2]-1,+m[1]);
+  if(dt.getFullYear()!==+m[3]||dt.getMonth()!==+m[2]-1||dt.getDate()!==+m[1]||+m[3]<1950||dt>new Date()) bad();
+  if(!/^[\p{L}\p{N}/-]{1,10}$/u.test(k)||!pdfPrintable(k)) bad();
+  // extra.locked (roomLocked): genau zwischen „Prüfen“ und Enthüllung gespeichert – der Raum gilt als gelöst
+  const lockedExtra=(data.extra&&Array.isArray(data.extra.locked))?data.extra.locked:[];
+  const solved=each(sn.solved,(v,i)=>{ if(typeof v!=='boolean') bad(); return v||lockedExtra[i]===true; });
+  const attempts=each(sn.attempts,v=>{ if(!Number.isInteger(v)||v<0||v>999) bad(); return v; });
+  const hintMax=Array.isArray(sn.hintMax)?each(sn.hintMax,v=>{ if(!Number.isInteger(v)||v<-1||v>HINT_MAX_LEVEL) bad(); return v; }):Array(N).fill(-1);
+  const cut=v=>str(v)?cleanLine(v,2000):'';
+  const mistakes=each(sn.mistakes,v=>{
+    if(v===null) return null;
+    if(!v||typeof v!=='object'||!Array.isArray(v.errors)||v.errors.length>200) bad();
+    return { errors:v.errors.map(e=>{
+      if(!e||typeof e!=='object'||!str(e.item)||!e.item.trim()) bad();
+      const o={};   // Reihenfolge der Felder wie beim Speichern (kind, item, wrongAnswer, correctAnswer, explanation)
+      if(str(e.kind)) o.kind=e.kind.slice(0,30);
+      o.item=cut(e.item);
+      if(str(e.wrongAnswer)) o.wrongAnswer=cut(e.wrongAnswer);
+      if(str(e.correctAnswer)) o.correctAnswer=cut(e.correctAnswer);
+      if(str(e.explanation)) o.explanation=cut(e.explanation);
+      return o; }) };
+  });
+  // Ordner nur der Reihe nach; gelöst heißt: mindestens ein Versuch
+  const done=solved.filter(Boolean).length;
+  solved.forEach((v,i)=>{ if(v!==(i<done) || (v && attempts[i]<1)) bad(); });
+  let completedAt=null;
+  if(sn.completedAt!=null){ if(!str(sn.completedAt)||isNaN(new Date(sn.completedAt))) bad(); completedAt=sn.completedAt; }
+  const scr=data.screen; let mm;
+  const okScreen = scr==='final' ? done===N
+    : (mm=/^(lib|room)(\d+)$/.exec(scr)) ? (+mm[2]>=1 && +mm[2]<=N && done===+mm[2]-1)
+    : scr==='intro' ? done===0 : false;
+  if(!okScreen) bad();
+  const log=Array.isArray(sn.resumeLog)?sn.resumeLog.filter(e=>e&&typeof e==='object'&&str(e.place)).slice(-50)
+    .map(e=>({ place:cleanLine(e.place,200), savedAt:str(e.savedAt)?e.savedAt:'', loadedAt:str(e.loadedAt)?e.loadedAt:'' })):[];
+  return { screen:scr, state:{ firstName:fn, lastName:ln, birthDate:bd, klasse:k, code:computeCode(m[1]+m[2]+m[3]),
+    solved, letters:solved.map((v,i)=>v?CODE_WORD[i]:'_'), mistakes, attempts, hintMax, completedAt, resumeLog:log,
+    pdfDownloaded:sn.pdfDownloaded===true } };
+}
 function saveLoadText(text){
   const data=saveDecode(text);
+  const checked=saveCheckData(data);
+  data.state=checked.state;
   saveApplyState(data.state);
   saveApplyExtra(data.extra||{},data);
   state.resumeLog.push({ place:String(data.place||saveScreenLabel(data.screen)), savedAt:String(data.savedAt||''), loadedAt:new Date().toISOString() });
@@ -5467,6 +3662,13 @@ function saveHandleFile(file){
   const fail=msg=>{ if(err){ err.style.display='block'; err.textContent=msg; } };
   if(err) err.style.display='none';
   if(!file) return;
+  // Eine PDF-Datei (z. B. die Überblick-PDF) gehört ins Feiditor-Feibeitsblatt, nicht hierher.
+  file.slice(0,5).text().then(head=>{
+    if(head==='%PDF-') fail(FB_CODE?'Das ist eine PDF-Datei. Deine Überblick-PDF lädst du im Feiditor-Feibeitsblatt hoch: feibeitsblatt.janrickmer.de → „Zwischenstand-PDF hochladen“.':'Das ist eine PDF-Datei. Hier brauchst du deine Zwischenstand-Datei (.txt) – sie liegt meistens in deinem Download-Ordner.');
+    else saveReadFile(file,fail);
+  },()=>saveReadFile(file,fail));
+}
+function saveReadFile(file,fail){
   if(file.size>2*1024*1024){ fail('Diese Datei ist zu groß für eine Zwischenstand-Datei.'); return; }
   const fr=new FileReader();
   fr.onload=()=>{ try{ saveLoadText(String(fr.result||'')); }catch(e){ console.warn(e); fail(e.message); } };
@@ -5509,7 +3711,7 @@ function saveLogPdfLines(){
    INIT
    ============================================================ */
 
-renderNameInput();
+renderStart();
 </script>
 </body>
 </html>
